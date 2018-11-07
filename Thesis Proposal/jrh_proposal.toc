@@ -1,0 +1,6 @@
+\contentsline {section}{Literature Review and Framework}{2}
+\contentsline {subsection}{Data-Consistent Inversion}{2}
+\contentsline {subsection}{Optimization Methods for Solving Inverse Problems}{2}
+\contentsline {subsection}{Derivative-Free Optimization}{2}
+\contentsline {subsection}{Dimension Reduction}{2}
+\contentsline {section}{Research Questions}{4}
