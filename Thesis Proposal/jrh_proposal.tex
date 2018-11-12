@@ -66,22 +66,12 @@
 
 \begin{abstract}
 
-The solution of stochastic inverse problems is an important challenge in computational science.%In computational mathematics, it is often of interest to obtain the solution to inverse problems. 
-By solving a stochastic inverse problem, one may find an updated  characterization of parameter space that combines  prior beliefs and observable data.
-% in this way, we might understand the sorts of parameters that correspond to observed data.
-In particular, using a new approach detailed in \cite{Butler}, we may solve for a probability distribution in parameter space ({\em i.e.}, the updated density) such that its push-forward through 
-the parameter to data map $f$ matches the observed probability density on the data $\mathcal{D}$.
-
-Under certain conditions \cite{Butler,Tarantola}, an approximate solution of the stochastic inverse problem can be obtained as the solution of a regularized, convex minimization problem.  
-In this proposal, we consider a noisy map $f$ from a high-dimensional parameter space to a data space of specified dimension, where the gradient of $f$ exists, but may be inaccessible. 
- %In our particular setting, we are interested in exploiting the structure of $f$ to solve an inverse problem, avoiding evaluations of $f$ as much as possible. We may cast the inverse problem as an equivalent regularized, convex minimization problem as in [Butler, Tarantola].
-  If the gradient of $f$ is accessible, the minimization problem can be solved using gradient-based descent methods. If the gradient of $f$ is inaccessible, one may apply Derivative-Free (DF) optimization schemes as in [Chen and Wild]. In either case,  the effectiveness of the optimization algorithm may be enhanced by performing dimension reduction on the input parameter space $\Lambda$ as in [Russi, Constantine].   
- We consider different strategies for computing the active subspace of $f(\Lambda)$ in the context of both approaches, and apply them to the data-consistent inversion of two model problems.  
- Both of these model problems are related to stochastic inverse problems arising in the simulation of plasmas in fusion reactors.
+Obtaining the solution to stochastic inverse problems is an important challenge in computational science. By solving a stochastic inverse problem, one may find an updated  characterization of parameter space that combines  prior beliefs and observable data. Using a new approach detailed in [Butler], we may solve for a probability distribution in parameter space, $\Lambda$, such that its push-forward (\emph{i.e.,} image) through the parameter-to-data map $f$ matches the observed probability density on the data, $\mathcal{D}$. Under certain conditions [Butler, Tarantola], an approximate solution of the stochastic inverse problem can be obtained as the solution of a regularized, convex minimization problem.
+  
+In this proposal, we consider a noisy map $f$ from a high-dimensional $\Lambda$ to $\mathcal{D}$ of specified dimension, where the gradient of $f$ exists, but may be inaccessible. If the gradient of $f$ is accessible, the minimization problem can be solved using gradient-based descent methods. If the gradient of $f$ is inaccessible, one may apply Derivative-Free (DF) optimization schemes as in [Chen and Wild]. In either case,  the effectiveness of the optimization algorithm may be enhanced by performing dimension reduction in $\Lambda$ as in [Russi, Constantine]. We consider different strategies for computing the active subspace of $f(\Lambda)$ in the context of both approaches, and apply them to the data-consistent inversion of two model problems. Both of these model problems are related to stochastic inverse problems arising in the simulation of plasmas in fusion reactors.
  
-  % to explain the behavior of $f$ using as few dimensions in parameter space as possible, which allows for minimization to be performed in fewer dimension, saving computational expense.
 
-\question{Do we know what the citation style is for this abstract?  Potentially check out the cite package}
+%\question{Do we know what the citation style is for this abstract?  Potentially check out the cite package}
 
  
 \end{abstract}
