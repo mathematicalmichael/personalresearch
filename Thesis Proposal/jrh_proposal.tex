@@ -1,9 +1,10 @@
 \documentclass{amsart}
 \usepackage{amssymb, amsmath, graphicx, caption, enumerate}
 \graphicspath{ {images/} }
-
 \usepackage{amsthm}
 \usepackage{xargs}
+\usepackage{scalerel}
+
 
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
@@ -16,16 +17,14 @@
 \newcommand{\av}[1]{\left| #1\right|}
 \newcommand{\st}[1]{\left\{#1\right\}}
 
+
 \usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
- \newcommandx{\question}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
+\newcommandx{\question}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
 \newcommandx{\change}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
 \newcommandx{\add}[2][1=]{\todo[linecolor=OliveGreen,backgroundcolor=OliveGreen!25,bordercolor=OliveGreen,#1]{#2}}
 \newcommandx{\improve}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
 \newcommandx{\thiswillnotshow}[2][1=]{\todo[disable,#1]{#2}}
 \newcommandx{\remove}[2][1=]{\todo[linecolor=yelllow,backgroundcolor=yellow!10,bordercolor=red,#1]{#2}}
-
-
-\usepackage{scalerel}
 
 
 \newcommand\reallywidehat[1]{\arraycolsep=0pt\relax%
@@ -41,33 +40,33 @@
 \end{array}
 }
 
-%\textwidth=160mm
-%\hoffset=-10mm
+\setlength{\textwidth}{\paperwidth}
+\addtolength{\textwidth}{-3in}
+\calclayout
 
 \setcounter{secnumdepth}{0}
-
 \usepackage{titlesec}
-
 \titleformat*{\section}{\center\large\bfseries}
+\titleformat*{\subsection}{\center}
 
 
-\titleformat*{\subsection}{\bfseries}
+% TOC
+\setcounter{tocdepth}{1}
+
 
 \begin{document}
 
 
-\title{\bf Thesis Proposal}
+\title{Thesis Proposal}
 
 \author{Jordan R. Hall}
-\date{\today}
+
 
 \maketitle
 
 \begin{abstract}
 
-Consider a map $f$ from a high-dimensional parameter space to a data space of specified dimension where the gradient of $f$ exists, but may be inaccessible. With these assumptions, we may view evaluations of $f$ as draws from a black box. Additionally, we assume that draws of $f$ have additive or multiplicative noise. In such a setting, it is of interest to find a characterization of parameter space based off balancing prior beliefs and observable data; in this way, we might understand the sorts of parameters that correspond to observed data. In particular, using a new approach as in \cite{Butler}, we may solve for a probability distribution in parameter space (i.e., a ``posterior" density) such that observations in data space are consistent with what we observe from ``pushing" the posterior through the map $f$.
-
-In our particular setting, we are interested in exploiting the structure of $f$ to solve an inverse problem. We may cast the inverse problem as an equivalent regularized, convex minimization problem as in [Butler, Tarantola]. Due to the fact that the gradient of $f$ is considered to be inaccessible, we consider Derivative-Free (DF) optimization schemes as in [Chen and Wild]. We may be able to enhance the effectiveness of our DF algorithm by performing dimension reduction on $f$ as in [Russi, Constantine] to explain the behavior of $f$ using as few dimensions in parameter space as possible, which allows for minimization to be performed in fewer dimensions. 
+In computational mathematics, it is often of interest to obtain the solution to inverse problems. In this proposal, we consider a noisy map $f$ from a high-dimensional parameter space to a data space of specified dimension, where the gradient of $f$ exists, but may be inaccessible. By solving an inverse problem, we may find a characterization of parameter space based off balancing prior beliefs and observable data; in this way, we might understand the sorts of parameters that correspond to observed data. In particular, using a new approach as in \cite{Butler}, we may solve for a probability distribution in parameter space (i.e., a ``posterior" density) such that observations in data space are consistent with what we observe from ``pushing" the posterior through the map $f$. In our particular setting, we are interested in exploiting the structure of $f$ to solve an inverse problem, avoiding evaluations of $f$ as much as possible. We may cast the inverse problem as an equivalent regularized, convex minimization problem as in [Butler, Tarantola]. If the gradient of $f$ is accessible, the minimization problem can be solved using gradient-based descent methods. If the gradient of $f$ is inaccessible, we apply Derivative-Free (DF) optimization schemes as in [Chen and Wild]. We may be able to enhance the effectiveness of a DF algorithm by performing dimension reduction on $f$ as in [Russi, Constantine] to explain the behavior of $f$ using as few dimensions in parameter space as possible, which allows for minimization to be performed in fewer dimension, saving computational expense.
 
 
 
@@ -80,6 +79,8 @@ In our particular setting, we are interested in exploiting the structure of $f$ 
 
 \tableofcontents
 
+\setcounter{tocdepth}{0}
+
 \newpage
 \section{Literature Review and Framework}
 
@@ -88,9 +89,9 @@ In this section we provide a literature review focused on inverse problem theory
 
 \subsection{Data-Consistent Inversion}
 
-We begin our discussion of inverse problems by defining a parameter space $\Lambda$ of dimension $N$, a map or ``model" $f$, and a data space $\mathcal{D}$, which in our setting may be known values of $f(\cdot)$. The data space will almost always have dimension less than $N$, which is due to our assumption that evaluations of the model, $f$, are expensive, which in practice implies that gathering data is also expensive. (?) 
+\vspace{.125cm}
 
-\vspace{.25cm}
+We begin our discussion of inverse problems by defining a parameter space $\Lambda$ of dimension $N$, a map or ``model" $f$, and a data space $\mathcal{D}$, which in our setting may be known values of $f(\cdot)$. The data space will almost always have dimension less than $N$, which is due to our assumption that evaluations of the model, $f$, are expensive, which in practice implies that gathering data is also expensive. (?) 
 
 \noindent In the following, we closely follow [Butler] to formulate the inverse problem. First, we assume prior knowledge of the parameter space, given by the so-called ``prior distribution," $\pi_\Lambda(\lambda)$. In practical applications, a prior distribution may be given by experts, but may also be a state of knowledge on $\Lambda$ obtained by other mathematical or statistical processes. Second, we assume that we have a so-called ``observed" density, $\pi_\mathcal{D}$, which represents our state of knowledge of observed data, which is uncertain due to noise in $f$ and potential measurement error. Finally, we may form a ``push-forward," which is the density obtained by solving a \textit{forward problem}, $f\left(\pi_\Lambda \right)$. We denote the solution to the forward problem with $\pi_\Lambda^\mathcal{D}$.
 
@@ -146,8 +147,9 @@ In practice, we can check the extent to which the active subspace accounts for f
 \todo{Varis: I'll write this, covering Grad-Shafonov Equations, and why these MHD
 equilibria are important to kinetic simulations.}
 
-\section{Research Questions}
 
+
+\section{Research Questions}
 
 
 
