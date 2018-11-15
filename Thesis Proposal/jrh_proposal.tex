@@ -46,8 +46,8 @@
 
 \setcounter{secnumdepth}{0}
 \usepackage{titlesec}
-\titleformat*{\section}{\center\large\bfseries}
-\titleformat*{\subsection}{\center}
+\titleformat{\section}{\center\large\bfseries}
+\titleformat{\subsection}{\center}
 
 
 % TOC
@@ -87,19 +87,24 @@ In this proposal, we consider a noisy map $f$ from a high-dimensional $\Lambda$ 
 \newpage
 \section{Literature Review and Framework}
 
-In this section we provide a literature review focused on inverse problem theory, derivative-free (DF) optimization, and dimension reduction. In the process, we will build a theoretical framework upon which to pose research questions, state initial results, and form a research plan in the later sections of this paper.
+In this section we provide a literature review focused on inverse problem theory, derivative-free (DF) optimization, and dimension reduction. In the process, we will build a theoretical framework upon which to pose research questions, state initial results, and form a research plan.
 
 
 \subsection{Data-Consistent Inversion}
 
 \vspace{.125cm}
 
-We begin our discussion of inverse problems by defining a parameter space $\Lambda$ of dimension $N$, a map or ``model" $f$, and a data space $\mathcal{D}$, which in our setting may be known values of $f(\cdot)$. The data space will almost always have dimension less than $N$, which is due to our assumption that evaluations of the model, $f$, are expensive, which in practice implies that gathering data is also expensive. (?) 
-
-\noindent In the following, we closely follow [Butler] to formulate the inverse problem. First, we assume prior knowledge of the parameter space, given by the so-called ``prior distribution," $\pi_\Lambda(\lambda)$. In practical applications, a prior distribution may be given by experts, but may also be a state of knowledge on $\Lambda$ obtained by other mathematical or statistical processes. Second, we assume that we have a so-called ``observed" density, $\pi_\mathcal{D}$, which represents our state of knowledge of observed data, which is uncertain due to noise in $f$ and potential measurement error. Finally, we may form a ``push-forward," which is the density obtained by solving a \textit{forward problem}, $f\left(\pi_\Lambda \right)$. We denote the solution to the forward problem with $\pi_\Lambda^\mathcal{D}$.
+We begin our discussion of inverse problems by defining a parameter space $\Lambda$ of dimension $N$, a map or ``model" $f$, and a data space $\mathcal{D}$, which in our setting may be known values of $f(\cdot)$. In this proposal, we assume that $\mathcal{D}$ has dimension less than $N$, which is due to our assumption that evaluations of the model, $f$, are expensive and its inputs are many. In the following, we closely follow [Butler] to formulate an inverse problem. First, we assume prior knowledge of the parameter space, given by the so-called ``prior distribution," $\pi_\Lambda(\lambda)$. In practical applications, a prior distribution may be given by application experts, but may also be a state of knowledge on $\Lambda$ obtained by other mathematical or statistical processes. Second, we assume that we have a so-called ``observed" density, $\pi_\mathcal{D}$, which represents our state of knowledge of observed data, which is uncertain due to noise in $f$ and potential measurement error. Finally, we may form a ``push-forward," which is the density obtained by solving a \textit{forward problem}, $f\left(\pi_\Lambda \right)$. We denote the solution to the forward problem with $\pi_\Lambda^\mathcal{D}$.
 
 \subsection{Optimization Methods for Solving Inverse Problems}
-\todo{Jordan: take a stab at writing up the approach in Tarantola, summarize}
+
+With our assumptions of a high-dimensional $\Lambda$ and expensive $f$, approximately solving the forward problem to obtain the push-forward density converges slowly, typically at Monte Carlo rates of $ \frac{1}{\sqrt{N}}$. As in [Tarantola], depending on $f$, the solution to the inverse problem can be obtained exactly or approximately obtained by solving an equivalent deterministic convex optimization problem. As in [Butler], we may alter the aforementioned classical formulation of the deterministic optimization problem to ensure we obtain, depending on $f$, the \textit{data-consistent} exact or approximate solution to the inverse problem.
+
+We begin by examining the classical formulation of a deterministic optimization problem which corresponds to either exactly or approximately solving the stochastic inverse problem under consideration: for a linear map $f$, the exact solution is obtained; for nonlinear maps, we obtain an approximate solution. As in [Taratola], we define the \textit{classical misfit function}
+
+\begin{equation} \label{eq:1}
+S(\Lambda)=\frac{1}{2}\left(||f(\lambda)-d_{\text{obs}}||_\mathcal{D}^2+||\lambda-\lambda_{\text{prior}}||_\Lambda^2\right).
+\end{equation}
 
 \subsection{Derivative-Free Optimization}
 
