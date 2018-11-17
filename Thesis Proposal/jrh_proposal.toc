@@ -2,6 +2,6 @@
 \contentsline {subsection}{Data-Consistent Inversion}{2}
 \contentsline {subsection}{Optimization Methods for Solving Inverse Problems}{2}
 \contentsline {subsection}{Derivative-Free Optimization}{3}
-\contentsline {subsection}{Dimension Reduction}{3}
-\contentsline {subsection}{Application: Magnetic Equilibria in Tokamaks}{4}
+\contentsline {subsection}{Dimension Reduction}{4}
+\contentsline {subsection}{Application: Magnetic Equilibria in Tokamaks}{5}
 \contentsline {section}{Research Questions}{5}

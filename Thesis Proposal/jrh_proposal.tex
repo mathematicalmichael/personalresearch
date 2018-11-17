@@ -41,7 +41,7 @@
 }
 
 \setlength{\textwidth}{\paperwidth}
-\addtolength{\textwidth}{-3in}
+\addtolength{\textwidth}{-2.5in}
 \calclayout
 
 \setcounter{secnumdepth}{0}
@@ -91,7 +91,7 @@ In this proposal, we consider a noisy map $f$ from a high-dimensional $\Lambda$ 
 
 In the proceeding section we provide a literature review of inverse problem theory, derivative-free (DF) optimization, and dimension reduction. In the process, we will build a theoretical framework upon which to pose research questions, state initial results, and form a research plan. 
 
-We begin our discussion by defining a parameter space $\Lambda$ of dimension $N$, a map or ``model" $f$, and a data space $\mathcal{D}$. We assume that $\mathcal{D}$ has dimension less than $N$. Points in $\mathcal{D}$ may be known values of $f(\lambda), \lambda\in \Lambda$; as such, we may write $d=f(\lambda)$ to denote the particular datum corresponding to the evaluation of a point $\lambda \in \Lambda$ under $f$. Points in $\mathcal{D}$ may also be \textit{observed} data, denoted $d_{\text{obs}}$, where the corresponding $\lambda\in \Lambda$ may be unknown. We also assume that $f$ is noisy. Hence, we may model draws of $f$ with $f(\lambda)=f(\lambda)+\epsilon$, which is an additive noise structure, or $f(\lambda)=f(\lambda)(1+\epsilon)$, which is a multiplicative noise structure.
+We begin our discussion by defining a parameter space $\Lambda$ of dimension $N$, a map or ``model" $f$, and a data space $\mathcal{D}$. We assume that $\mathcal{D}$ has dimension $M$, where most often $M\leq N$. Points in $\mathcal{D}$ may be known values of $f(\lambda), \lambda\in \Lambda$; as such, we may write $d=f(\lambda)$ to denote the particular datum corresponding to the evaluation of a point $\lambda \in \Lambda$ under $f$. Points in $\mathcal{D}$ may also be \textit{observed} data, denoted $d_{\text{obs}}$, where the corresponding $\lambda\in \Lambda$ may be unknown. We also assume that $f$ is noisy. Hence, we may model draws of $f$ with $f(\lambda)=f(\lambda)+\epsilon$, which is an additive noise structure, or $f(\lambda)=f(\lambda)(1+\epsilon)$, which is a multiplicative noise structure.
 
 
 \subsection{Data-Consistent Inversion}
@@ -120,19 +120,26 @@ S(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(f(\lambda)-d_{\text
 
 Classically ([T]), it is assumed that $\pi_\Lambda$ and $\pi_\mathcal{D}$ are Gaussians, and the misfit function is specified by $\lambda_{\text{prior}}=\bar{\lambda}$ and $d_{\text{obs}}=\bar{d}$ in our notations. In \eqref{eq:1} and \eqref{eq:2}, we choose to define a more general misfit function, so that we may consider the ``misfit" given any draws $\lambda_{\text{prior}}\sim \pi_\Lambda$ and $d_\text{obs} \sim \pi_\mathcal{D}$. The misfit function defined above can be understood term-by-term. Given $\lambda \in \Lambda$, the term $||f(\lambda)-d_{\text{obs}}||_\mathcal{D}^2$ corresponds to finding the mismatch between the observed $d_\text{obs}$ and $f(\lambda)$ in data space; the term $||\lambda-\lambda_{\text{prior}}||_\Lambda^2$ corresponds to performing Tikhonov regularization, which improves conditioning in minimizing $S$ over $\Lambda$. The minimum of $S$ is typically referred to as the maximum a posteriori point or \textit{MAP point}.
 
-Authors in [] rewrite $S$ so that a data-consistent posterior may be obtained. An additional ``un-regularization" term is appended so that if a unique solution exists, the regularization will be ``turned off." We write the \textit{data-consistent misfit function,}
+Authors in [] rewrite $S$ so that a data-consistent posterior may be obtained. An additional ``un-regularization" term is appended so that if a unique solution exists, the regularization will be ``turned off." For now, we assume that $f$ is linear (or can be linearized locally), and write the matrix $A$ to define that action of $f$ on $\Lambda$. In this case, we write the \textit{data-consistent misfit function,}
 
 
 
 
 \begin{equation} \label{eq:3}
-T(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(f(\lambda)-d_{\text{obs}})\right|\right|_2^2+\left|\left|C_\Lambda^{-1/2}(\lambda-\lambda_{\text{prior}})\right|\right|_2^2-\left|\left|C_A^{-1/2}(\lambda-f(\lambda_{\text{prior}}))\right|\right|_2^2\right),
+T(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(f(\lambda)-d_{\text{obs}})\right|\right|_2^2+\left|\left|C_\Lambda^{-1/2}(\lambda-\lambda_{\text{prior}})\right|\right|_2^2-\left|\left|C_A^{-1/2}(f(\lambda)-f(\lambda_{\text{prior}}))\right|\right|_2^2\right),
 \end{equation} 
 
-\noindent where $C_A=AC_\Lambda A^T$. Now, the data-consistent solution to our inverse problem is given by $\pi_\Lambda^\text{post}(\lambda)\sim \exp(-T(\lambda))$.
+\noindent where $C_A=AC_\Lambda A^T$. We note that in the case that $\pi_\Lambda$ and $\pi_\mathcal{D}$ are Gaussian and $f$ is linear, the data-consistent solution to our inverse problem is given exactly by $\pi_\Lambda^\text{post}(\lambda)\sim \exp(-T(\lambda))$. Generally, the un-regularization term will ensure a solution that updates the distribution on $\Lambda$ only in the directions in which the data is informative. The linear case illustrates the action of the un-regularization term. In the case that a unique solution to the inverse problem exists for a linear $f$ (i.e., $N=M$ and $A$ is full rank), the un-regularization term will equal the Tikhonov regularization term, so that the MAP point solves the data misfit exactly. When the problem is under-determined ($N>M$), then with a linear $f$, the data-consistent solution to inverse problem will lie in a hyperplane in $\Lambda$ containing all the possible points that could have produced the $M$ observed data. Regardless of whether $N=M$ or $N>M$, the MAP point obtained by minimizing the ``classical" misfit, in general, will not be a point that could have produced the observed data. We highlight the difference in solutions in the examples below.
 
+\vspace{.125cm} 
 
+\noindent \textbf{\textit{Example 1.}} \textit{Let $f(\lambda)=2\lambda$}, $\lambda_\text{prior}=0.1$, $C_\Lambda=[0.5],$, $d_\text{obs}=0.25$, and $C_\mathcal{D}=[0.25]$; note, $N=M=1$. Then we find that $S(\lambda)=2((2\lambda-0.25)^2+(\lambda-0.1)^2)$, which is minimized by $\lambda^*_S=3/25$. Notice $f(\lambda^*_S)=6/25\neq d_\text{obs}$. We write $T(\lambda)=2(2\lambda-0.25)^2$, which is minimized by $\lambda^*_T=1/8$. Notice $f(\lambda^*_T)=d_\text{obs}$.
 
+\vspace{.125cm}
+
+In the preceding example, we observe for linear $f$ and $N=M$ that the classical MAP point, given by $\lambda_S^*=0.12$ obtained by minimizing $S$ strikes a balance between the prior belief that $\lambda=0.1$ and the fact that the value $\lambda=0.125$ is the pre-image of $0.25$, the observed data point. The data-consistent MAP point, given by $\lambda_T^*=0.125$, is exactly the pre-image of $d_\text{obs}$. We see here that classical Bayesian inverse problem theory and DCI ask and answer different questions.
+
+\noindent \textbf{\textit{Example 2.}}
 
 
 
@@ -176,8 +183,7 @@ f\left(\sum_{i=1}^{j-1} \left(u_i^T x\right) u_i\right) \approx f(x).
 In practice, we can check the extent to which the active subspace accounts for functions values $f(x)$ by checking for resolution in a so-called ``sufficient summary plot" [Constantine], where we plot active variables against function values. In these plots, we hope to see a pattern between the active variables versus the actual function values. For example, if $f$ is quadratic in its active variables, then we expect to see quadratically-resolved sufficient summary plots. We will revisit sufficient summary plots in the Methods and Algorithms section. For now, we continue describing the AS minimization method with the understanding that sufficient summary plots allow us to check the ``fit" of the active subspace.
 
 \subsection{Application: Magnetic Equilibria in Tokamaks}
-\todo{Varis: I'll write this, covering Grad-Shafonov Equations, and why these MHD
-equilibria are important to kinetic simulations.}
+\todo{Varis: I'll write this, covering Grad-Shafonov Equations, and why these MHD equilibria are important to kinetic simulations.}
 
 
 
