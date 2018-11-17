@@ -41,7 +41,7 @@
 }
 
 \setlength{\textwidth}{\paperwidth}
-\addtolength{\textwidth}{-2.5in}
+\addtolength{\textwidth}{-3in}
 \calclayout
 
 \setcounter{secnumdepth}{0}
@@ -64,7 +64,7 @@
 
 Obtaining the solution to stochastic inverse problems is an important challenge in computational science. By solving a stochastic inverse problem, one may find an updated  characterization of parameter space that combines  prior beliefs and observable data. Using a new approach detailed in [Butler], we may solve for a probability distribution in parameter space, $\Lambda$, such that its push-forward (\emph{i.e.,} image) through the parameter-to-data map $f$ matches the observed probability density on the data, $\mathcal{D}$. Under certain conditions [Butler, Tarantola], an approximate solution of the stochastic inverse problem can be obtained as the solution of a regularized, convex minimization problem.
   
-In this proposal, we consider a noisy map $f$ from a high-dimensional $\Lambda$ to $\mathcal{D}$ of specified dimension, where the gradient of $f$ exists, but may be inaccessible. If the gradient of $f$ is accessible, the minimization problem can be solved using gradient-based descent methods. If the gradient of $f$ is inaccessible, one may apply Derivative-Free (DF) optimization schemes as in [Chen and Wild]. In either case,  the effectiveness of the optimization algorithm may be enhanced by performing dimension reduction in $\Lambda$ as in [Russi, Constantine]. We consider different strategies for computing the active subspace of $f(\Lambda)$ in the context of both approaches, and apply them to the data-consistent inversion of two model problems. Both of these model problems are related to stochastic inverse problems arising in the simulation of plasmas in fusion reactors.
+In this proposal, we consider a noisy map $f$ from a high-dimensional $\Lambda$ to $\mathcal{D}$ of specified dimension, where the gradient of $f$ exists, but may be inaccessible. If the gradient of $f$ is accessible, the minimization problem can be solved using gradient-based descent methods. If the gradient of $f$ is inaccessible, one may apply Derivative-Free Optimization (DFO) schemes as in [Chen and Wild]. In either case,  the effectiveness of the optimization algorithm may be enhanced by performing dimension reduction in $\Lambda$ as in [Russi, Constantine]. We consider different strategies for computing the active subspace of $f(\Lambda)$ in the context of both approaches, and apply them to the data-consistent inversion of two model problems. Both of these model problems are related to stochastic inverse problems arising in the simulation of plasmas in fusion reactors.
  
 
 \end{abstract}
@@ -97,49 +97,65 @@ We begin our discussion by defining a parameter space $\Lambda$ of dimension $N$
 \subsection{Data-Consistent Inversion}
 
 
-In the following, we closely follow [Butler] to formulate an inverse problem. First, we assume prior knowledge of the parameter space, given by the so-called ``prior distribution," $\pi_\Lambda(\lambda)$. In practical applications, a prior distribution may be given by application experts, but may also be a state of knowledge on $\Lambda$ obtained by other mathematical or statistical processes. Second, we assume that we have a so-called ``observed" density, $\pi_\mathcal{D}$, which represents our state of knowledge of observed data, which is uncertain due to noise in $f$ and potential measurement error. Finally, we may form a ``push-forward," which is the density obtained by solving a \textit{forward problem}, $f\left(\pi_\Lambda \right)$. We denote the solution to the forward problem with $\pi_\Lambda^\mathcal{D}$.
+We follow [B,T,S] to formulate an inverse problem in our setting. Then, we briefly present the data-consistent solution; we refer the interested reader to [B] for details.
+
+First, we assume we have prior knowledge of the parameter space, given by the so-called ``prior distribution," $\pi_\Lambda^\text{prior}(\lambda)$. In practical applications, a prior distribution may be given by application experts, but may also be a state of knowledge on $\Lambda$ obtained by other mathematical or statistical processes. Second, we assume that we have a so-called ``observed" density, $\pi_\mathcal{D}(d)$, which represents our uncertain state of knowledge of observed data and is uncertain due to noise in $f$ and potential measurement error. Informally, the inverse problem is the task of finding an \textit{updated} probability distribution, $\pi_\Lambda^\text{update}$, in $\Lambda$ space that combines the given prior information and data.
+
+It has been shown [] that the so-called classical Bayesian or statistical Bayesian [T,S] solution to the inverse problem is not generally a ``pull-back probability measure," in the sense that the image of the updated distribution $\pi_\Lambda^\text{update}$ under the map $f$, called the push-forward, is not equal to (and often not ``close" to) the ``observed" probability distribution, $\pi_\mathcal{D}$. 
+
+Data-consistent inversion (DCI) seeks an updated solution $\pi_\Lambda^\text{update}$ for which the push-forward exactly equals $\pi_\mathcal{D}$. We may form the push-forward by solving a \textit{forward problem}; with certain assumptions on $f, \Lambda,$ and $\mathcal{D}$ the forward problem may be straightforward, with other assumptions, this problem is non-trivial. We denote the solution to the forward problem with $\pi_\mathcal{D}^{f(\Lambda)}$. Then, as in [], the \textit{data-consistent} solution to the inverse problem is
+
+\begin{equation} \label{eq:1}
+\pi_\Lambda^\text{update}=.
+\end{equation}
 
 \subsection{Optimization Methods for Solving Inverse Problems}
 
-With our assumptions of a high-dimensional $\Lambda$ and expensive $f$, approximately solving the forward problem to obtain the push-forward density converges slowly, typically at Monte Carlo rates of $ \frac{1}{\sqrt{N}}$. As in [Tarantola], depending on $f$, the solution to the inverse problem can be obtained exactly or approximately by solving an equivalent deterministic convex optimization problem. As in [Butler], we may alter the aforementioned classical formulation of the deterministic optimization problem to ensure we obtain, depending on $f$, the \textit{data-consistent} (exact or approximate) solution to the inverse problem.
+With our assumptions of an expensive $f$ and a high-dimensional $\Lambda$, approximately solving the forward problem to obtain the push-forward density generally requires some type of kernel density estimation (KDE), which converges slowly, typically at Monte Carlo rates of $ \frac{1}{\sqrt{N}}$. As in [Tarantola], depending on $f$, the solution to the inverse problem can be obtained exactly or approximately by solving an equivalent deterministic convex optimization problem. As in [Butler], we may alter the aforementioned classical formulation of the deterministic optimization problem to ensure we obtain, depending on $f$, the \textit{data-consistent} (exact or approximate) solution to the inverse problem.
 
-We begin by examining the classical formulation of a deterministic optimization problem which corresponds to either exactly or approximately solving the stochastic inverse problem under consideration. In particular, for a linear map $f$, the exact solution is obtained; for nonlinear maps, we obtain an approximate solution. As in [Taratola], given observed data $d_{\text{obs}} \sim \pi_\mathcal{D}$ and a draw $\lambda_\text{prior}\sim \pi_\Lambda$, we define a \textit{misfit function}
+We begin by examining the classical formulation of a deterministic optimization problem which corresponds to either exactly or approximately solving the stochastic inverse problem under consideration. In particular, for a linear map $f$, the exact solution is obtained; for nonlinear maps, we obtain an approximate solution. As in [Taratola], given observed data $d_{\text{obs}} \sim \pi_\mathcal{D}$ and a draw $\lambda_\text{prior}\sim \pi_\Lambda^\text{prior}$, we define a \textit{misfit function}
 
-\begin{equation} \label{eq:1}
+\begin{equation} \label{eq:2}
 S(\lambda)=\frac{1}{2}\left(||f(\lambda)-d_{\text{obs}}||_\mathcal{D}^2+||\lambda-\lambda_{\text{prior}}||_\Lambda^2\right).
 \end{equation}
 
-The misfit function appears in the classical (i.e., statistical Bayesian) solution to the inverse problem, as $\pi_\Lambda^\text{post}(\lambda) \sim \exp(-S(\lambda)).$ We observe, as in [T], that finding the MAP point is equivalent to finding the $\lambda$ for which $S$ is minimized.
+The misfit function appears in the classical (i.e., statistical Bayesian) solution to the inverse problem, as $\pi_\Lambda^\text{update}(\lambda) \sim \exp(-S(\lambda)).$ We observe, as in [T], that finding the MAP point is equivalent to finding the $\lambda$ for which $S$ is minimized.
 
-As in the preceding section, we assume $\pi_\Lambda$ is a known probability density with mean $\bar{\lambda}$ and covariance matrix $C_\Lambda$; likewise, $\pi_\mathcal{D}$ is a known probability density with mean $\bar{d}$ and covariance matrix $C_\mathcal{D}$. As in [B], we can use the assumed covariance structures on $\Lambda$ and $\mathcal{D}$ to rewrite \eqref{eq:1} as
-
-
-\begin{equation} \label{eq:2}
-S(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(f(\lambda)-d_{\text{obs}})\right|\right|_2^2+\left|\left|C_\Lambda^{-1/2}(\lambda-\lambda_{\text{prior}})\right|\right|_2^2\right).
-\end{equation} 
-
-Classically ([T]), it is assumed that $\pi_\Lambda$ and $\pi_\mathcal{D}$ are Gaussians, and the misfit function is specified by $\lambda_{\text{prior}}=\bar{\lambda}$ and $d_{\text{obs}}=\bar{d}$ in our notations. In \eqref{eq:1} and \eqref{eq:2}, we choose to define a more general misfit function, so that we may consider the ``misfit" given any draws $\lambda_{\text{prior}}\sim \pi_\Lambda$ and $d_\text{obs} \sim \pi_\mathcal{D}$. The misfit function defined above can be understood term-by-term. Given $\lambda \in \Lambda$, the term $||f(\lambda)-d_{\text{obs}}||_\mathcal{D}^2$ corresponds to finding the mismatch between the observed $d_\text{obs}$ and $f(\lambda)$ in data space; the term $||\lambda-\lambda_{\text{prior}}||_\Lambda^2$ corresponds to performing Tikhonov regularization, which improves conditioning in minimizing $S$ over $\Lambda$. The minimum of $S$ is typically referred to as the maximum a posteriori point or \textit{MAP point}.
-
-Authors in [] rewrite $S$ so that a data-consistent posterior may be obtained. An additional ``un-regularization" term is appended so that if a unique solution exists, the regularization will be ``turned off." For now, we assume that $f$ is linear (or can be linearized locally), and write the matrix $A$ to define that action of $f$ on $\Lambda$. In this case, we write the \textit{data-consistent misfit function,}
-
-
+As in the preceding section, we assume $\pi_\Lambda^\text{prior}$ is a known probability density with mean $\bar{\lambda}$ and covariance matrix $C_\Lambda$; likewise, $\pi_\mathcal{D}$ is a known probability density with mean $\bar{d}$ and covariance matrix $C_\mathcal{D}$. As in [B], we can use the assumed covariance structures on $\Lambda$ and $\mathcal{D}$ to rewrite \eqref{eq:2} as
 
 
 \begin{equation} \label{eq:3}
+S(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(f(\lambda)-d_{\text{obs}})\right|\right|_2^2+\left|\left|C_\Lambda^{-1/2}(\lambda-\lambda_{\text{prior}})\right|\right|_2^2\right).
+\end{equation} 
+
+Classically ([T]), it is assumed that $\pi_\Lambda^\text{prior}$ and $\pi_\mathcal{D}$ are Gaussians, and the misfit function is specified by $\lambda_{\text{prior}}=\bar{\lambda}$ and $d_{\text{obs}}=\bar{d}$ in our notations. In \eqref{eq:2} and \eqref{eq:3}, we choose to define a more general misfit function, so that we may consider the ``misfit" given any draws $\lambda_{\text{prior}}\sim \pi_\Lambda^\text{prior}$ and $d_\text{obs} \sim \pi_\mathcal{D}$. The misfit function defined above can be understood term-by-term. Given $\lambda \in \Lambda$, the term $||f(\lambda)-d_{\text{obs}}||_\mathcal{D}^2$ corresponds to finding the mismatch between the observed $d_\text{obs}$ and $f(\lambda)$ in data space; the term $||\lambda-\lambda_{\text{prior}}||_\Lambda^2$ corresponds to performing Tikhonov regularization, which improves conditioning in minimizing $S$ over $\Lambda$. The minimum of $S$ is typically referred to as the maximum a posteriori point or \textit{MAP point}.
+
+Authors in [] rewrite $S$ so that a data-consistent MAP point may be obtained. An additional ``deregularization" term is appended so that if a unique solution exists, the regularization will be ``turned off." For now, we assume that $f$ is linear (or can be linearized locally [T]), and write the matrix $A$ to define that action of $f$ on $\Lambda$. We also assume that $\pi_\Lambda$ and $\pi_\mathcal{D}$ are Guassian. In this case, we write the \textit{data-consistent misfit function,}
+
+
+
+
+\begin{equation} \label{eq:4}
 T(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(f(\lambda)-d_{\text{obs}})\right|\right|_2^2+\left|\left|C_\Lambda^{-1/2}(\lambda-\lambda_{\text{prior}})\right|\right|_2^2-\left|\left|C_A^{-1/2}(f(\lambda)-f(\lambda_{\text{prior}}))\right|\right|_2^2\right),
 \end{equation} 
 
-\noindent where $C_A=AC_\Lambda A^T$. We note that in the case that $\pi_\Lambda$ and $\pi_\mathcal{D}$ are Gaussian and $f$ is linear, the data-consistent solution to our inverse problem is given exactly by $\pi_\Lambda^\text{post}(\lambda)\sim \exp(-T(\lambda))$. Generally, the un-regularization term will ensure a solution that updates the distribution on $\Lambda$ only in the directions in which the data is informative. The linear case illustrates the action of the un-regularization term. In the case that a unique solution to the inverse problem exists for a linear $f$ (i.e., $N=M$ and $A$ is full rank), the un-regularization term will equal the Tikhonov regularization term, so that the MAP point solves the data misfit exactly. When the problem is under-determined ($N>M$), then with a linear $f$, the data-consistent solution to inverse problem will lie in a hyperplane in $\Lambda$ containing all the possible points that could have produced the $M$ observed data. Regardless of whether $N=M$ or $N>M$, the MAP point obtained by minimizing the ``classical" misfit, in general, will not be a point that could have produced the observed data. We highlight the difference in solutions in the examples below.
+\noindent where $C_A=AC_\Lambda A^T$. We note that in the case that $\pi_\Lambda$ and $\pi_\mathcal{D}$ are Gaussian and $f$ is linear, the data-consistent solution to our inverse problem is given exactly by $\pi_\Lambda^\text{update}(\lambda)\sim \exp(-T(\lambda))$. Generally, the deregularization term will ensure a solution that updates the distribution on $\Lambda$ only in the directions in which the data is informative. The linear case illustrates the action of the un-regularization term. In the case that a unique solution to the inverse problem exists for a linear $f$ (i.e., $N=M$ and $A$ is full rank), the un-regularization term will equal the Tikhonov regularization term, so that the MAP point solves the data misfit exactly. When the problem is under-determined ($N>M$), then with a linear $f$, the data-consistent solution to inverse problem will lie in a hyperplane in $\Lambda$ containing all the possible points that could have produced the $M$ observed data. Regardless of whether $N=M$ or $N>M$, the MAP point obtained by minimizing the ``classical" misfit, in general, will not be a point that could have produced the observed data. We highlight the difference in solutions in the example below.
 
 \vspace{.125cm} 
 
-\noindent \textbf{\textit{Example 1.}} \textit{Let $f(\lambda)=2\lambda$}, $\lambda_\text{prior}=0.1$, $C_\Lambda=[0.5],$, $d_\text{obs}=0.25$, and $C_\mathcal{D}=[0.25]$; note, $N=M=1$. Then we find that $S(\lambda)=2((2\lambda-0.25)^2+(\lambda-0.1)^2)$, which is minimized by $\lambda^*_S=3/25$. Notice $f(\lambda^*_S)=6/25\neq d_\text{obs}$. We write $T(\lambda)=2(2\lambda-0.25)^2$, which is minimized by $\lambda^*_T=1/8$. Notice $f(\lambda^*_T)=d_\text{obs}$.
+\noindent \textbf{\textit{Example 1.}} \textit{Let $f(\lambda)=2\lambda$, $\lambda_\text{prior}=0.1$, $C_\Lambda=[0.5],$ $d_\text{obs}=0.25$, and $C_\mathcal{D}=[0.25]$; note, $N=M=1$. Then we find that $S(\lambda)=2((2\lambda-0.25)^2+(\lambda-0.1)^2)$, which is minimized by $\lambda^*_S=3/25$. Assuming that $\lambda_\text{prior}$ and $d_\text{obs}$ are the means of Gaussians with standard deviations corresponding to the above covariance matrices, we have $\pi_\Lambda^\text{post} \sim \exp(-S(\lambda_S^*))$. Notice $f(\lambda^*_S)=6/25\neq d_\text{obs}$. We write $T(\lambda)=2(2\lambda-0.25)^2$, which is minimized by $\lambda^*_T=1/8$. Notice $f(\lambda^*_T)=d_\text{obs}$. With Gaussian assumptions on the prior and data, we have $\pi_\Lambda^\text{post} \sim \exp(-T(\lambda_T^*))$.}
 
 \vspace{.125cm}
 
-In the preceding example, we observe for linear $f$ and $N=M$ that the classical MAP point, given by $\lambda_S^*=0.12$ obtained by minimizing $S$ strikes a balance between the prior belief that $\lambda=0.1$ and the fact that the value $\lambda=0.125$ is the pre-image of $0.25$, the observed data point. The data-consistent MAP point, given by $\lambda_T^*=0.125$, is exactly the pre-image of $d_\text{obs}$. We see here that classical Bayesian inverse problem theory and DCI ask and answer different questions.
+In the preceding example, we observe for linear $f$ and $N=M$, the classical MAP point, given by $\lambda_S^*=0.12$ and obtained by minimizing $S$, strikes a balance between the prior belief that $\lambda=0.1$ and the fact that the value $\lambda=0.125$ is the pre-image of $0.25$ under $f$, the observed data point. The data-consistent MAP point, given by $\lambda_T^*=0.125$, is exactly the pre-image of $d_\text{obs}$. Indeed, since the linear map $A$ is full rank in Example 1, the third term in \eqref{eq:3} fully deregularizes (cancels out) the second term, so that the minimum of $T$ is actually just the minimum of the first term, the data mismatch. We see here that classical Bayesian inverse problem theory and DCI ask and answer different questions. For a similar, concrete example where the number of parameters $N$ is greater than the number of data, $M$ (so that the problem is under-determined), we refer the interested reader to []. 
 
-\noindent \textbf{\textit{Example 2.}}
+
+So far, we have presented a deregularization term in \eqref{eq:3} which will hold only for linear (or linearizable) $f$ and Gaussian assumptions on the parameter and data spaces. For general nonlinear functions $f$, the deregularization must be rewritten. We expand the term, leaving $f$ as a nonlinear map, and defining $A^\top$ as the transpose of the linearization of $f$ at some point $\bar{\lambda}\in \Lambda$. For example, $A^\top$ may be a solution to some form $$(f(e),v)_\mathcal{D}=(e,A^*(e)v)_\Lambda,$$ which in general is not unique. 
+
+
+
+\todo{Varis: This was the best I could do, and I am not sure it is correct! Can you edit/perhaps add some content here??}
+
 
 
 
@@ -148,6 +164,9 @@ In the preceding example, we observe for linear $f$ and $N=M$ that the classical
 \todo{Varis: I'll write an intro here connecting DF algorithms to noisy simulations due to turbulence/chaos to }
 
 We first consider the Derivative Free (DF) algorithm suited for additive and multiplicative noise outlined by Chen and Wild. This technique requires nothing more than evaluations of the noisy model and random draws from a normal distribution. Briefly, this method finds a new iterate by randomly perturbing the previous iterate in $\Lambda$; iterates are not allowed to stray much, though, due to relatively small smoothing factors and step sizes. The smoothing factor and step size in the DF algorithms are of great importance to their convergence and termination. As in [Chen and Wild], both the smoothing factor and step size will depend on a scale factor of the $L_1$ Lipschitz constant of $f$. As such, it will be of interest to obtain estimates of $L_1$, which is not straightforward in a gradient-free setting. We refer to [Others] for Lipschitz constant learning in this setting. 
+
+
+
 
 \subsection{Dimension Reduction}
 
