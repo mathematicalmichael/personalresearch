@@ -5,9 +5,13 @@
 \contentsline {subsection}{Derivative-Free Optimization}{6}
 \contentsline {subsection}{Application: Magnetic Equilibria in Tokamaks}{7}
 \contentsline {section}{Research Questions}{7}
-\contentsline {subsection}{Impact of Noise}{7}
+\contentsline {subsection}{Impact of Noise on MAP Point and Updated Prior}{7}
 \contentsline {subsection}{Learning and Sampling}{7}
-\contentsline {subsection}{Learning the Active Subspace}{7}
+\contentsline {subsubsection}{Learning the Active Subspace}{7}
 \contentsline {subsection}{Using the Active Subspace}{7}
-\contentsline {section}{Preliminary Results and Research Plan}{7}
-\contentsline {section}{Timeline}{7}
+\contentsline {subsubsection}{DFO in the Active Variables Only}{7}
+\contentsline {subsubsection}{Representations and Surrogate Modeling}{8}
+\contentsline {subsubsection}{Solving the Forward Problem}{8}
+\contentsline {subsubsection}{Forming the Misfit Function}{8}
+\contentsline {section}{Preliminary Results and Research Plan}{8}
+\contentsline {section}{Timeline}{8}

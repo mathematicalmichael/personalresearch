@@ -268,14 +268,27 @@ Chen and Wild propose the ``STARS (STep-size Approximation in Randomized Search)
 
 \section{Research Questions}
 
+In the following section, we pose research questions to be investigated within the framework provided in the preceding section. 
 
-\subsection{Impact of Noise}
+\subsection{Impact of Noise on MAP Point and Updated Prior}
 
 \subsection{Learning and Sampling}
 
-\subsection{Learning the Active Subspace}
+\subsubsection{Learning the Active Subspace}
 
-\subsection{Using the Active Subspace}
+\subsection{Using the Active Subspace} Generally, if an active subspace $A$ exists for a model $f$, dimension reduction may be performed by, for instance, projecting inputs $\lambda$ into $A$ then evaluating $f$ for the projection; i.e., form $f\left(\mathcal{P}_A(\lambda)\right)$. Computational expense may be saved by projecting points $\lambda$ into their so-called active variables, since such projections are of lower dimension than $\lambda$. This property gives the ability to save computational expense for a number of problems in Uncertainty Quantification, including optimization, representation and solving inverse problems. In the following, we consider ways in which we may use the information given by an active subspace $A(f;\mathcal{D})$.
+
+\subsubsection{DFO in the Active Variables Only} Given some $f$ and its corresponding active subspace $A(f;\mathcal{D})$ found by the Monte Carlo method discussed in the preceding section, we are interested in investigating the effectiveness of only optimizing $f$ in its active variables. There are several approaches one may consider, and handful of those approaches and their corresponding results are discussed in the proceeding section. The most compelling approach we have observed is to modify the DFO algorithm discussed above to only take random walks in directions lying in $A$. That is, at iteration $k$, standard DFO algorithms [CW] use random walks given by drawing a random vector $v^{(k)}$ of dimension $N$ in which every component $v_i^{(k)},i=1,\ldots,N$ of $v$ is  drawn from a specified normal distribution. Instead, given the first $j$ singular unit vectors $u_1,\ldots,u_j$ corresponding to the SVD of $\hat{W}$, one may take $j$ draws from a specified normal distribution, which we denote with $s_i\sim N(\mu,\sigma^2)$, and form the random vector $v$ for the $k$-th step in a DFO algorithm as $v^{(k)}=\sum_{i=1}^js_iu_i$, which is just a linear combination of the active variables of $f$ with coefficients given by random draws; we see that such a vector could be interpreted as a random walk in $A$.
+
+Relevant research directions include: considering other ways to embed the information from $A$ within a DFO scheme; analyzing the difference between minimizing $f$ in all its variables versus only in its active subspace; considering ways in which the problem may be solved with the mentioned techniques in tandem, such as using a ``burn-in" phase in which $f$ is minimized over all of $\Lambda$ followed by an active variables minimization.
+
+
+\subsubsection{Representations and Surrogate Modeling} We are generally interested in the representation and surrogates one may form with an active subspace. If $f$ is truly a black box, then it lacks an analytic form we can access. By performing dimension reduction, it is possible to test the resolution of function values $f$ versus active variables by forming a sufficient summary plot or ``response surface" []. Depending on the quality and form of the resolution, one may (or may not) be able to discern the relation between $f$ and its active variables visually, by fitting a surrogate through the response surface and testing the fit, or both. Representing $f$ with a lower-dimensional surrogate may help with solving other problems of interest. In particular, we may be able to solve a forward problem at lower cost, or pose the convex optimization for solving an inverse problem with such a representation used to form the misfit functions considered in the preceding section.
+
+
+\subsubsection{Solving the Forward Problem} If the action of the map $f$ can be captured by a lower-dimensional representation, we may be able to more cheaply solve for the push-forward needed for DCI. Research directions include: generally comparing the cost of solving the forward problem with KDE for an $f$ defined in its full variables versus some surrogate for $f$ defined over $A$; analyzing differences in MAP points and updated densities in $\Lambda$ when the push-forward is obtained from its full variables or only from active variables.
+
+\subsubsection{Forming the Misfit Function} Again, if $f$ can be represented in a lower dimension than that of $\Lambda$, then it may be possible to form the misfit functions with a surrogate for $f$.
 
 
 
