@@ -143,14 +143,21 @@ T(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(f(\lambda)-d_{\text
 
 \vspace{.125cm} 
 
-\noindent \textbf{\textit{Example 1.}} \textit{Let $f(\lambda)=2\lambda$, $\lambda_\text{prior}=0.1$, $C_\Lambda=[0.5],$ $d_\text{obs}=0.25$, and $C_\mathcal{D}=[0.25]$; note, $N=M=1$. Then we find that $S(\lambda)=2((2\lambda-0.25)^2+(\lambda-0.1)^2)$, which is minimized by $\lambda^*_S=3/25$. Assuming that $\lambda_\text{prior}$ and $d_\text{obs}$ are the means of Gaussians with standard deviations corresponding to the above covariance matrices, we have $\pi_\Lambda^\text{post} \sim \exp(-S(\lambda_S^*))$. Notice $f(\lambda^*_S)=6/25\neq d_\text{obs}$. We write $T(\lambda)=2(2\lambda-0.25)^2$, which is minimized by $\lambda^*_T=1/8$. Notice $f(\lambda^*_T)=d_\text{obs}$. With Gaussian assumptions on the prior and data, we have $\pi_\Lambda^\text{post} \sim \exp(-T(\lambda_T^*))$.}
+\noindent \textbf{Example 1.} \textit{Let $f(\lambda)=2\lambda$, $\lambda_\text{prior}=0.1$, $C_\Lambda=[0.5],$ $d_\text{obs}=0.25$, and $C_\mathcal{D}=[0.25]$; note, $N=M=1$. Then we find that $S(\lambda)=2((2\lambda-0.25)^2+(\lambda-0.1)^2)$, which is minimized by $\lambda^*_S=3/25$. Assuming that $\lambda_\text{prior}$ and $d_\text{obs}$ are the means of Gaussians with standard deviations corresponding to the above covariance matrices, we have $\pi_\Lambda^\text{post} \sim \exp(-S(\lambda_S^*))$. Notice $f(\lambda^*_S)=6/25\neq d_\text{obs}$. We write $T(\lambda)=2(2\lambda-0.25)^2$, which is minimized by $\lambda^*_T=1/8$. Notice $f(\lambda^*_T)=d_\text{obs}$. With Gaussian assumptions on the prior and data, we have $\pi_\Lambda^\text{post} \sim \exp(-T(\lambda_T^*))$.}
 
 \vspace{.125cm}
 
 In the preceding example, we observe for linear $f$ and $N=M$, the classical MAP point, given by $\lambda_S^*=0.12$ and obtained by minimizing $S$, strikes a balance between the prior belief that $\lambda=0.1$ and the fact that the value $\lambda=0.125$ is the pre-image of $0.25$ under $f$, the observed data point. The data-consistent MAP point, given by $\lambda_T^*=0.125$, is exactly the pre-image of $d_\text{obs}$. Indeed, since the linear map $A$ is full rank in Example 1, the third term in \eqref{eq:3} fully deregularizes (cancels out) the second term, so that the minimum of $T$ is actually just the minimum of the first term, the data mismatch. We see here that classical Bayesian inverse problem theory and DCI ask and answer different questions. For a similar, concrete example where the number of parameters $N$ is greater than the number of data, $M$ (so that the problem is under-determined), we refer the interested reader to []. 
 
 
-So far, we have presented a deregularization term in \eqref{eq:3} which will hold only for linear (or linearizable) $f$ and Gaussian assumptions on the parameter and data spaces. For general nonlinear functions $f$, the deregularization must be rewritten. We expand the term, leaving $f$ as a nonlinear map, and defining $A^\top$ as the transpose of the linearization of $f$ at some point $\bar{\lambda}\in \Lambda$. For example, $A^\top$ may be a solution to some form $$(f(e),v)_\mathcal{D}=(e,A^*(e)v)_\Lambda,$$ which in general is not unique. 
+So far, we have presented a deregularization term in \eqref{eq:3} which will hold only for linear (or linearizable) $f$ and Gaussian assumptions on the parameter and data spaces. For general nonlinear functions $f$, the deregularization must be rewritten. We expand the term, leaving $f$ as a nonlinear map, and defining $A^\top$ as the transpose of the linearization of $f$ at some point $\bar{\lambda}\in \Lambda$. For example, $A^\top$ may be a solution to some form 
+
+\begin{equation} \label{eq:5}
+(f(e),v)_\mathcal{D}=(e,A^*(e)v)_\Lambda,
+\end{equation} 
+ 
+
+\noindent which in general is not unique. 
 
 
 
@@ -170,13 +177,13 @@ In our setting, it may be advantageous to perform dimension reduction on $f$. In
 
 We begin by noting $\nabla f(\lambda)\in \Lambda$ is a column vector of the same dimension as inputs $\lambda$ with rows containing the $N$ partial derivatives of $f$, which for this discussion we assume exist, and are square integrable in $\Lambda$ equipped with some probability density that is positive everywhere in $\Lambda$ and 0 otherwise; for instance, we could consider $\pi_\Lambda^\text{prior}(\lambda)$, the density describing our prior state of knowledge, which we choose to abbreviate as $\pi_\Lambda$ for this discussion. In classical active subspace analysis, one transforms inputs $\lambda$ to the origin with some fixed variance, typically so that $\lambda\in [-1,1]$. Then, as in [C,E,W, and C], we may write
 
-\begin{equation} \label{eq:5}
+\begin{equation} \label{eq:6}
 W=\int_\Lambda \nabla f(\lambda) \nabla f(\lambda)^\top  \pi_\Lambda(\lambda) d\lambda,
 \end{equation} 
 
 \noindent which is an $N\times N$ symmetric positive semi-definite matrix which defines a certain covariance structure of $\nabla f$ over $\Lambda$. This interpretation of \eqref{eq:5} leads one to the idea of computing the Singular Value Decomposition of $W$,
 
-\begin{equation} \label{eq:6}
+\begin{equation} \label{eq:7}
 W=U\Sigma V^*,
 \end{equation} 
 
@@ -186,13 +193,13 @@ The fact that $u_1,\ldots,u_{j}$ correspond to the nontrivial singular values is
 
 For a point $\lambda \in \Lambda$, we define
 
-\begin{equation} \label{eq:7}
+\begin{equation} \label{eq:8}
   \mathcal{P}_A(\lambda)=\sum_{i=1}^{j}\left( u_i^T \lambda\right)u_i \in A, 
 \end{equation}
 
 \noindent which is a projection of the point $\lambda$ in the ``active directions" of $f$. We call this projection an ``active variable," which is a point in the active subspace $A$. We have arrived at the property that 
 
-\begin{equation} \label{eq:7}
+\begin{equation} \label{eq:9}
 f\left(\mathcal{P}_A(\lambda)\right) \approx f(\lambda).
 \end{equation}
 
@@ -202,7 +209,7 @@ In the following, we assume that we lack an analytic form of $\nabla f$; if the 
 
 One initializes the method by performing $M$ random draws of $\lambda_i \in \Lambda$. We then compute $f(\lambda_i)$ for all $i=1,\ldots,M$ samples, which we note will require, at the very least, $M$ evaluations of $f$; in a realistic setting, this would require $M$ solves of a model (e.g., $M$ solves of a PDE constrained system). In our notations, we have $\mathcal{D}=\{f(\lambda_i)\}_{i=1}^M$. Next, we need $\nabla_\Lambda f$ evaluated at $\lambda_i$ for all $i=1,\ldots,M$, which we assume that we do not have in closed analytic form. Hence, we generally need some gradient approximation method, and typically a locally linear approximation to the gradient is a fair balance between reasonably estimating the gradient and not pushing computational expenses to an unreasonable regime. With this approximation formed, we denote each estimation to $\nabla f(\lambda_i)$ with $\reallywidehat{\nabla f}(\lambda_i)$ and we define the $N \times M$ matrix
 
-\begin{equation} \label{eq:5}
+\begin{equation} \label{eq:10}
 \tilde{W}:=\begin{bmatrix}
 \reallywidehat{\nabla f}(\lambda_1)^\top
 \cdot \cdot \cdot
@@ -225,11 +232,34 @@ In practice, we can check the extent to which the active subspace accounts for f
 We consider derivative-free optimization (DFO) algorithms suited for additive and multiplicative noise as in [C/W]. This technique requires nothing more than evaluations of the noisy model and random draws from a normal distribution. Briefly, this method finds a new iterate by randomly perturbing the previous iterate in $\Lambda$; iterates are not allowed to stray much, though, due to relatively small smoothing factors and step sizes. The smoothing factor and step size in the DF algorithms are of great importance to their convergence and termination. As in [Chen and Wild], both the smoothing factor and step size will depend on a scale factor of the $L_1$ Lipschitz constant of $f$. As such, it will be of interest to obtain estimates of $L_1$, which is not straightforward in a gradient-free setting. We refer to [Others] for Lipschitz constant learning in this setting. 
 
 
+In detail, as in [], we consider the problem
+
+\begin{eqnarray}
+\min_{x\in\R^N} \quad \mathbb{E}\left[f(x)+\nu (x; \xi))\right],
+\end{eqnarray} 
+
+\noindent where the authors assume that:
+
+\begin{enumerate}[(i.)]
+
+\item $f: \R^N \to \R$ is convex;
+
+\item $\xi \in \Xi$ is a random variable with probability density $P(\xi)$;
+
+\item for all $x \in \R^N$ the additive noise model $\nu$ is independent and identically distributed, has bounded variance $\sigma_a^2$, and is unbiased; i.e., $\mathbb{E}_\xi (\nu(x;\xi))=0$.
 
 
 
+\end{enumerate}
+
+The use of the $\mathbb{E}(\cdot)$ expected value notation is a mathematically precise way of expressing the fact that the authors view function evaluations as a random draw, in the sense that true function values $f(x)$ are perturbed by a random vector in an additive fashion. Indeed, others such as Smith \cite{Smith} make similar assumptions, viewing evaluations of $f$ as a black-box process which obscures the true value. Chen and Wild chose to drop the $\mathbb{E}(\cdot)$ notation in (3) in favor $\Tilde{f}(x;\xi)$, which is meant to abbreviate the objective function's expression in (3), using a $\Tilde{\cdot}$ tilde notation to denote noisy evaluations, while maintaining a clearly-expressed dependence on random vectors $\xi \in \Xi$. 
 
 
+In this paper, we shall return to the notation introduced in (1), where the objective function is written $f(x)+\epsilon$. Notice that we choose to drop the noise's dependence on $x$ in this notation. We note that this is consistent with Chen and Wild's assumption (iii.) above: since the expected value of the additive noise is unbiased with respect to $x$, we may allow ourselves to think of $\epsilon$ as its own random process, which will not depend on $x$. We emphasize that the value of $\epsilon$ will change for different realizations of $f(x)$, but will not rely on $x$. Our test function $f$ will have additive noise which will perturb the $f(x)$ by a random value proportional to the operator norm of $f$.
+
+
+
+Chen and Wild propose the ``STARS (STep-size Approximation in Randomized Search)" algorithm, which: uses small perturbations in the domain $\Lambda$ given by the addition of a random vector with components drawn from a normal distribution; computes the function value at the randomly perturbed point with additive noise from -- in our case -- a uniform distribution; and updates iterates using a Gaussian-smoothed finite-difference scheme for approximate gradient information in a gradient descent scheme. We will examine the STARS algorithm in much closer detail in the Methods and Algorithms section. For now, we point out that the algorithm requires the ability to evaluate the model $f+\epsilon$, and needs access to random draws from a normal distribution and uniform distribution. All in all, the algorithm can be implemented in about 10 lines of code in \texttt{python}; see Appendix A.
 
 
 
@@ -241,19 +271,28 @@ We consider derivative-free optimization (DFO) algorithms suited for additive an
 
 
 
-
-
-
-
 \section{Research Questions}
 
 
+\subsection{Impact of Noise}
+
+\subsection{Learning and Sampling}
+
+\subsection{Learning the Active Subspace}
+
+\subsection{Using the Active Subspace}
 
 
 
 
 
+\section{Preliminary Results and Research Plan}
 
+
+
+
+
+\section{Timeline}
 
 
 %%%%%%%%%%%%%% References %%%%%%%%%%%%%%%%%%%%%%%%%

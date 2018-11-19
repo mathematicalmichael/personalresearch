@@ -3,5 +3,11 @@
 \contentsline {subsection}{Optimization Methods for Solving Inverse Problems}{2}
 \contentsline {subsection}{Dimension Reduction}{4}
 \contentsline {subsection}{Derivative-Free Optimization}{6}
-\contentsline {subsection}{Application: Magnetic Equilibria in Tokamaks}{6}
-\contentsline {section}{Research Questions}{6}
+\contentsline {subsection}{Application: Magnetic Equilibria in Tokamaks}{7}
+\contentsline {section}{Research Questions}{7}
+\contentsline {subsection}{Impact of Noise}{7}
+\contentsline {subsection}{Learning and Sampling}{7}
+\contentsline {subsection}{Learning the Active Subspace}{7}
+\contentsline {subsection}{Using the Active Subspace}{7}
+\contentsline {section}{Preliminary Results and Research Plan}{7}
+\contentsline {section}{Timeline}{7}
