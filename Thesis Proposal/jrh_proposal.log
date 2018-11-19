@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.11.7)  19 NOV 2018 13:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.11.7)  19 NOV 2018 16:14
 entering extended mode
 **./jrh_proposal.tex
 (jrh_proposal.tex
@@ -670,7 +670,7 @@ Package caption Info: End \AtBeginDocument code.
 \openout4 = `jrh_proposal.toc'.
 
  [1{C:/Users/Owner/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
-Overfull \hbox (5.4pt too wide) detected at line 145
+Overfull \hbox (5.4pt too wide) detected at line 147
 \OML/cmm/m/it/10 T\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 \OT1/cmr/m/n/10 ) = [] [] 
 \OML/cmm/m/it/10 ;
  []
@@ -682,18 +682,21 @@ LaTeX Warning: Marginpar on page 4 moved.
 
 LaTeX Warning: Marginpar on page 4 moved.
 
-<Regularization-all-in-one.pdf, id=33, 1450.65915pt x 808.09508pt>
+<Regularization-all-in-one.pdf, id=31, 1450.65915pt x 808.09508pt>
 File: Regularization-all-in-one.pdf Graphic file (type pdf)
 <use Regularization-all-in-one.pdf>
-Package pdftex.def Info: Regularization-all-in-one.pdf  used on input line 171.
+Package pdftex.def Info: Regularization-all-in-one.pdf  used on input line 173.
 
 (pdftex.def)             Requested size: 397.485pt x 221.41917pt.
 
 LaTeX Warning: Marginpar on page 4 moved.
 
+
+LaTeX Warning: Reference `eq:5' on page 4 undefined on input line 193.
+
 [4] [5 <./Regularization-all-in-one.pdf>]
 
-LaTeX Warning: Citation `QiQi' on page 6 undefined on input line 243.
+LaTeX Warning: Citation `QiQi' on page 6 undefined on input line 246.
 
 [6] [7] [8]
 
@@ -706,48 +709,44 @@ LaTeX Warning: Marginpar on page 9 moved.
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 15270 strings out of 492970
- 295684 string characters out of 3126594
- 349335 words of memory out of 3000000
- 18696 multiletter control sequences out of 15000+200000
- 12182 words of font info for 46 fonts, out of 3000000 for 9000
+ 15259 strings out of 492970
+ 295466 string characters out of 3126594
+ 349183 words of memory out of 3000000
+ 18686 multiletter control sequences out of 15000+200000
+ 11521 words of font info for 44 fonts, out of 3000000 for 9000
  1302 hyphenation exceptions out of 8191
  62i,23n,76p,1368b,712s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
 /cm/cmbx10.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
-blic/amsfonts/cm/cmbx6.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fo
-nts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Users/Owner/AppData/Local/Programs
-/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/Owner/AppData/L
-ocal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Ow
-ner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi5.pfb>
+blic/amsfonts/cm/cmcsc10.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/
+fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/Owner/AppData/Local/Program
+s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Owner/AppData/
+Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/Ow
+ner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb>
 <C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/c
-m/cmmi6.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publi
-c/amsfonts/cm/cmmi7.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts
-/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/Owner/AppData/Local/Programs/MiKT
-eX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Owner/AppData/Local/P
-rograms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/Owner/AppD
-ata/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users
-/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pf
-b><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
-/cm/cmsy10.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
-blic/amsfonts/cm/cmsy6.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fo
-nts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/Owner/AppData/Local/Programs/M
-iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/Owner/AppData/Loca
-l/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/Owner
-/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti7.pfb><C:
+m/cmmi7.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publi
+c/amsfonts/cm/cmmi8.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts
+/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Owner/AppData/Local/Programs/MiKT
+eX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/Owner/AppData/Local/Pr
+ograms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/Owner/AppDa
+ta/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/
+Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.p
+fb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfont
+s/cm/cmsy6.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
+blic/amsfonts/cm/cmsy7.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fo
+nts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/Owner/AppData/Local/Programs/M
+iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/Owner/AppData/Loc
+al/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti7.pfb><C:/Users/Owner
+/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti8.pfb><C:
 /Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
-mti8.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/a
-msfonts/cm/cmtt10.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/t
-ype1/public/amsfonts/symbols/msbm10.pfb><C:/Users/Owner/AppData/Local/Programs/
-MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on jrh_proposal.pdf (9 pages, 474369 bytes).
+mtt10.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/
+amsfonts/symbols/msbm10.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/f
+onts/type1/public/amsfonts/symbols/msbm7.pfb>
+Output written on jrh_proposal.pdf (9 pages, 463885 bytes).
 PDF statistics:
- 142 PDF objects out of 1000 (max. 8388607)
+ 138 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  18 words of extra memory for PDF output out of 10000 (max. 10000000)
 

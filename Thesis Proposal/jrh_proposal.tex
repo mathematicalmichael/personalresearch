@@ -99,13 +99,15 @@ We begin our discussion by defining a parameter space $\Lambda$ of dimension $N$
 
 We follow [B,T,S] to formulate an inverse problem in our setting. Then, we briefly present the data-consistent solution; we refer to [B] for details.
 
-\change{Avoid "so-called", if you are defining terms use \em or \bf and not quotes}
+\change{Avoid "so-called", if you are defining terms use em or bf and not quotes}
 First, we assume we have prior knowledge of the parameter space, given by the %so-called 
-{\em prior distribution}, $\pi_\Lambda^\text{prior}(\lambda)$. In practical applications, a prior distribution may be given by application experts, but may also reflect the state of knowledge on $\Lambda$ obtained by other mathematical or statistical processes. Second, we assume that we have a so-called ``observed" density, $\pi_\mathcal{D}(d)$, which represents our uncertain state of knowledge of observed data and is uncertain due to noise in $f$ and potential measurement error. Informally, the inverse problem is the task of finding an \textit{updated} probability distribution, $\pi_\Lambda^\text{update}$, in $\Lambda$ space that combines the given prior information and data.
+ prior distribution, $\pi_\Lambda^\text{prior}(\lambda)$. In practical applications, a prior distribution may be given by application experts, but may also reflect the state of knowledge on $\Lambda$ obtained by other mathematical or statistical processes. Second, we assume that we have a so-called ``observed" density, $\pi_\mathcal{D}(d)$, which represents our uncertain state of knowledge of observed data and is uncertain due to noise in $f$ and potential measurement error. Informally, the inverse problem is the task of finding an \textit{updated} probability distribution, $\pi_\Lambda^\text{update}$, in $\Lambda$ space that combines the given prior information and data.
 
 It has been shown [] that the so-called classical Bayesian or statistical Bayesian [T,S] solution to the inverse problem is not generally a ``pull-back probability measure," in the sense that the image of the updated distribution $\pi_\Lambda^\text{update}$ under the map $f$, called the push-forward, is not equal to (and often not ``close" to) the ``observed" probability distribution, $\pi_\mathcal{D}$. 
 
-\change{Define the forward uncertainty problem.  i.e. given distributions on $\lambda \in Lambda$, solve for the pdf of $f(\lambda). $ The forward uncertainty problem is different from computing the
+
+
+\change{Define the forward uncertainty problem.  i.e. given distributions on $\lambda \in \Lambda$, solve for the pdf of $f(\lambda)$.  The forward uncertainty problem is different from 
 forward model or the forward map, which is simply evaluating $f(\lambda)$.}
 
 Data-consistent inversion (DCI) seeks an updated solution $\pi_\Lambda^\text{update}$ for which the push-forward exactly equals $\pi_\mathcal{D}$. To obtain such a solution, it is necessary to compute the push-forward of $\pi_\Lambda^\text{prior}$. We may form the push-forward of the prior by solving a \textit{forward problem}; with certain assumptions on $f, \Lambda,$ and $\mathcal{D}$ the forward problem may be straightforward, with other assumptions, this problem is non-trivial. We denote the solution to the forward problem with $\pi_\mathcal{D}^{f(\Lambda)}$. Then, as in [], the \textit{data-consistent} solution to the inverse problem is
@@ -228,7 +230,8 @@ One initializes the method by performing $M$ random draws of $\lambda_i \in \Lam
 
 Forming the SVD of $\tilde{W}$, $\tilde{W}=\tilde{U}\tilde{\Sigma}\tilde{V}^*$, we search for a drop off in the magnitude of the singular values $\{\tilde{\sigma}_i\}_{i=1}^M$. Assuming such a drop off occurs for an index $j:1<j<M$, we have the $j$ corresponding left singular vectors,$ \tilde{u},\ldots,\tilde{u}_{j}$.  We let $A\left(f;\mathcal{D}\right):=\text{span}\{\tilde{u},\ldots,\tilde{u}_{j}\}$ to denote the active subspace of $f$ with respect to the data $\mathcal{D}$. We choose to use a notation with $\mathcal{D}$ included to emphasize the dependence of the active subspace on the random draws made in $\Lambda$, which led to our particular $\mathcal{D}$.
 
-In practice, we can check the extent to which the active subspace accounts for functions values $f(\lambda)$ by checking for resolution in a so-called ``sufficient summary plot" [Constantine], where we plot active variables against function values. In these plots, we hope to see a pattern between the active variables versus the actual function values. For example, if $f$ is quadratic in its active variables, then we expect to see quadratically-resolved sufficient summary plots. We will revisit sufficient summary plots in the proceeding sections. For now, we continue our discussion with the understanding that sufficient summary plots allow us to check the ``fit" of the active subspace.
+In practice, we can check the extent to which the active subspace accounts for functions values $f(\lambda)$ 
+by checking for resolution in a so-called ``sufficient summary plot" [Constantine], where we plot active variables against function values. In these plots, we hope to see a pattern between the active variables versus the actual function values. For example, if $f$ is quadratic in its active variables, then we expect to see quadratically-resolved sufficient summary plots. We will revisit sufficient summary plots in the proceeding sections. For now, we continue our discussion with the understanding that sufficient summary plots allow us to check the ``fit" of the active subspace.
 
 
 
@@ -236,15 +239,15 @@ In practice, we can check the extent to which the active subspace accounts for f
 
 \subsection{Derivative-Free Optimization}
 
-\todo{Varis: I'll write an intro here connecting DF algorithms to noisy simulations due to turbulence/chaos to }
+%\todo{Varis: I'll write an intro here connecting DF algorithms to noisy simulations due to turbulence/chaos to }
 Many important physical systems possess turbulent or chaotic behavior.  The physical state of the system $u(x,\lambda)$ and the corrsponding parameter
-to observable map $f(u(x,\Lambda))$ may be modelled as a stochastic process, or as a deterministic function with additive or multiplicative ``noise''.  
+to observable map $f(u(x,\lambda))$ may be modelled as a stochastic process, or as a deterministic function with additive or multiplicative ``noise''.  
 In this setting, the efficient extraction of accurate gradients of $f$ in parameter space is a challenging undertaking, as popular techniques based on
 linearization, including adjoint methods, are inaccurate\cite{QiQi}.  The finite-difference approximations to $\nabla f_\Lambda$ 
 involve $N=\text{dim}\Lambda$ 
 additional, usually nonlinear model solves for the physical system state $u(x,\lambda_i + \delta \lambda_i)$, and is greatly polluted by the noise in $f$.
 
-As a consequence of these difficulties, the approximate data-consistent solution of a SIP in this setting by optimization techniques will need algorithmss
+As a consequence of these difficulties, the approximate data-consistent solution of a SIP in this setting by optimization techniques will need algorithms
 that do not require gradient information from $f$.  
 We consider derivative-free optimization (DFO) algorithms suited for additive and multiplicative noise as in [C/W]. This technique requires nothing more than evaluations of the noisy model and random draws from a normal distribution. Briefly, this method finds a new iterate by randomly perturbing the previous iterate in $\Lambda$; iterates are not allowed to stray much, though, due to relatively small smoothing factors and step sizes. The smoothing factor and step size in the DF algorithms are of great importance to their convergence and termination. As in [Chen and Wild], both the smoothing factor and step size will depend on a scale factor of the $L_1$ Lipschitz constant of $f$. As such, it will be of interest to obtain estimates of $L_1$, which is not straightforward in a gradient-free setting. We refer to [Others] for Lipschitz constant learning in this setting, and discuss this problem more thoroughly in the proceeding sections.
 
