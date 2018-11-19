@@ -91,17 +91,22 @@ In this proposal, we consider a noisy map $f$ from a high-dimensional $\Lambda$ 
 
 In the proceeding section we provide a literature review of inverse problem theory, derivative-free (DF) optimization, and dimension reduction. In the process, we will build a theoretical framework upon which to pose research questions, state initial results, and form a research plan. 
 
-We begin our discussion by defining a parameter space $\Lambda$ of dimension $N$, a map or ``model" $f$, and a data space $\mathcal{D}$. We assume that $\mathcal{D}$ has dimension $M$, where most often $M\leq N$. Points in $\mathcal{D}$ may be known values of $f(\lambda), \lambda\in \Lambda$; as such, we may write $d=f(\lambda)$ to denote the particular datum corresponding to the evaluation of a point $\lambda \in \Lambda$ under $f$. Points in $\mathcal{D}$ may also be \textit{observed} data, denoted $d_{\text{obs}}$, where the corresponding $\lambda\in \Lambda$ may be unknown. We also assume that $f$ is noisy. Hence, we may model draws of $f$ with $f(\lambda)=f(\lambda)+\epsilon$, which is an additive noise structure, or $f(\lambda)=f(\lambda)(1+\epsilon)$, which is a multiplicative noise structure.
+We begin our discussion by defining a parameter space $\Lambda$ of dimension $N$, a map or ``model" $f$, and a data space $\mathcal{D}$. We assume that $\mathcal{D}$ has dimension $M$, typically with $M\leq N$. Points in $\mathcal{D}$ may be known values of $f(\lambda), \lambda\in \Lambda$; as such, we may write $d=f(\lambda)$ to denote the particular datum corresponding to the evaluation of a point $\lambda \in \Lambda$ under $f$. Points in $\mathcal{D}$ may also be \textit{observed} data, denoted $d_{\text{obs}}$, where the corresponding $\lambda\in \Lambda$ may be unknown. We allow for realizations of $f$ to be  noisy. Hence, we may model draws of $f$ with $f(\lambda)=f(\lambda)+\epsilon$, which is an additive noise structure, or $f(\lambda)=f(\lambda)(1+\epsilon)$, which is a multiplicative noise structure.
 
 
 \subsection{Data-Consistent Inversion}
 
 
-We follow [B,T,S] to formulate an inverse problem in our setting. Then, we briefly present the data-consistent solution; we refer the interested reader to [B] for details.
+We follow [B,T,S] to formulate an inverse problem in our setting. Then, we briefly present the data-consistent solution; we refer to [B] for details.
 
-First, we assume we have prior knowledge of the parameter space, given by the so-called ``prior distribution," $\pi_\Lambda^\text{prior}(\lambda)$. In practical applications, a prior distribution may be given by application experts, but may also be a state of knowledge on $\Lambda$ obtained by other mathematical or statistical processes. Second, we assume that we have a so-called ``observed" density, $\pi_\mathcal{D}(d)$, which represents our uncertain state of knowledge of observed data and is uncertain due to noise in $f$ and potential measurement error. Informally, the inverse problem is the task of finding an \textit{updated} probability distribution, $\pi_\Lambda^\text{update}$, in $\Lambda$ space that combines the given prior information and data.
+\change{Avoid "so-called", if you are defining terms use \em or \bf and not quotes}
+First, we assume we have prior knowledge of the parameter space, given by the %so-called 
+{\em prior distribution}, $\pi_\Lambda^\text{prior}(\lambda)$. In practical applications, a prior distribution may be given by application experts, but may also reflect the state of knowledge on $\Lambda$ obtained by other mathematical or statistical processes. Second, we assume that we have a so-called ``observed" density, $\pi_\mathcal{D}(d)$, which represents our uncertain state of knowledge of observed data and is uncertain due to noise in $f$ and potential measurement error. Informally, the inverse problem is the task of finding an \textit{updated} probability distribution, $\pi_\Lambda^\text{update}$, in $\Lambda$ space that combines the given prior information and data.
 
 It has been shown [] that the so-called classical Bayesian or statistical Bayesian [T,S] solution to the inverse problem is not generally a ``pull-back probability measure," in the sense that the image of the updated distribution $\pi_\Lambda^\text{update}$ under the map $f$, called the push-forward, is not equal to (and often not ``close" to) the ``observed" probability distribution, $\pi_\mathcal{D}$. 
+
+\change{Define the forward uncertainty problem.  i.e. given distributions on $\\lambda \in Lambda$, solve for the pdf of f(\lambda).  The forward uncertainty problem is different from computing the
+forward model or the forward map, which is simply evaluating $f(\lambda)$.}
 
 Data-consistent inversion (DCI) seeks an updated solution $\pi_\Lambda^\text{update}$ for which the push-forward exactly equals $\pi_\mathcal{D}$. To obtain such a solution, it is necessary to compute the push-forward of $\pi_\Lambda^\text{prior}$. We may form the push-forward of the prior by solving a \textit{forward problem}; with certain assumptions on $f, \Lambda,$ and $\mathcal{D}$ the forward problem may be straightforward, with other assumptions, this problem is non-trivial. We denote the solution to the forward problem with $\pi_\mathcal{D}^{f(\Lambda)}$. Then, as in [], the \textit{data-consistent} solution to the inverse problem is
 
@@ -113,7 +118,7 @@ Data-consistent inversion (DCI) seeks an updated solution $\pi_\Lambda^\text{upd
 
 With our assumptions of an expensive $f$ and a high-dimensional $\Lambda$, approximately solving the forward problem to obtain the push-forward density generally requires some type of kernel density estimation (KDE), which converges slowly, typically at Monte Carlo rates of $ \frac{1}{\sqrt{N}}$. As in [Tarantola], depending on $f$, the solution to the inverse problem can be obtained exactly or approximately by solving an equivalent deterministic convex optimization problem. As in [Butler], we may alter the aforementioned classical formulation of the deterministic optimization problem to ensure we obtain, depending on $f$, the \textit{data-consistent} (exact or approximate) solution to the inverse problem.
 
-We begin by examining the classical formulation of a deterministic optimization problem which corresponds to either exactly or approximately solving the stochastic inverse problem under consideration. In particular, for a linear map $f$, the exact solution is obtained; for nonlinear maps, we obtain an approximate solution. As in [Taratola], given observed data $d_{\text{obs}} \sim \pi_\mathcal{D}$ and a draw $\lambda_\text{prior}\sim \pi_\Lambda^\text{prior}$, we define a \textit{misfit function}
+We begin by examining the classical formulation of a deterministic optimization problem which corresponds to either exactly or approximately solving the stochastic inverse problem (SIP) under consideration. In particular, for a linear map $f$, the exact solution is obtained; for nonlinear maps, we obtain an approximate solution. As in [Taratola], given observed data $d_{\text{obs}} \sim \pi_\mathcal{D}$ and a draw $\lambda_\text{prior}\sim \pi_\Lambda^\text{prior}$, we define a \textit{misfit function}
 
 \begin{equation} \label{eq:2}
 S(\lambda)=\frac{1}{2}\left(||f(\lambda)-d_{\text{obs}}||_\mathcal{D}^2+||\lambda-\lambda_{\text{prior}}||_\Lambda^2\right).
@@ -130,7 +135,7 @@ S(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(f(\lambda)-d_{\text
 
 Classically ([T]), it is assumed that $\pi_\Lambda^\text{prior}$ and $\pi_\mathcal{D}$ are Gaussians, and the misfit function is specified by $\lambda_{\text{prior}}=\bar{\lambda}$ and $d_{\text{obs}}=\bar{d}$ in our notations. In \eqref{eq:2} and \eqref{eq:3}, we choose to define a more general misfit function, so that we may consider the ``misfit" given any draws $\lambda_{\text{prior}}\sim \pi_\Lambda^\text{prior}$ and $d_\text{obs} \sim \pi_\mathcal{D}$. The misfit function defined above can be understood term-by-term. Given $\lambda \in \Lambda$, the term $||f(\lambda)-d_{\text{obs}}||_\mathcal{D}^2$ corresponds to finding the mismatch between the observed $d_\text{obs}$ and $f(\lambda)$ in data space; the term $||\lambda-\lambda_{\text{prior}}||_\Lambda^2$ corresponds to performing Tikhonov regularization, which improves conditioning in minimizing $S$ over $\Lambda$. The minimum of $S$ is typically referred to as the maximum a posteriori point or \textit{MAP point}.
 
-Authors in [] rewrite $S$ so that a data-consistent MAP point may be obtained. An additional ``deregularization" term is appended so that if a unique solution exists, the regularization will be ``turned off." For now, we assume that $f$ is linear (or can be linearized locally [T]), and write the matrix $A$ to define that action of $f$ on $\Lambda$. We also assume that $\pi_\Lambda$ and $\pi_\mathcal{D}$ are Guassian. In this case, we write the \textit{data-consistent misfit function,}
+Authors in [] rewrite $S$ so that a data-consistent MAP point may be obtained. An additional ``deregularization" term is appended so that if a unique solution exists, the regularization will be ``turned off." For now, we assume that $f$ is linear (or can be linearized locally [T]), and write the matrix $A$ to define that action of $f$ on $\Lambda$. We also assume that $\pi_\Lambda$ and $\pi_\mathcal{D}$ are Gaussian. In this case, we write the \textit{data-consistent misfit function,}
 
 
 
@@ -145,9 +150,12 @@ T(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(f(\lambda)-d_{\text
 
 \noindent \textbf{Example 1.} \textit{Let $f(\lambda)=2\lambda$, $\lambda_\text{prior}=0.1$, $C_\Lambda=[0.5],$ $d_\text{obs}=0.25$, and $C_\mathcal{D}=[0.25]$; note, $N=M=1$. Then we find that $S(\lambda)=2((2\lambda-0.25)^2+(\lambda-0.1)^2)$, which is minimized by $\lambda^*_S=3/25$. Assuming that $\lambda_\text{prior}$ and $d_\text{obs}$ are the means of Gaussians with standard deviations corresponding to the above covariance matrices, we have $\pi_\Lambda^\text{post} \sim \exp(-S(\lambda_S^*))$. Notice $f(\lambda^*_S)=6/25\neq d_\text{obs}$. We write $T(\lambda)=2(2\lambda-0.25)^2$, which is minimized by $\lambda^*_T=1/8$. Notice $f(\lambda^*_T)=d_\text{obs}$. With Gaussian assumptions on the prior and data, we have $\pi_\Lambda^\text{post} \sim \exp(-T(\lambda_T^*))$.}
 
+
+
 \vspace{.125cm}
 
 In the preceding example, we observe for linear $f$ and $N=M$, the classical MAP point, given by $\lambda_S^*=0.12$ and obtained by minimizing $S$, strikes a balance between the prior belief that $\lambda=0.1$ and the fact that the value $\lambda=0.125$ is the pre-image of $0.25$ under $f$, the observed data point. The data-consistent MAP point, given by $\lambda_T^*=0.125$, is exactly the pre-image of $d_\text{obs}$. Indeed, since the linear map $A$ is full rank in Example 1, the third term in \eqref{eq:3} fully deregularizes (cancels out) the second term, so that the minimum of $T$ is actually just the minimum of the first term, the data mismatch. We see here that classical Bayesian inverse problem theory and DCI ask and answer different questions. For a similar, concrete example where the number of parameters $N$ is greater than the number of data, $M$ (so that the problem is under-determined), we refer the interested reader to []. 
+\question{See below, you can use Tim's example}
 
 
 So far, we have presented a deregularization term in \eqref{eq:3} which will hold only for linear (or linearizable) $f$ and Gaussian assumptions on the parameter and data spaces. For general nonlinear functions $f$, the deregularization must be rewritten. We expand the term, leaving $f$ as a nonlinear map, and defining $A^\top$ as the transpose of the linearization of $f$ at some point $\bar{\lambda}\in \Lambda$. For example, $A^\top$ may be a solution to some form 
@@ -163,7 +171,12 @@ So far, we have presented a deregularization term in \eqref{eq:3} which will hol
 
 \todo{Varis: This was the best I could do, and I am not sure it is correct! Can you edit/perhaps add some content here??}
 
+\question{I have the following figure, which corresponds to the example from Tim's talk}. 
+\change{Add the 2nd example which includes deregularization, here?}
 
+\begin{figure}
+\includegraphics[width=\textwidth]{Regularization-all-in-one.pdf}
+\end{figure}
 
 
 
@@ -173,6 +186,7 @@ So far, we have presented a deregularization term in \eqref{eq:3} which will hol
 
 \subsection{Dimension Reduction}
 
+\question{Why? Motivate Dimension Reduction}
 In our setting, it may be advantageous to perform dimension reduction on $f$. In particular, we shall consider Active Subspace methods described by Paul Constantine in [] and an equivalent method by T.M. Russi in []. These techniques seek to explain outputs $f(\Lambda)$ in a subspace $A \subset \Lambda$ for which the $\dim (A) <N$. Here we discuss the theoretical formulation of $A$, but also how it may be found in practice.
 
 We begin by noting $\nabla f(\lambda)\in \Lambda$ is a column vector of the same dimension as inputs $\lambda$ with rows containing the $N$ partial derivatives of $f$, which for this discussion we assume exist, and are square integrable in $\Lambda$ equipped with some probability density that is positive everywhere in $\Lambda$ and 0 otherwise; for instance, we could consider $\pi_\Lambda^\text{prior}(\lambda)$, the density describing our prior state of knowledge, which we choose to abbreviate as $\pi_\Lambda$ for this discussion. In classical active subspace analysis, one transforms inputs $\lambda$ to the origin with some fixed variance, typically so that $\lambda\in [-1,1]$. Then, as in [C,E,W, and C], we may write
@@ -207,6 +221,8 @@ In practice, finding an active subspace of $f$ will require forming an approxima
 
 In the following, we assume that we lack an analytic form of $\nabla f$; if the analytic gradient is available, the proceeding Monte Carlo method remains valid, and all notations corresponding to approximating $\nabla f$ may be dropped.
 
+\question{Maybe switch $M$ to $S$ for samples?  As $M$ was the dimension of the data space above}
+
 One initializes the method by performing $M$ random draws of $\lambda_i \in \Lambda$. We then compute $f(\lambda_i)$ for all $i=1,\ldots,M$ samples, which we note will require, at the very least, $M$ evaluations of $f$; in a realistic setting, this would require $M$ solves of a model (e.g., $M$ solves of a PDE constrained system). In our notations, we have $\mathcal{D}=\{f(\lambda_i)\}_{i=1}^M$. Next, we need $\nabla_\Lambda f$ evaluated at $\lambda_i$ for all $i=1,\ldots,M$, which we assume that we do not have in closed analytic form. Hence, we generally need some gradient approximation method, and typically a locally linear approximation to the gradient is a fair balance between reasonably estimating the gradient and not pushing computational expenses to an unreasonable regime. With this approximation formed, we denote each estimation to $\nabla f(\lambda_i)$ with $\reallywidehat{\nabla f}(\lambda_i)$ and we define the $N \times M$ matrix
 
 \begin{equation} \label{eq:10}
@@ -228,10 +244,19 @@ In practice, we can check the extent to which the active subspace accounts for f
 \subsection{Derivative-Free Optimization}
 
 \todo{Varis: I'll write an intro here connecting DF algorithms to noisy simulations due to turbulence/chaos to }
+Many important physical systems possess turbulent or chaotic behavior.  The physical state of the system $u(x,\lambda)$ and the corrsponding parameter
+to observable map $f(u(x,\Lambda))$ may be modelled as a stochastic process, or as a deterministic function with additive or multiplicative ``noise''.  
+In this setting, the efficient extraction of accurate gradients of $f$ in parameter space is a challenging undertaking, as popular techniques based on
+linearization, including adjoint methods, are inaccurate\cite{QiQi}.  The finite-difference approximations to $\nabla f_\Lambda$ 
+involve $N=\text{dim}\Lambda$ 
+additional, usually nonlinear model solves for the physical system state $u(x,\lambda_i + \delta \lamba_i)$, and is greatly polluted by the noise in $f$.
 
+As a consequence of these difficulties, the approximate data-consistent solution of a SIP in this setting by optimization techniques will need algorithmss
+that do not require gradient information from $f$.  
 We consider derivative-free optimization (DFO) algorithms suited for additive and multiplicative noise as in [C/W]. This technique requires nothing more than evaluations of the noisy model and random draws from a normal distribution. Briefly, this method finds a new iterate by randomly perturbing the previous iterate in $\Lambda$; iterates are not allowed to stray much, though, due to relatively small smoothing factors and step sizes. The smoothing factor and step size in the DF algorithms are of great importance to their convergence and termination. As in [Chen and Wild], both the smoothing factor and step size will depend on a scale factor of the $L_1$ Lipschitz constant of $f$. As such, it will be of interest to obtain estimates of $L_1$, which is not straightforward in a gradient-free setting. We refer to [Others] for Lipschitz constant learning in this setting, and discuss this problem more thoroughly in the proceeding sections.
 
 
+\question{The reference here is Nesterov?}
 In detail, as in [], we consider the problem
 
 \begin{eqnarray} \label{eq:11}
@@ -255,12 +280,6 @@ In detail, as in [], we consider the problem
 The use of the $\mathbb{E}(\cdot)$ expected value notation is a mathematically precise way of expressing the fact that the authors view function evaluations as a random draw, in the sense that true function values $f(x)$ are perturbed by a random vector in an additive or multiplicative fashion. Indeed, others [] make similar assumptions, viewing evaluations of $f$ as a black-box process with noise, which obscures the true value of draws $f(\lambda)$.
 
 Chen and Wild propose the ``STARS (STep-size Approximation in Randomized Search)" algorithm, which: uses small perturbations in the domain $\Lambda$ given by the addition of a random vector with components drawn from a normal distribution; computes the function value at the randomly perturbed point with additive or multiplicative noise drawn from a specified distribution; and updates iterates using a Gaussian-smoothed finite-difference scheme for approximate gradient information in a gradient descent scheme. We will examine the STARS algorithm in closer detail in the following sections. For now, we point out that the algorithm requires the ability to evaluate the model, and needs access to random draws from a normal distribution and the distribution from which noise is drawn. All in all, the algorithm can be implemented in about 10 lines of code in \texttt{python}.
-
-
-
-\subsection{Application: Magnetic Equilibria in Tokamaks}
-\todo{Varis: I'll write this, covering Grad-Shafonov Equations, and why these MHD equilibria are important to kinetic simulations.}
-
 
 
 
@@ -290,13 +309,18 @@ Relevant research directions include: considering other ways to embed the inform
 
 \subsubsection{Forming the Misfit Function} Again, if $f$ can be represented in a lower dimension than that of $\Lambda$, then it may be possible to form the misfit functions with a surrogate for $f$.
 
+\subsection{Application: Callibrated Anomolous Diffusion in Tokamak Plasmas}
+\todo{Varis: I'll write this, detailing the target application}
 
-
+\subsection{Application: Magnetic Equilibria in Tokamaks}
+\todo{Varis: I'll write this, covering Grad-Shafonov Equations, and why these MHD equilibria are important to kinetic simulations.}
 
 
 \section{Preliminary Results and Research Plan}
 
 
+
+\todo{Varis: I'll write a brief section transitioning from current toy problems to pde models to plasma physics models}
 
 
 
