@@ -159,6 +159,65 @@ So far, we have presented a deregularization term in \eqref{eq:3} which will hol
 
 
 
+
+
+
+
+
+\subsection{Dimension Reduction}
+
+In our setting, it may be advantageous to perform dimension reduction on $f$. In particular, we shall consider Active Subspace methods described by Paul Constantine in [] and an equivalent method by T.M. Russi in []. These techniques seek to explain outputs $f(\Lambda)$ in a subspace $A \subset \Lambda$ for which the $\dim (A) <N$. Here we discuss the theoretical formulation of $A$, but also how it may be found in practice.
+
+We begin by noting $\nabla f(\lambda)\in \Lambda$ is a column vector of the same dimension as inputs $\lambda$ with rows containing the $N$ partial derivatives of $f$, which for this discussion we assume exist, and are square integrable in $\Lambda$ equipped with some probability density that is positive everywhere in $\Lambda$ and 0 otherwise; for instance, we could consider $\pi_\Lambda^\text{prior}(\lambda)$, the density describing our prior state of knowledge, which we choose to abbreviate as $\pi_\Lambda$ for this discussion. In classical active subspace analysis, one transforms inputs $\lambda$ to the origin with some fixed variance, typically so that $\lambda\in [-1,1]$. Then, as in [C,E,W, and C], we may write
+
+\begin{equation} \label{eq:5}
+W=\int_\Lambda \nabla f(\lambda) \nabla f(\lambda)^\top  \pi_\Lambda(\lambda) d\lambda,
+\end{equation} 
+
+\noindent which is an $N\times N$ symmetric positive semi-definite matrix which defines a certain covariance structure of $\nabla f$ over $\Lambda$. This interpretation of \eqref{eq:5} leads one to the idea of computing the Singular Value Decomposition of $W$,
+
+\begin{equation} \label{eq:6}
+W=U\Sigma V^*,
+\end{equation} 
+
+\noindent where $U$ is $N \times N$ unitary, $\Sigma$ is $N \times N$ diagonal with the singular values of $W$ along its diagonal, and $V^*$ is $N \times N$ unitary. With the singular values of $W$ in hand, we search for a drop-off in the spectrum of $W$. In detail, we plot the singular values, $\{\sigma_i\}_{i=1}^n$ and seek a drop-off in magnitude between some pair of singular values, $\sigma_{j}$ and $\sigma_{j+1}$. The active subspace is the span of $u_1,\ldots,u_{j}$, which are the first $j$ columns of $W$, the so-called ``left singular vectors" of $W$. 
+
+The fact that $u_1,\ldots,u_{j}$ correspond to the nontrivial singular values is exactly why they account for the most amount of variance in function values. In fact, one can view AS analysis as an artful choice of principal components after a \textit{full} Principal Component Analysis (PCA) is performed in the gradient space $W$; for more details on this viewpoint, we refer the interested reader to Section 6.4 in T.M. Russi.
+
+For a point $\lambda \in \Lambda$, we define
+
+\begin{equation} \label{eq:7}
+  \mathcal{P}_A(\lambda)=\sum_{i=1}^{j}\left( u_i^T \lambda\right)u_i \in A, 
+\end{equation}
+
+\noindent which is a projection of the point $\lambda$ in the ``active directions" of $f$. We call this projection an ``active variable," which is a point in the active subspace $A$. We have arrived at the property that 
+
+\begin{equation} \label{eq:7}
+f\left(\mathcal{P}_A(\lambda)\right) \approx f(\lambda).
+\end{equation}
+
+In practice, finding an active subspace of $f$ will require forming an approximation to $W$ in a Monte Carlo fashion; see []. We choose to present a Monte Carlo approach that is simple to implement. In short, for a random draw $\lambda_i \in \Lambda$, we will find its evaluation under the approximate or analytic gradient (depending on whether we have $\nabla f$ analytically), and store the row vector $f(\lambda_i)^\top$ in a matrix with an SVD corresponding to \eqref{eq:6}, up to scaling.
+
+In the following, we assume that we lack an analytic form of $\nabla f$; if the analytic gradient is available, the proceeding Monte Carlo method remains valid, and all notations corresponding to approximating $\nabla f$ may be dropped.
+
+One initializes the method by performing $M$ random draws of $\lambda_i \in \Lambda$. We then compute $f(\lambda_i)$ for all $i=1,\ldots,M$ samples, which we note will require, at the very least, $M$ evaluations of $f$; in a realistic setting, this would require $M$ solves of a model (e.g., $M$ solves of a PDE constrained system). In our notations, we have $\mathcal{D}=\{f(\lambda_i)\}_{i=1}^M$. Next, we need $\nabla_\Lambda f$ evaluated at $\lambda_i$ for all $i=1,\ldots,M$, which we assume that we do not have in closed analytic form. Hence, we generally need some gradient approximation method, and typically a locally linear approximation to the gradient is a fair balance between reasonably estimating the gradient and not pushing computational expenses to an unreasonable regime. With this approximation formed, we denote each estimation to $\nabla f(\lambda_i)$ with $\reallywidehat{\nabla f}(\lambda_i)$ and we define the $N \times M$ matrix
+
+\begin{equation} \label{eq:5}
+\tilde{W}:=\begin{bmatrix}
+\reallywidehat{\nabla f}(\lambda_1)^\top
+\cdot \cdot \cdot
+\reallywidehat{\nabla f}(\lambda_M)^\top\\
+\end{bmatrix}.
+\end{equation}  
+
+Forming the SVD of $\tilde{W}$, $\tilde{W}=\tilde{U}\tilde{\Sigma}\tilde{V}^*$, we search for a drop off in the magnitude of the singular values $\{\tilde{\sigma}_i\}_{i=1}^M$. Assuming such a drop off occurs for an index $j:1<j<M$, we have the $j$ corresponding left singular vectors,$ \tilde{u},\ldots,\tilde{u}_{j}$.  We let $A\left(f;\mathcal{D}\right):=\text{span}\{\tilde{u},\ldots,\tilde{u}_{j}\}$ to denote the active subspace of $f$ with respect to the data $\mathcal{D}$. We choose to use a notation with $\mathcal{D}$ included to emphasize the dependence of the active subspace on the random draws made in $\Lambda$, which led to our particular $\mathcal{D}$.
+
+In practice, we can check the extent to which the active subspace accounts for functions values $f(\lambda)$ by checking for resolution in a so-called ``sufficient summary plot" [Constantine], where we plot active variables against function values. In these plots, we hope to see a pattern between the active variables versus the actual function values. For example, if $f$ is quadratic in its active variables, then we expect to see quadratically-resolved sufficient summary plots. We will revisit sufficient summary plots in the proceeding sections. For now, we continue our discussion with the understanding that sufficient summary plots allow us to check the ``fit" of the active subspace.
+
+
+
+
+
 \subsection{Derivative-Free Optimization}
 
 \todo{Varis: I'll write an intro here connecting DF algorithms to noisy simulations due to turbulence/chaos to }
@@ -168,41 +227,21 @@ We consider derivative-free optimization (DFO) algorithms suited for additive an
 
 
 
-\subsection{Dimension Reduction}
-
-In our setting, it may be advantageous to perform dimension reduction on $f$. In particular, we shall consider Active Subspace methods described by Paul Constantine in [] and an equivalent method by T.M. Russi in []. These techniques seek to explain outputs $f(\Lambda)$ in a subspace $A \subset \Lambda$ for which the $\dim (A) <N$. 
-
-Assuming that we lack an analytic form of $\nabla f$, one initializes the method by performing $M$ random draws of $\lambda_i \in \Lambda$. We then compute $f(\lambda_i)$ for all $i=1,\ldots,M$ samples, which we note will require, at the very least, $M$ evaluations of $f$; in a realistic setting, this would require $M$ solves of a model (e.g., $M$ solves of a PDE constrained system). In our notations, we have $\mathcal{D}=\{f(\lambda_i)\}_{i=1}^M$. Next, we need $\nabla_\Lambda f$ evaluated at $\lambda_i$ for all $i=1,\ldots,M$, which we assume that we do not have in closed analytic form. Hence, we generally need some gradient approximation method, and typically a locally linear approximation to the gradient is a fair balance between reasonably estimating the gradient and not pushing computational expenses to an unreasonable regime. With this approximation formed, we denote each estimation to $\nabla f(\lambda_i)$ with $\reallywidehat{\nabla f}(\lambda_i)$ and we define the $\cdot \times \cdot$ matrix
-\begin{equation} \label{eq:5}
-W^T:=\begin{bmatrix}
-\reallywidehat{\nabla f}(\lambda_1)^T,
-\cdot \cdot \cdot,
-\reallywidehat{\nabla f}(\lambda_i)^T,
-\cdot \cdot \cdot ,
-\reallywidehat{\nabla f}(\lambda_M)^T\\
-\end{bmatrix},
-\end{equation} which defines a covariance structure of $f$ over $\Lambda$. This interpretation of \eqref{eq:5} leads us to the idea of computing the Singular Value Decomposition of $W$,
-
-\begin{equation} \label{eq:6}
-W=U\Sigma V^*,
-\end{equation} where $U$ is $M \times M$ unitary, $\Sigma$ is $M \times n$ diagonal with the singular values of $W$ along its diagonal, and $V^*$ is $n \times n$ unitary. With the singular values of $W$ in hand, we search for a drop-off in the spectrum of $W$. In detail, we plot the singular values, $\{\sigma_i\}_{i=1}^n$ and seek a drop-off in magnitude between some pair of singular values, $\sigma_{j}$ and $\sigma_{j+1}$. The active subspace is the span of $u_1,\ldots,u_{j}$, which are the first $j$ columns of $W$, the so-called ``left singular vectors" of $W$. We let $A\left(f;\mathcal{D}\right):=\text{span}\{u_1,\ldots,u_{j}\}$ to denote the active subspace of $f$ with respect to the data $\mathcal{D}$. We choose to use a notation with $\mathcal{D}$ included to emphasize the dependence of the active subspace on the random draws made in $\Lambda$, which led to our particular $\mathcal{D}$.
-
-The fact that $u_1,\ldots,u_{j}$ correspond to the nontrivial singular values is exactly why they account for the most amount of variance in function values. In fact, one can view AS analysis as an artful choice of principal components after a \textit{full} Principal Component Analysis (PCA) is performed in the gradient space $W$; for more details on this viewpoint, we refer the interested reader to Section 6.4 in T.M. Russi.
-
-For a point $\Tilde{\lambda} \in \Lambda$, we may write $ \sum_{i=1}^{j-1}\left( u_i^T \Tilde{\lambda}\right)u_i \in A(f;\mathcal{D})$, which is a projection of the point $\Tilde{\lambda}$ in the ``active directions" of $f$. We call this projection an ``active variable," which is a point in the active subspace $A$, which we will use to abbreviate $A(f;\mathcal{D})$ when it is clear to which $f$ and data $\mathcal{D}$ we are referring.
 
 
 
-We have arrived at the property that 
 
-\begin{equation} \label{eq:7}
-f\left(\sum_{i=1}^{j-1} \left(u_i^T \lambda\right) u_i\right) \approx f(\lambda).
-\end{equation} 
 
-In practice, we can check the extent to which the active subspace accounts for functions values $f(x)$ by checking for resolution in a so-called ``sufficient summary plot" [Constantine], where we plot active variables against function values. In these plots, we hope to see a pattern between the active variables versus the actual function values. For example, if $f$ is quadratic in its active variables, then we expect to see quadratically-resolved sufficient summary plots. We will revisit sufficient summary plots in the Methods and Algorithms section. For now, we continue describing the AS minimization method with the understanding that sufficient summary plots allow us to check the ``fit" of the active subspace.
 
 \subsection{Application: Magnetic Equilibria in Tokamaks}
 \todo{Varis: I'll write this, covering Grad-Shafonov Equations, and why these MHD equilibria are important to kinetic simulations.}
+
+
+
+
+
+
+
 
 
 
