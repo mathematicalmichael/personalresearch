@@ -229,12 +229,12 @@ In practice, we can check the extent to which the active subspace accounts for f
 
 \todo{Varis: I'll write an intro here connecting DF algorithms to noisy simulations due to turbulence/chaos to }
 
-We consider derivative-free optimization (DFO) algorithms suited for additive and multiplicative noise as in [C/W]. This technique requires nothing more than evaluations of the noisy model and random draws from a normal distribution. Briefly, this method finds a new iterate by randomly perturbing the previous iterate in $\Lambda$; iterates are not allowed to stray much, though, due to relatively small smoothing factors and step sizes. The smoothing factor and step size in the DF algorithms are of great importance to their convergence and termination. As in [Chen and Wild], both the smoothing factor and step size will depend on a scale factor of the $L_1$ Lipschitz constant of $f$. As such, it will be of interest to obtain estimates of $L_1$, which is not straightforward in a gradient-free setting. We refer to [Others] for Lipschitz constant learning in this setting. 
+We consider derivative-free optimization (DFO) algorithms suited for additive and multiplicative noise as in [C/W]. This technique requires nothing more than evaluations of the noisy model and random draws from a normal distribution. Briefly, this method finds a new iterate by randomly perturbing the previous iterate in $\Lambda$; iterates are not allowed to stray much, though, due to relatively small smoothing factors and step sizes. The smoothing factor and step size in the DF algorithms are of great importance to their convergence and termination. As in [Chen and Wild], both the smoothing factor and step size will depend on a scale factor of the $L_1$ Lipschitz constant of $f$. As such, it will be of interest to obtain estimates of $L_1$, which is not straightforward in a gradient-free setting. We refer to [Others] for Lipschitz constant learning in this setting, and discuss this problem more thoroughly in the proceeding sections.
 
 
 In detail, as in [], we consider the problem
 
-\begin{eqnarray}
+\begin{eqnarray} \label{eq:11}
 \min_{x\in\R^N} \quad \mathbb{E}\left[f(x)+\nu (x; \xi))\right],
 \end{eqnarray} 
 
@@ -252,14 +252,9 @@ In detail, as in [], we consider the problem
 
 \end{enumerate}
 
-The use of the $\mathbb{E}(\cdot)$ expected value notation is a mathematically precise way of expressing the fact that the authors view function evaluations as a random draw, in the sense that true function values $f(x)$ are perturbed by a random vector in an additive fashion. Indeed, others such as Smith \cite{Smith} make similar assumptions, viewing evaluations of $f$ as a black-box process which obscures the true value. Chen and Wild chose to drop the $\mathbb{E}(\cdot)$ notation in (3) in favor $\Tilde{f}(x;\xi)$, which is meant to abbreviate the objective function's expression in (3), using a $\Tilde{\cdot}$ tilde notation to denote noisy evaluations, while maintaining a clearly-expressed dependence on random vectors $\xi \in \Xi$. 
+The use of the $\mathbb{E}(\cdot)$ expected value notation is a mathematically precise way of expressing the fact that the authors view function evaluations as a random draw, in the sense that true function values $f(x)$ are perturbed by a random vector in an additive or multiplicative fashion. Indeed, others [] make similar assumptions, viewing evaluations of $f$ as a black-box process with noise, which obscures the true value of draws $f(\lambda)$.
 
-
-In this paper, we shall return to the notation introduced in (1), where the objective function is written $f(x)+\epsilon$. Notice that we choose to drop the noise's dependence on $x$ in this notation. We note that this is consistent with Chen and Wild's assumption (iii.) above: since the expected value of the additive noise is unbiased with respect to $x$, we may allow ourselves to think of $\epsilon$ as its own random process, which will not depend on $x$. We emphasize that the value of $\epsilon$ will change for different realizations of $f(x)$, but will not rely on $x$. Our test function $f$ will have additive noise which will perturb the $f(x)$ by a random value proportional to the operator norm of $f$.
-
-
-
-Chen and Wild propose the ``STARS (STep-size Approximation in Randomized Search)" algorithm, which: uses small perturbations in the domain $\Lambda$ given by the addition of a random vector with components drawn from a normal distribution; computes the function value at the randomly perturbed point with additive noise from -- in our case -- a uniform distribution; and updates iterates using a Gaussian-smoothed finite-difference scheme for approximate gradient information in a gradient descent scheme. We will examine the STARS algorithm in much closer detail in the Methods and Algorithms section. For now, we point out that the algorithm requires the ability to evaluate the model $f+\epsilon$, and needs access to random draws from a normal distribution and uniform distribution. All in all, the algorithm can be implemented in about 10 lines of code in \texttt{python}; see Appendix A.
+Chen and Wild propose the ``STARS (STep-size Approximation in Randomized Search)" algorithm, which: uses small perturbations in the domain $\Lambda$ given by the addition of a random vector with components drawn from a normal distribution; computes the function value at the randomly perturbed point with additive or multiplicative noise drawn from a specified distribution; and updates iterates using a Gaussian-smoothed finite-difference scheme for approximate gradient information in a gradient descent scheme. We will examine the STARS algorithm in closer detail in the following sections. For now, we point out that the algorithm requires the ability to evaluate the model, and needs access to random draws from a normal distribution and the distribution from which noise is drawn. All in all, the algorithm can be implemented in about 10 lines of code in \texttt{python}.
 
 
 
