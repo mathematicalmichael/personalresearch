@@ -105,7 +105,7 @@ First, we assume we have prior knowledge of the parameter space, given by the %s
 
 It has been shown [] that the so-called classical Bayesian or statistical Bayesian [T,S] solution to the inverse problem is not generally a ``pull-back probability measure," in the sense that the image of the updated distribution $\pi_\Lambda^\text{update}$ under the map $f$, called the push-forward, is not equal to (and often not ``close" to) the ``observed" probability distribution, $\pi_\mathcal{D}$. 
 
-\change{Define the forward uncertainty problem.  i.e. given distributions on $\\lambda \in Lambda$, solve for the pdf of f(\lambda).  The forward uncertainty problem is different from computing the
+\change{Define the forward uncertainty problem.  i.e. given distributions on $\lambda \in Lambda$, solve for the pdf of $f(\lambda). $ The forward uncertainty problem is different from computing the
 forward model or the forward map, which is simply evaluating $f(\lambda)$.}
 
 Data-consistent inversion (DCI) seeks an updated solution $\pi_\Lambda^\text{update}$ for which the push-forward exactly equals $\pi_\mathcal{D}$. To obtain such a solution, it is necessary to compute the push-forward of $\pi_\Lambda^\text{prior}$. We may form the push-forward of the prior by solving a \textit{forward problem}; with certain assumptions on $f, \Lambda,$ and $\mathcal{D}$ the forward problem may be straightforward, with other assumptions, this problem is non-trivial. We denote the solution to the forward problem with $\pi_\mathcal{D}^{f(\Lambda)}$. Then, as in [], the \textit{data-consistent} solution to the inverse problem is
@@ -158,14 +158,7 @@ In the preceding example, we observe for linear $f$ and $N=M$, the classical MAP
 \question{See below, you can use Tim's example}
 
 
-So far, we have presented a deregularization term in \eqref{eq:3} which will hold only for linear (or linearizable) $f$ and Gaussian assumptions on the parameter and data spaces. For general nonlinear functions $f$, the deregularization must be rewritten. We expand the term, leaving $f$ as a nonlinear map, and defining $A^\top$ as the transpose of the linearization of $f$ at some point $\bar{\lambda}\in \Lambda$. For example, $A^\top$ may be a solution to some form 
-
-\begin{equation} \label{eq:5}
-(f(e),v)_\mathcal{D}=(e,A^*(e)v)_\Lambda,
-\end{equation} 
- 
-
-\noindent which in general is not unique. 
+So far, we have presented a deregularization term in \eqref{eq:3} which will hold only for linear (or linearizable) $f$ and Gaussian assumptions on the parameter and data spaces. For general nonlinear functions $f$, the deregularization must be rewritten. Here, we arrived at an open research question, which we discuss further in the proceeding section.
 
 
 
@@ -249,7 +242,7 @@ to observable map $f(u(x,\Lambda))$ may be modelled as a stochastic process, or 
 In this setting, the efficient extraction of accurate gradients of $f$ in parameter space is a challenging undertaking, as popular techniques based on
 linearization, including adjoint methods, are inaccurate\cite{QiQi}.  The finite-difference approximations to $\nabla f_\Lambda$ 
 involve $N=\text{dim}\Lambda$ 
-additional, usually nonlinear model solves for the physical system state $u(x,\lambda_i + \delta \lamba_i)$, and is greatly polluted by the noise in $f$.
+additional, usually nonlinear model solves for the physical system state $u(x,\lambda_i + \delta \lambda_i)$, and is greatly polluted by the noise in $f$.
 
 As a consequence of these difficulties, the approximate data-consistent solution of a SIP in this setting by optimization techniques will need algorithmss
 that do not require gradient information from $f$.  
