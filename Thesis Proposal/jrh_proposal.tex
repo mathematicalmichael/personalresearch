@@ -348,7 +348,44 @@ Relevant research directions include: considering other ways to embed the inform
 
 \todo{Varis: I'll write a brief section transitioning from current toy problems to pde models to plasma physics models}
 
+
+
 \section{Preliminary Results and Research Plan}
+
+In this section, we re-visit the questions from the previous section to discuss preliminary results, if any, and to present a plan to begin investigating questions that are unanswered. We present an example which is discussed in several of the proceeding sections in the context of relevant research questions.
+
+\vspace{.125cm}
+
+\noindent \textbf{Example 3.} \textit{Let $\Lambda=[-1,1]^{10}$ and define $$f(\lambda)=\sum_{i=0}^{10} 2^{(-1)^i i}\lambda_i^2+\epsilon(\lambda),$$ where $\epsilon(\lambda)$ is a draw of additive noise corresponding to the input $\lambda$; here, we take draws of $\epsilon$ of order $10^{-4}$. We see that $\mathcal{D}=[0,2^{10}]$ and $N=10$, $M=1$. Note that the minimimum of $f$ is given by $0 \in \Lambda$. Here, as $i$ increases, terms in $f$ become either more important or less important, depending on whether $i$ is even or odd.}
+
+\subsection{Forming a Data-Consistent Deregularization for Nonlinear $f$} Forming a data-consistent mismatch function for a nonlinear $f$ will require manipulating only the deregularization term, which in the linear case, uses a matrix $A$ to perform the action of $f$ on inputs. For an $f$ that is not linear (or easily linearizable), we must consider ways in which $f$ may expressed for the deregularization. This is a theoretical task which will require a closer literature review and heavy collaboration with advisers.
+
+While the attempts at formulating the nonlinear deregularization in the preceding section -- particularly \eqref{eq:13} -- may be correct mathematically, it may not be a practical or tractable approach for solving for such a form. Ideas to explore may include ways in which the active subspace of $f$ could lead to more easily obtained linearizations around particular points in $\Lambda$. As we will observe, the $f$ as defined in Example 3 is globally quadratic with respect to its active subspace, and won't permit a global linearization. We may consider, however, a local linearization at various points on the response surface $f(\mathcal{P}_A(\lambda))$ may be acceptable, particularly near 0.
+
+
+\subsection{Impact of Noise on MAP Point and Updated Prior}
+
+Thus far, the impact of noise in our framework has only been observed, not rigorously characterized. The impact of noise on each of the processes of interest (i.e., the minimization solution to DCI; DFO; solving for active subsapces) has been characterized in the literature to different extents. 
+
+We have performed several numerical experiments in which $f$ with additive noise is minimized with DFO at the same time that the active subspace is formed. For comparison, we have also performed numerical experiments in which $f$ with additive noise is minimized via DFO with no active subspace analysis, and likewise we have searched for the active subspace of $f$ using random points in $\Lambda$ (not given by a DFO algorithm).
+
+In the example below, we consider a noisy, convex form $f$ to be minimized. We find that with small additive noise (on the order of $10^{-4}$), the active subspace and minimizers obtained from various processes match our intuition, and the impact of the additive noise in this regime is negligible. The first concrete research step to obtain experimental evidence of noise effects will be increasing the noise level until results no longer match expectations. Of course, experimental evidence is useless with no corresponding theory; we plan to develop a rigorous characterization of the impact of noise on many of the algorithms (or series of algorithms) studied.
+
+
+
+\subsection{Learning and Sampling}
+
+We are particularly interested in the quantitative and qualitative difference between active subspaces learned from random sampling versus active subspaces learned from deterministic draws that come from another algorithm such as DFO.
+
+
+We revisit Example 3, and present two different active subspaces of $f$ -- one active subspace was formed in a Monte Carlo fashion with 1000 random draws in $\Lambda$; the other subspace was formed with only 100 random sample of $f$ where sample points are in fact iterates from a DFO scheme. To consider a realistic scenario, we form the active subspace in both cases by forming global quadratic approximations to $\nabla f$, which will work well in our regime since $f$ is quadratic in every direction of $\Lambda$.
+
+\begin{figure} 
+\includegraphics[scale=0.3]{eigs.png} \includegraphics[scale=0.3]{surr.png}
+
+\textbf{Figure 2:} Left: A plot of the eigenvalues of the matrix $\hat{W}$ formed from 1000 Monte Carlo samples in $\Lambda$. We see one dominant eigenvalue on the order of $10^6$. Right: A sufficient summary plot where all 1000 samples are projected into $A$ and plotted against their function values.
+\end{figure} 
+
 
 
 

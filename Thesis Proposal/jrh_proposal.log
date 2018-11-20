@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.11.7)  20 NOV 2018 06:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.11.7)  20 NOV 2018 07:51
 entering extended mode
 **./jrh_proposal.tex
 (jrh_proposal.tex
@@ -693,19 +693,27 @@ LaTeX Warning: Marginpar on page 11 moved.
 
 LaTeX Warning: Marginpar on page 11 moved.
 
-[11] (jrh_proposal.aux)
+[11]
+<images/eigs.png, id=74, 457.71pt x 452.69125pt>
+File: images/eigs.png Graphic file (type png)
+<use images/eigs.png>
+Package pdftex.def Info: images/eigs.png  used on input line 384.
+(pdftex.def)             Requested size: 137.31406pt x 135.80841pt.
+<images/surr.png, id=76, 469.755pt x 442.65375pt>
+File: images/surr.png Graphic file (type png)
+<use images/surr.png>
+Package pdftex.def Info: images/surr.png  used on input line 384.
+(pdftex.def)             Requested size: 140.92758pt x 132.79713pt.
+ [12 <./images/eigs.png> <./images/surr.png>] (jrh_proposal.aux)
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 15197 strings out of 492970
- 294001 string characters out of 3126594
- 345073 words of memory out of 3000000
- 18624 multiletter control sequences out of 15000+200000
+ 15209 strings out of 492970
+ 294186 string characters out of 3126594
+ 347073 words of memory out of 3000000
+ 18632 multiletter control sequences out of 15000+200000
  11521 words of font info for 44 fonts, out of 3000000 for 9000
  1302 hyphenation exceptions out of 8191
  62i,23n,76p,1368b,712s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -733,9 +741,9 @@ al/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/Owne
 r/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.
 pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfon
 ts/symbols/msbm7.pfb>
-Output written on jrh_proposal.pdf (11 pages, 453885 bytes).
+Output written on jrh_proposal.pdf (12 pages, 495340 bytes).
 PDF statistics:
- 136 PDF objects out of 1000 (max. 8388607)
+ 144 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 18 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 28 words of extra memory for PDF output out of 10000 (max. 10000000)
 

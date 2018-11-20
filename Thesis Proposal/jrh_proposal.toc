@@ -17,4 +17,7 @@
 \contentsline {subsection}{Application: Callibrated Anomolous Diffusion in Tokamak Plasmas}{11}
 \contentsline {subsection}{Application: Magnetic Equilibria in Tokamaks}{11}
 \contentsline {section}{Preliminary Results and Research Plan}{11}
-\contentsline {section}{Timeline}{11}
+\contentsline {subsection}{Forming a Data-Consistent Deregularization for Nonlinear $f$}{11}
+\contentsline {subsection}{Impact of Noise on MAP Point and Updated Prior}{12}
+\contentsline {subsection}{Learning and Sampling}{12}
+\contentsline {section}{Timeline}{12}
