@@ -352,7 +352,7 @@ Relevant research directions include: considering other ways to embed the inform
 
 \section{Preliminary Results and Research Plan}
 
-In this section, we re-visit the questions from the previous section to discuss preliminary results, if any, and to present a plan to begin investigating questions that are unanswered. We present an example which is discussed in several of the proceeding sections in the context of relevant research questions.
+In this section, we re-visit the questions from the previous section to discuss preliminary results, if any, and present a plan to begin investigating questions that are unanswered. We present a guiding example which is discussed in below sections in the context of relevant research questions.
 
 \vspace{.125cm}
 
@@ -369,7 +369,7 @@ Thus far, the impact of noise in our framework has only been observed, not rigor
 
 We have performed several numerical experiments in which $f$ with additive noise is minimized with DFO at the same time that the active subspace is formed. For comparison, we have also performed numerical experiments in which $f$ with additive noise is minimized via DFO with no active subspace analysis, and likewise we have searched for the active subspace of $f$ using random points in $\Lambda$ (not given by a DFO algorithm).
 
-In the example below, we consider a noisy, convex form $f$ to be minimized. We find that with small additive noise (on the order of $10^{-4}$), the active subspace and minimizers obtained from various processes match our intuition, and the impact of the additive noise in this regime is negligible. The first concrete research step to obtain experimental evidence of noise effects will be increasing the noise level until results no longer match expectations. Of course, experimental evidence is useless with no corresponding theory; we plan to develop a rigorous characterization of the impact of noise on many of the algorithms (or series of algorithms) studied.
+In Example 3, we consider a noisy, convex form $f$ to be minimized. We find that with small additive noise (on the order of $10^{-4}$), the active subspace and minimizers obtained from various processes match our intuition, and the impact of the additive noise in this regime is negligible. The first concrete research step to obtain experimental evidence of noise effects will be increasing the noise level until results no longer match expectations. Of course, experimental evidence is useless with no corresponding theory; we plan to develop a rigorous characterization of the impact of noise on many of the algorithms (or series of algorithms) studied.
 
 
 
@@ -386,7 +386,7 @@ We are particularly interested in the quantitative and qualitative difference be
 
 We revisit Example 3, and present two different active subspaces of $f$ -- one active subspace was formed in a Monte Carlo fashion with 1000 random draws in $\Lambda$; the other subspace was formed with only 100 random sample of $f$ where sample points are in fact iterates from a DFO scheme. To consider a realistic scenario, we form the active subspace in both cases by making global quadratic approximations to $\nabla f$, which will work well in our regime since $f$ is quadratic in $\Lambda$.
 
-In Figure 2, we show the results from the first active subspace of $f$, which was obtained from 1000 iid uniform random samples in $[-1,1]^{10}$; i.e., for any sample $\lambda_i$, we have $\lambda_i \sim U[-1,1]^{10}$. The plot on the left-hand side of Figure 3 shows the resulting eigenvalues (the squares of the singular values) from taking the SVD of $\hat{W}$, which we recall is simply a matrix (in this case $1000 \times 10$) where row $i$ is the transpose of approximated gradient of $f$ evaluated at a sample $\lambda_i$, $i=1,\ldots,1000$. Notice that there is one dominating eigenvalue, which is on the order of $10^6$; this matches intuition since the final term in $f(\lambda)$, given by $2^{10}\lambda_{10}^2$, will be, at most, on the order of $10^3$ (and again, eigenvalues are the squares of singular values). This eigenvalue corresponds to $\lambda_{10}$, meaning that the value of $\lambda_{10}$ has the most impact out of all other parameters on the function values $f(\lambda)$. Notice that the eigenvalue near $10^6$ does not dominate the other eigenvalues by much; indeed, another eigenvalue appears around the order $10^5$. Since the second-to-last term in $f$ is small (with coefficient $2^{-9}$), this order $10^5$ eigenvalue must correspond to $2^8\lambda_8^2$.
+In Figure 2, we show the results from the first active subspace of $f$, which was obtained from 1000 iid uniform random samples in $[-1,1]^{10}$; i.e., for any sample $\lambda_i$, we have $\lambda_i \sim U[-1,1]^{10}$. The plot on the left-hand side of Figure 2 shows the resulting eigenvalues (the squares of the singular values) from taking the SVD of $\hat{W}$, which we recall is simply a matrix (in this case $1000 \times 10$) where row $i$ is the transpose of approximated gradient of $f$ evaluated at a sample $\lambda_i$, $i=1,\ldots,1000$. Notice that there is one dominating eigenvalue, which is on the order of $10^6$; this matches intuition since the final term in $f(\lambda)$, given by $2^{10}\lambda_{10}^2$, will be, at most, on the order of $10^3$ (and again, eigenvalues are the squares of singular values). This eigenvalue corresponds to $\lambda_{10}$, meaning that the value of $\lambda_{10}$ has the most impact out of all other parameters on the function values $f(\lambda)$. Notice that the eigenvalue near $10^6$ does not dominate the other eigenvalues by much; indeed, another eigenvalue appears around the order $10^5$. Since the second-to-last term in $f$ is small (with coefficient $2^{-9}$), this order $10^5$ eigenvalue must correspond to $2^8\lambda_8^2$.
 
 The active subspace implementation used here [Constantine] detects the $10^6$ order eigenvalue as dominating enough to determine that $A(f;\mathcal{D})$ is one-dimensional, spanned by the singular vector corresponding to the direction $(0,\ldots,0,1)$, which is a unit vector in the axis of $\lambda_{10}$, orthogonal to all other axes in $\Lambda$.
 
@@ -434,9 +434,36 @@ We note that we have presented just one of several algorithms that have in some 
 
 
 
+\subsection{Software Dissemination}
 
+Currently, only some of the software used to produce results in this paper are publicly available on GitHub.com. Some of the algorithms used here and other algorithms that are of interest are within open-source packages available online including those of Constantine and [the DFO person Steve sent me]. Other schemes considered in this paper make modifications to given algorithms and remain under development. A major goal of this thesis proposal will be developing well-documented, open-source software complete with python Jupyter Notebooks and illustrative, replicable examples.
 
 \section{Timeline}
+
+We outline a rough timeline for the remaining 2 years in a 5.5 year plan.
+
+\begin{itemize}
+
+\item Clean existing algorithms and examples, generate richer research results related to DFO and active subspaces, and build a model inverse problem for investigation. (Dec 2018/Jan 2019)
+
+\item On RA for Spring 2019.
+
+\item Write and present MS-level results. (Feb/Mar)
+
+\item Work on theoretical formulation of deregularization for nonlinear $f$. Work on generating notebooks and examples. (Ongoing/Spring and Summer 2019)
+
+\item Summer research? Begin writing thesis? Summer school/internship/conference? (Jun/Jul/Aug)
+
+\item Fall 2019 - writing phase, revisions
+
+\item Spring 2020 - final revisions, software
+
+\item Summer 2020 internship/collaborations?, publishing, formatting
+
+\item Defense summer 2020 or early fall
+
+
+\end{itemize}
 
 
 %%%%%%%%%%%%%% References %%%%%%%%%%%%%%%%%%%%%%%%%
