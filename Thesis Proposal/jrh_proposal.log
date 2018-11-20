@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.11.7)  20 NOV 2018 10:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.11.7)  20 NOV 2018 11:20
 entering extended mode
 **./jrh_proposal.tex
 (jrh_proposal.tex
@@ -708,27 +708,26 @@ Package pdftex.def Info: images/surr.png  used on input line 379.
 <images/suffsum.png, id=82, 457.71pt x 438.63875pt>
 File: images/suffsum.png Graphic file (type png)
 <use images/suffsum.png>
-Package pdftex.def Info: images/suffsum.png  used on input line 399.
+Package pdftex.def Info: images/suffsum.png  used on input line 403.
 (pdftex.def)             Requested size: 137.31406pt x 131.59264pt.
- [13 <./images/suffsum.png>]
-<images/stars.png, id=88, 383.4325pt x 263.98625pt>
+ [13] [14 <./images/suffsum.png>]
+<images/stars.png, id=91, 383.4325pt x 263.98625pt>
 File: images/stars.png Graphic file (type png)
 <use images/stars.png>
-Package pdftex.def Info: images/stars.png  used on input line 414.
+Package pdftex.def Info: images/stars.png  used on input line 424.
 (pdftex.def)             Requested size: 115.03062pt x 79.19647pt.
-<images/minvec2.png, id=89, 401.5pt x 263.98625pt>
+<images/minvec2.png, id=92, 401.5pt x 263.98625pt>
 File: images/minvec2.png Graphic file (type png)
 <use images/minvec2.png>
-Package pdftex.def Info: images/minvec2.png  used on input line 414.
+Package pdftex.def Info: images/minvec2.png  used on input line 424.
 (pdftex.def)             Requested size: 120.45091pt x 79.19647pt.
-<images/minvec4.png, id=90, 382.42876pt x 263.98625pt>
+<images/minvec4.png, id=93, 382.42876pt x 263.98625pt>
 File: images/minvec4.png Graphic file (type png)
 <use images/minvec4.png>
-Package pdftex.def Info: images/minvec4.png  used on input line 414.
+Package pdftex.def Info: images/minvec4.png  used on input line 424.
 (pdftex.def)             Requested size: 114.7295pt x 79.19647pt.
-
-[14 <./images/stars.png> <./images/minvec2.png> <./images/minvec4.png>]
-[15] (jrh_proposal.aux)
+ [15 <./images/stars.png> <./images/minvec2.png> <./images/minvec4.png>]
+(jrh_proposal.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -740,7 +739,7 @@ Here is how much of TeX's memory you used:
  18648 multiletter control sequences out of 15000+200000
  11521 words of font info for 44 fonts, out of 3000000 for 9000
  1302 hyphenation exceptions out of 8191
- 62i,23n,76p,1539b,712s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 62i,23n,76p,2365b,712s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
 /cm/cmbx10.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
 blic/amsfonts/cm/cmcsc10.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/
@@ -765,7 +764,7 @@ al/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/Owne
 r/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.
 pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfon
 ts/symbols/msbm7.pfb>
-Output written on jrh_proposal.pdf (15 pages, 530579 bytes).
+Output written on jrh_proposal.pdf (15 pages, 533447 bytes).
 PDF statistics:
  162 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

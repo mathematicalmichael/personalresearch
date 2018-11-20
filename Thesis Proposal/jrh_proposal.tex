@@ -395,20 +395,30 @@ The plot on the right-hand side of Figure 2 shows the sufficient summary plot, w
 Now we investigate the effectiveness of learning $A(f)$ with different samples. Since we want to avoid evaluating $f$ heavily and we want to perform several analyses of $f$, it will be advantageous to ``recycle" function values whenever possible. 
 
 
+
+To experiment, we consider trying to learn $A$ from 100 iterates and their function values generated from performing the DFO algorithm STARS [C/W] on $f$.  The iterates generated from a DFO algorithm may make large jumps (limited by a step size and smoothing parameter) through regions of $\Lambda$ space early in the routine, but will begin to take smaller and smaller steps as the routine hones in on a local minimum. We note that typically for a fair comparison between sampling methods, one would use the same number of samples; however, we choose to use much less samples in the DFO case for the exact reason that the samples will cease to explore parameter space in an informative manner once the iterates begin to converge to a local minimum. In Figure 3, we present the sufficient plot obtained from learning $A$ from 100 DFO samples. The eigenvalue plot obtained from the analysis was virtually identical to that in Figure 2, but the sufficient summary plot here in Figure 3 looks very different than the plot in Figure 2 since the sampled points were not random, but deterministic. Notice that the large function value occurs in the top-left corner of the sufficient summary plot in Figure 3; this value corresponds to the initial iterate $\lambda^{(0)}$, which had a function value of approximately 460. Iterates drive down the value of $f$, and we see that the large majority of the iterates (samples) occur in the bottom-right corner of the plot, where the DFO algorithm is converging to a local minimum.
+
+
 \begin{figure} 
 \includegraphics[scale=0.3]{suffsum.png}
 
 \textbf{Figure 3:} A sufficient summary plot where all 100 samples are iterates from a DFO algorithm. 
 \end{figure} 
 
-To experiment, we consider trying to learn $A$ from 100 iterates and their function values generated from performing the DFO algorithm STARS [C/W] on $f$.  The iterates generated from a DFO algorithm may make large jumps (limited by a step size and smoothing parameter) through regions of $\Lambda$ space early in the routine, but will begin to take smaller and smaller steps as the routine hones in on a local minimum. We note that typically for a fair comparison between sampling methods, one would use the same number of samples; however, we choose to use much less samples in the DFO case for the exact reason that the samples will cease to explore parameter space in an informative manner once the iterates begin to converge to a local minimum. In Figure 3, we present the sufficient plot obtained from learning $A$ from 100 DFO samples. The eigenvalue plot obtained from the analysis was virtually identical to that in Figure 2, but the sufficient summary plot here in Figure 3 looks very different than the plot in Figure 2 since the sampled points were not random, but deterministic. Notice that the large function value occurs in the top-left corner of the sufficient summary plot in Figure 3; this value corresponds to the initial iterate $\lambda^{(0)}$, which had a function value of approximately 460. Iterates drive down the value of $f$, and we see that the large majority of the iterates (samples) occur in the bottom-right corner of the plot, where the DFO algorithm is converging to a local minimum.
-
 We find that in our case the samples generated from the DFO algorithm explored $\Lambda$ enough to give an active subspace with negligible differences to that obtained in the case of 1000 Monte Carlo draws.
 
 We are interested in exploring the extent to which $A$ can be learned for more general functions $f$, particularly those arising in certain applications. We are also interested in learning the $L_1$ Lipschitz constant of $f$ in this setting. For the example analyzed here, the step size and smoothing parameters, which are functions of the value of $L_1$, were formed heuristically. A more careful analysis is left to be desired, especially in the case that $\nabla f$ is inaccessible so that $L_1$ must be estimated. Techniques in the literature need to be considered and tested. 
 
+
+
 \subsection{Using the Active Subspace} We are generally interested in using the active subspace of a function whenever it may cheapen computational expense while maintaining a representations that does not deviate too far from the true action of $f$. Here we consider the effectiveness of DFO performed on $f$ from Example 3 in a standard way (as in [C/W]) using 500 iterations versus a scheme that blends STARS and active subspace analysis using only 150 iterations. 
 
+
+
+We find that after 500 iterations of the standard DFO implementation the routine closes in on the minimum value of $f$, finding that $f\left(\lambda^{(500)}\right) \approx 0.84$. In Figure 4, the left-hand plot shows a \textit{log-log} plot of the logarithm of the iteration on the horizontal axis against the logarithm of the function evaluated at that iterate. We begin to see convergence to a minimum in 500 iterations.
+We modified the DFO algorithm to find a similar result with only 150 iterations. 
+
+To make a modified DFO routine, we begin with a ``burn in" of 50 iterations of standard DFO, which actually gives 100 samples of the function at different points in $\Lambda$, as one step of the DFO routine has two calls of $f$. From the 100 samples denoted with $D$, we form $A(f,D)$. The results of this analysis were discussed above; recall, we obtain a one-dimensional $A$ spanned in the direction of $\lambda_{10}$. Though $A$ is one-dimensional, there are still other important parameters in the model, including $\lambda_8$ and $\lambda_6$, which make order $10^2$ and $10^1$ contributions to $f$ respectively. After the standard DFO burn-in, which was used to both minimize $f$ and explore $\Lambda$ to obtain an approximate $A$, we begin to use DFO only in the directions of the active and some inactive variables. Since we have only a single direction to minimize along in the active subspace, we modify the DFO algorithm to take random steps in the direction of the $\lambda_{10}$ axis only. We do so by taking draws from a $ d \sim N(0,1)$ and forming the randomly scaled vector $du_1$, where $u_1$ is the singular vector corresponding to the active direction in $\lambda_{10}$. Now, each iterate will only be perturbed in its last component in the DFO scheme. We find that in this example, the STARS burn-in phase reduces the 10th component of iterates so that $\lambda^{(50)}_{10} \approx -0.01$ and $f(\lambda^{(50)})\approx 38.02$. Performing DFO in the $\lambda_{10}$ axis with 25 iterations gives $\lambda^{(75)}_{10}$ on the order of $10^{-4}$, but $f(\lambda^{(75)}) \approx 37.74$, which is only a small drop in the function value. Next, 25 iterations of DFO was performed along the $\lambda_8$ axis -- this time, we see a significant drop in the value of $f$, where $f^{(100)} \approx 29.34$. Despite the fact that the $\lambda_8$ direction is not considered active, we do see the value of $f$ decrease as $f$ is minimized along its axis. Another 25 iterations of DFO was performed along the direction corresponding to the third singular vector, dropping the value of $f$ by about 6. Finally, 25 iterations of DFO was performed along the axis corresponding to the fourth singular vector, which minimizes $f$ to an order similar to the results from 500 iterations of standard DFO. Indeed, $f(\lambda^{(150)})\approx 1.38$.
 
 \begin{figure} 
 \includegraphics[scale=0.3]{stars.png} \includegraphics[scale=0.3]{minvec2.png} \includegraphics[scale=0.3]{minvec4.png}
@@ -416,11 +426,13 @@ We are interested in exploring the extent to which $A$ can be learned for more g
 \textbf{Figure 4:} 3 log-log plots from (left to right): 500 iterations of standard DFO; 25 iterations of minimizing $f$ with DFO along the $\lambda_8$ axis; 25 iterations of minimizing $f$ with DFO along the $\lambda_6$ axis.
 \end{figure} 
 
+In the middle plot of Figure 4, we show the log-log plot obtained from using 25 steps of DFO in the $\lambda_8$ direction; the right-hand log-log plot shows the results of 25 steps of DFO in the $\lambda_6$ direction.
 
 
-We find that after 500 iterations of the standard DFO implementation the routine closes in on the minimum value of $f$, finding that $f\left(\lambda^{(500)}\right) \approx 0.84$. We modified the DFO algorithm to find a similar result with only 150 iterations. 
+We note that we have presented just one of several algorithms that have in some way blended the active subspace of $f$ with a DFO scheme. We are interested in investigating the best way to use the information of $A$ in DFO. Likewise, we are interested in representing $f$ with surrogates based on $A$ and investigating whether $A$ can lessen the computational expense in the forward problem.
 
-To make a modified DFO routine, we begin with a ``burn in" of 50 iterations of standard DFO, which actually gives 100 samples of the function at different points in $\Lambda$, as one step of the DFO routine has two calls of $f$. From the 100 samples denoted with $D$, we form $A(f,D)$. The results of this analysis were discussed above; recall, we obtain a one-dimensional $A$ spanned in the direction of $\lambda_{10}$. Though $A$ is one-dimensional, there are still other important parameters in the model, including $\lambda_8$ and $\lambda_6$.
+
+
 
 
 
