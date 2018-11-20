@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.11.7)  20 NOV 2018 09:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.11.7)  20 NOV 2018 10:43
 entering extended mode
 **./jrh_proposal.tex
 (jrh_proposal.tex
@@ -711,16 +711,33 @@ File: images/suffsum.png Graphic file (type png)
 Package pdftex.def Info: images/suffsum.png  used on input line 399.
 (pdftex.def)             Requested size: 137.31406pt x 131.59264pt.
  [13 <./images/suffsum.png>]
-[14] (jrh_proposal.aux)
+<images/stars.png, id=88, 383.4325pt x 263.98625pt>
+File: images/stars.png Graphic file (type png)
+<use images/stars.png>
+Package pdftex.def Info: images/stars.png  used on input line 414.
+(pdftex.def)             Requested size: 115.03062pt x 79.19647pt.
+<images/minvec2.png, id=89, 401.5pt x 263.98625pt>
+File: images/minvec2.png Graphic file (type png)
+<use images/minvec2.png>
+Package pdftex.def Info: images/minvec2.png  used on input line 414.
+(pdftex.def)             Requested size: 120.45091pt x 79.19647pt.
+<images/minvec4.png, id=90, 382.42876pt x 263.98625pt>
+File: images/minvec4.png Graphic file (type png)
+<use images/minvec4.png>
+Package pdftex.def Info: images/minvec4.png  used on input line 414.
+(pdftex.def)             Requested size: 114.7295pt x 79.19647pt.
+
+[14 <./images/stars.png> <./images/minvec2.png> <./images/minvec4.png>]
+[15] (jrh_proposal.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 15214 strings out of 492970
- 294288 string characters out of 3126594
+ 15229 strings out of 492970
+ 294584 string characters out of 3126594
  347074 words of memory out of 3000000
- 18636 multiletter control sequences out of 15000+200000
+ 18648 multiletter control sequences out of 15000+200000
  11521 words of font info for 44 fonts, out of 3000000 for 9000
  1302 hyphenation exceptions out of 8191
  62i,23n,76p,1539b,712s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -748,9 +765,9 @@ al/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/Owne
 r/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.
 pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfon
 ts/symbols/msbm7.pfb>
-Output written on jrh_proposal.pdf (14 pages, 511027 bytes).
+Output written on jrh_proposal.pdf (15 pages, 530579 bytes).
 PDF statistics:
- 153 PDF objects out of 1000 (max. 8388607)
+ 162 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 33 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 48 words of extra memory for PDF output out of 10000 (max. 10000000)
 

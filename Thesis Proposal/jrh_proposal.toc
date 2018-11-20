@@ -21,4 +21,4 @@
 \contentsline {subsection}{Impact of Noise on MAP Point and Updated Prior}{12}
 \contentsline {subsection}{Learning and Sampling}{12}
 \contentsline {subsection}{Using the Active Subspace}{14}
-\contentsline {section}{Timeline}{14}
+\contentsline {section}{Timeline}{15}

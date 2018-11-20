@@ -405,14 +405,22 @@ To experiment, we consider trying to learn $A$ from 100 iterates and their funct
 
 We find that in our case the samples generated from the DFO algorithm explored $\Lambda$ enough to give an active subspace with negligible differences to that obtained in the case of 1000 Monte Carlo draws.
 
-\subsection{Using the Active Subspace}
+We are interested in exploring the extent to which $A$ can be learned for more general functions $f$, particularly those arising in certain applications. We are also interested in learning the $L_1$ Lipschitz constant of $f$ in this setting. For the example analyzed here, the step size and smoothing parameters, which are functions of the value of $L_1$, were formed heuristically. A more careful analysis is left to be desired, especially in the case that $\nabla f$ is inaccessible so that $L_1$ must be estimated. Techniques in the literature need to be considered and tested. 
+
+\subsection{Using the Active Subspace} We are generally interested in using the active subspace of a function whenever it may cheapen computational expense while maintaining a representations that does not deviate too far from the true action of $f$. Here we consider the effectiveness of DFO performed on $f$ from Example 3 in a standard way (as in [C/W]) using 500 iterations versus a scheme that blends STARS and active subspace analysis using only 150 iterations. 
+
+
+\begin{figure} 
+\includegraphics[scale=0.3]{stars.png} \includegraphics[scale=0.3]{minvec2.png} \includegraphics[scale=0.3]{minvec4.png}
+
+\textbf{Figure 4:} 3 log-log plots from (left to right): 500 iterations of standard DFO; 25 iterations of minimizing $f$ with DFO along the $\lambda_8$ axis; 25 iterations of minimizing $f$ with DFO along the $\lambda_6$ axis.
+\end{figure} 
 
 
 
+We find that after 500 iterations of the standard DFO implementation the routine closes in on the minimum value of $f$, finding that $f\left(\lambda^{(500)}\right) \approx 0.84$. We modified the DFO algorithm to find a similar result with only 150 iterations. 
 
-
-
-
+To make a modified DFO routine, we begin with a ``burn in" of 50 iterations of standard DFO, which actually gives 100 samples of the function at different points in $\Lambda$, as one step of the DFO routine has two calls of $f$. From the 100 samples denoted with $D$, we form $A(f,D)$. The results of this analysis were discussed above; recall, we obtain a one-dimensional $A$ spanned in the direction of $\lambda_{10}$. Though $A$ is one-dimensional, there are still other important parameters in the model, including $\lambda_8$ and $\lambda_6$.
 
 
 
