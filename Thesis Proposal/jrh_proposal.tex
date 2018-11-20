@@ -284,13 +284,34 @@ Chen and Wild propose the ``STARS (STep-size Approximation in Randomized Search)
 
 \section{Research Questions}
 
-In the following section, we pose research questions to be investigated within the framework provided in the preceding section.
+In the following section, we pose research questions to be investigated within the framework provided in the preceding section. 
 
-\subsection{Forming a Data-Consistent Deregularization for Nonlinear $f$} 
+\subsection{Forming a Data-Consistent Deregularization for Nonlinear $f$} For linear and linearizable $f$ and Gaussian assumptions on $\Lambda$ and $\mathcal{D}$, we have presented a data-consistent solution to the SIP by posing a deterministic optimization problem that is properly deregularlized so that prior beliefs are updated only in directions that the data is informative. For a general nonlinear map $f$, we must reformulate the deregularization which we recall may be written
 
-\subsection{Impact of Noise on MAP Point and Updated Prior}
+\begin{equation} \label{eq:11}
+\left|\left|C_A^{-1/2}(f(\lambda)-f(\lambda_{\text{prior}}))\right|\right|_2^2,
+\end{equation} 
 
-\subsection{Learning and Sampling} With the viewpoint that evaluations of the model are costly, we want to compute $f(\lambda)$ as little as possible with learning as much as possible about the function. We are interested in several problems that involve sampling $\Lambda$ and evaluating $f$ including solving the forward problem, finding an active subspace via Monte Carlo, and performing DFO. We also hope to investigate the possibility of learning noise and $L_1$ Lipschitz constants from random sampling.
+\noindent where $C_A=AC_\Lambda A^\top$. Expanding $f$ linearly around $\lambda_\text{prior}$, we have $f(\lambda)-f(\lambda_\text{prior})=\nabla f (\lambda_\text{prior})^\top (\lambda-\lambda_\text{prior})$ so that in a neighborhood centered at $\lambda_\text{prior}$ we may write $f(\lambda)-f(\lambda_\text{prior})=A (\lambda-\lambda_\text{prior})$, where $A=\nabla f (\lambda_\text{prior})^\top$, which is an $N \times M$ matrix. We may rewrite \eqref{eq:11} as
+
+
+\begin{equation} \label{eq:12}
+(A(\lambda-\lambda_\text{prior}))^\top (AC_\Lambda A^\top)^{-1}A(\lambda-\lambda_\text{prior}).
+\end{equation}
+
+In order to fully determine the form of \eqref{eq:12}, we must determine $(AC_\Lambda A^\top)^{-1}$. In fact, if we can solve $(AC_\Lambda A^\top)X=A(\lambda-\lambda_\text{prior})$ for $X$, then \eqref{eq:12} becomes
+
+\begin{equation} \label{eq:13}
+(A(\lambda-\lambda_\text{prior}))^\top X.
+\end{equation}
+
+The conditioning of the linear algebra problem of finding such an $X$ is not characterized here, and will be a focus of research. We refer to [Tarantola] for a similar Newton-based approach. We note that since we assume $\nabla f$ is inaccessible, forming the data-consistent deregularization term in this regime may require gradient approximation methods for $f$.
+
+\subsection{Impact of Noise on MAP Point and Updated Prior} The effects of noise on individual methods considered in this paper -- particularly: DCI, the deterministic optimization solution for SIPs, active subspaces, and DFO) -- have been characterized to varying extents in corresponding literature. We are particularly interested in investigating the impact of additive and multiplicative noise models in our framework, which essentially involves embedding the aforementioned methods within each other, performing them in series, or both.
+
+Formally, we investigate both sensitivity and stability of any proposed methods. Theoretically, this may involve using the individual sensitivity/stability analyses of certain methods while deriving new results when the methods are embedded or performed in series. In practice, this may involve comparing the results of individual methods to nested ones, and observing errors and deviations in results.
+
+\subsection{Learning and Sampling} With the viewpoint that evaluations of the model are costly, we want to compute $f(\lambda)$ as little as possible with learning as much as possible about the function. We are interested in several problems that involve sampling $\Lambda$ and evaluating $f$ including solving the forward problem, finding an active subspace via Monte Carlo, and performing DFO. We also investigate the possibility of learning the $L_1$ Lipschitz constant of $f$ from random sampling.
 
 \subsubsection{Learning the Active Subspace} We are interested in several research questions regrading the active subspace learned from different sets of samples in $\Lambda$. Generally, for fixed $f$, we are interested in comparing active subspaces obtained from sampling $f$ with few samples, or with samples generated from some other process, such as a DFO algorithm.
 
