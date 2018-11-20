@@ -158,23 +158,30 @@ In the preceding example, we observe for linear $f$ and $N=M$, the classical MAP
 
 \vspace{.125cm} 
 
-\noindent \textbf{Example 2.} \textit{Let $f(\lambda)=2\lambda_1-\lambda_2$, $\lambda_\text{prior}=(0.1 \quad 0.2)^\top$, $C_\Lambda=\text{diag}[0.5,0.25],$ $d_\text{obs}=0.1$, and $C_\mathcal{D}=[0.25]$; note, $N=2,M=1$. Then we find that $S(\lambda)=2((2\lambda-0.1)^2$, which is minimized by $\lambda^*_S=(,)$. Assuming that $\lambda_\text{prior}$ and $d_\text{obs}$ are the means of Gaussians with standard deviations corresponding to the above covariance matrices, we have $\pi_\Lambda^\text{post} \sim \exp(-S(\lambda_S^*))$. Notice $f(\lambda^*_S)=6/25\neq d_\text{obs}$. We write $T(\lambda)=2(2\lambda-0.25)^2$, which is minimized by $\lambda^*_T=1/8$. Notice $f(\lambda^*_T)=d_\text{obs}$. With Gaussian assumptions on the prior and data, we have $\pi_\Lambda^\text{post} \sim \exp(-T(\lambda_T^*))$.}
+\noindent \textbf{Example 2.} \textit{Let $f(\lambda)=2\lambda_1-\lambda_2$, $\lambda_\text{prior}=(0.1 \quad 0.2)^\top$, $C_\Lambda=\text{diag}[0.5,0.25],$ $d_\text{obs}=0.1$, and $C_\mathcal{D}=[0.25]$. Note that with $N>M$, we have an under-determined problem; in this case with $N=2$ and $M=1$, for any $\lambda \in \Lambda$, $f(\lambda)=d=2\lambda_1-\lambda_2$. Since there is just a single $d_\text{obs}$, we have $0.1=2\lambda_1-\lambda_2$.
+We find $$S(\lambda)=2(2\lambda_1-\lambda_2-0.1)^2+(\lambda_1-0.1)^2+2(\lambda_2-0.2)^2,$$ 
+which is minimized by $\lambda^*_S=(7/50,19/100)$. 
+Assuming that $\lambda_\text{prior}$ and $d_\text{obs}$ are the means of Gaussians with standard deviations corresponding to the given covariance matrices, we have $\pi_\Lambda^\text{post} \sim \exp(-S(\lambda_S^*))$. 
+Notice $f(\lambda^*_S)=9/100\neq d_\text{obs}$. In the data-consistent formulation, we have 
+$$T(\lambda)=2(2\lambda_1-\lambda_2-0.1)^2+\frac{1}{9}\left((\lambda_1-0.1)^2+8(\lambda_1-0.1)(\lambda_2-0.2)+16(\lambda_2-0.2)^2\right),$$ 
+which is minimized by $\lambda^*_T=(13/90,17/90)$. Notice $f(\lambda^*_T)=d_\text{obs}$. With Gaussian assumptions on the prior and data, we have $\pi_\Lambda^\text{post} \sim \exp(-T(\lambda_T^*))$. Figure 1 below shows plots of $\lambda_S^*$ and $\lambda_T^*$ along with the relevant visualizations of the terms in $S$ and $T$.} 
 
 
 
 \vspace{.125cm}
 
 
-So far, we have presented a deregularization term in \eqref{eq:3} which will hold only for linear (or linearizable) $f$ and Gaussian assumptions on the parameter and data spaces. For general nonlinear functions $f$, the deregularization must be rewritten. Here, we arrived at an open research question, which we discuss further in the proceeding section.
-
-
-
-\begin{figure}
+\begin{figure} 
 \includegraphics[width=\textwidth]{Regularization-all-in-one.pdf}
 
-\textbf{Figure 1:}
+\textbf{Figure 1:} This figure from [CITATION NEEDED] shows the process of obtaining the statistical/classical Bayesian solution and data-consistent solution from solving the equivalent deterministic optimization problem corresponding to Example 2.
 \end{figure}
 
+In the example above, we see that the single datum $d_\text{obs}=0.1$ could be observed by any point $\lambda$ on the line $\lambda_2=2\lambda_1-0.1$, represented by the solid black line seen in several plots in Figure 1. The left-hand plots in Figure 1 are identical, since the data mismatch term in $S$ and $T$ are equal. The Tikhonov regularization term is depicted in the top-middle plot, and the top-right panel shows the corresponding classical Bayesian solution with the MAP point $\lambda_S^*$ shown as a red point and contours corresponding to the updated (Gaussian) prior distribution $\exp(-S(\lambda_S^*))$. 
+Just as we saw analytically in Example 2, we see that $\lambda_S^*$ does not lie on the black line representing data-consistent solutions. The action of the modified regularization -- ie, the last two terms in \eqref{eq:4} -- is shown in the bottom-middle plot. Notice that the modified regularization is constant along directions perpendicular to the data, hence, the updated prior will be formed with prior information used only in directions that data is not informative. Thus, it is ensured that $\lambda_T^*$ will lie on the line of data-consistent solutions, as seen in the bottom-right plot in Figure 1, where $\lambda_T^*$ is represented as a red point and the data-consistent solution is given by contours of $ \exp(-T(\lambda_T^*))$.
+
+
+So far, we have presented a deregularization term in \eqref{eq:3} which will hold only for linear (or linearizable) $f$ and Gaussian assumptions on the parameter and data spaces. For general nonlinear functions $f$, the deregularization must be rewritten. Here, we arrived at an open research question, which we discuss further in the proceeding section.
 
 
 

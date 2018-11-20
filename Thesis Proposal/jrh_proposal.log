@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.11.7)  19 NOV 2018 18:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.11.7)  19 NOV 2018 20:21
 entering extended mode
 **./jrh_proposal.tex
 (jrh_proposal.tex
@@ -679,33 +679,29 @@ Overfull \hbox (5.4pt too wide) detected at line 144
 <Regularization-all-in-one.pdf, id=28, 1450.65915pt x 808.09508pt>
 File: Regularization-all-in-one.pdf Graphic file (type pdf)
 <use Regularization-all-in-one.pdf>
-Package pdftex.def Info: Regularization-all-in-one.pdf  used on input line 173.
+Package pdftex.def Info: Regularization-all-in-one.pdf  used on input line 175.
 
 (pdftex.def)             Requested size: 397.485pt x 221.41917pt.
+ [4] [5 <./Regularization-all-in-one.pdf>] [6]
 
-Underfull \vbox (badness 2310) has occurred while \output is active []
+LaTeX Warning: Citation `QiQi' on page 7 undefined on input line 252.
 
- [4]
-[5 <./Regularization-all-in-one.pdf>] [6]
+[7] [8] [9] [10]
 
-LaTeX Warning: Citation `QiQi' on page 7 undefined on input line 245.
-
-[7] [8] [9]
-
-LaTeX Warning: Marginpar on page 10 moved.
+LaTeX Warning: Marginpar on page 11 moved.
 
 
-LaTeX Warning: Marginpar on page 10 moved.
+LaTeX Warning: Marginpar on page 11 moved.
 
-[10] [11] (jrh_proposal.aux)
+[11] (jrh_proposal.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
  15205 strings out of 492970
- 294186 string characters out of 3126594
- 347195 words of memory out of 3000000
+ 294185 string characters out of 3126594
+ 347219 words of memory out of 3000000
  18632 multiletter control sequences out of 15000+200000
  11521 words of font info for 44 fonts, out of 3000000 for 9000
  1302 hyphenation exceptions out of 8191
@@ -735,7 +731,7 @@ al/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti8.pfb><C:/Users/Owner
 :/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/sym
 bols/msbm10.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/p
 ublic/amsfonts/symbols/msbm7.pfb>
-Output written on jrh_proposal.pdf (11 pages, 459508 bytes).
+Output written on jrh_proposal.pdf (11 pages, 462521 bytes).
 PDF statistics:
  140 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
