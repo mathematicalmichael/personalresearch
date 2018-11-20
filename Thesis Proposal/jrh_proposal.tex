@@ -375,16 +375,41 @@ In the example below, we consider a noisy, convex form $f$ to be minimized. We f
 
 \subsection{Learning and Sampling}
 
-We are particularly interested in the quantitative and qualitative difference between active subspaces learned from random sampling versus active subspaces learned from deterministic draws that come from another algorithm such as DFO.
-
-
-We revisit Example 3, and present two different active subspaces of $f$ -- one active subspace was formed in a Monte Carlo fashion with 1000 random draws in $\Lambda$; the other subspace was formed with only 100 random sample of $f$ where sample points are in fact iterates from a DFO scheme. To consider a realistic scenario, we form the active subspace in both cases by forming global quadratic approximations to $\nabla f$, which will work well in our regime since $f$ is quadratic in every direction of $\Lambda$.
-
 \begin{figure} 
 \includegraphics[scale=0.3]{eigs.png} \includegraphics[scale=0.3]{surr.png}
 
 \textbf{Figure 2:} Left: A plot of the eigenvalues of the matrix $\hat{W}$ formed from 1000 Monte Carlo samples in $\Lambda$. We see one dominant eigenvalue on the order of $10^6$. Right: A sufficient summary plot where all 1000 samples are projected into $A$ and plotted against their function values.
 \end{figure} 
+
+We are particularly interested in the quantitative and qualitative difference between active subspaces learned from random sampling versus active subspaces learned from deterministic draws that come from another algorithm such as DFO.
+
+
+We revisit Example 3, and present two different active subspaces of $f$ -- one active subspace was formed in a Monte Carlo fashion with 1000 random draws in $\Lambda$; the other subspace was formed with only 100 random sample of $f$ where sample points are in fact iterates from a DFO scheme. To consider a realistic scenario, we form the active subspace in both cases by making global quadratic approximations to $\nabla f$, which will work well in our regime since $f$ is quadratic in $\Lambda$.
+
+In Figure 2, we show the results from the first active subspace of $f$, which was obtained from 1000 iid uniform random samples in $[-1,1]^{10}$; i.e., for any sample $\lambda_i$, we have $\lambda_i \sim U[-1,1]^{10}$. The plot on the left-hand side of Figure 3 shows the resulting eigenvalues (the squares of the singular values) from taking the SVD of $\hat{W}$, which we recall is simply a matrix (in this case $1000 \times 10$) where row $i$ is the transpose of approximated gradient of $f$ evaluated at a sample $\lambda_i$, $i=1,\ldots,1000$. Notice that there is one dominating eigenvalue, which is on the order of $10^6$; this matches intuition since the final term in $f(\lambda)$, given by $2^{10}\lambda_{10}^2$, will be, at most, on the order of $10^3$ (and again, eigenvalues are the squares of singular values). This eigenvalue corresponds to $\lambda_{10}$, meaning that the value of $\lambda_{10}$ has the most impact out of all other parameters on the function values $f(\lambda)$. Notice that the eigenvalue near $10^6$ does not dominate the other eigenvalues by much; indeed, another eigenvalue appears around the order $10^5$. Since the second-to-last term in $f$ is small (with coefficient $2^{-9}$), this order $10^5$ eigenvalue must correspond to $2^8\lambda_8^2$.
+
+The active subspace implementation used here [Constantine] detects the $10^6$ order eigenvalue as dominating enough to determine that $A(f;\mathcal{D})$ is one-dimensional, spanned by the singular vector corresponding to the direction $(0,\ldots,0,1)$, which is a unit vector in the axis of $\lambda_{10}$, orthogonal to all other axes in $\Lambda$.
+
+The plot on the right-hand side of Figure 2 shows the sufficient summary plot, where the 1000 samples are projected into $A$ using \eqref{eq:7} and their values are plotted along the horizontal axis against their original function values on the vertical axis. The sufficient summary plot can be thought of as a visualization of $f$ along the axes for which $f$ is active; thus, we are seeing a quadratic response in $f$ versus points projected onto the $\lambda_{10}$ axis. We use the mentioned software tools to fit the response with a polynomial surrogate, which is a fit where $R^2\approx 0.9$. Indeed, points do not fall perfectly along the surrogate since there are other parameters which contribute to the value of $f$.
+
+Now we investigate the effectiveness of learning $A(f)$ with different samples. Since we want to avoid evaluating $f$ heavily and we want to perform several analyses of $f$, it will be advantageous to ``recycle" function values whenever possible. 
+
+
+\begin{figure} 
+\includegraphics[scale=0.3]{suffsum.png}
+
+\textbf{Figure 3:} A sufficient summary plot where all 100 samples are iterates from a DFO algorithm. 
+\end{figure} 
+
+To experiment, we consider trying to learn $A$ from 100 iterates and their function values generated from performing the DFO algorithm STARS [C/W] on $f$.  The iterates generated from a DFO algorithm may make large jumps (limited by a step size and smoothing parameter) through regions of $\Lambda$ space early in the routine, but will begin to take smaller and smaller steps as the routine hones in on a local minimum. We note that typically for a fair comparison between sampling methods, one would use the same number of samples; however, we choose to use much less samples in the DFO case for the exact reason that the samples will cease to explore parameter space in an informative manner once the iterates begin to converge to a local minimum. In Figure 3, we present the sufficient plot obtained from learning $A$ from 100 DFO samples. The eigenvalue plot obtained from the analysis was virtually identical to that in Figure 2, but the sufficient summary plot here in Figure 3 looks very different than the plot in Figure 2 since the sampled points were not random, but deterministic. Notice that the large function value occurs in the top-left corner of the sufficient summary plot in Figure 3; this value corresponds to the initial iterate $\lambda^{(0)}$, which had a function value of approximately 460. Iterates drive down the value of $f$, and we see that the large majority of the iterates (samples) occur in the bottom-right corner of the plot, where the DFO algorithm is converging to a local minimum.
+
+We find that in our case the samples generated from the DFO algorithm explored $\Lambda$ enough to give an active subspace with negligible differences to that obtained in the case of 1000 Monte Carlo draws.
+
+\subsection{Using the Active Subspace}
+
+
+
+
 
 
 

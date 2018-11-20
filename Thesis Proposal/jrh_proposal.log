@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.11.7)  20 NOV 2018 07:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.11.7)  20 NOV 2018 09:23
 entering extended mode
 **./jrh_proposal.tex
 (jrh_proposal.tex
@@ -697,26 +697,33 @@ LaTeX Warning: Marginpar on page 11 moved.
 <images/eigs.png, id=74, 457.71pt x 452.69125pt>
 File: images/eigs.png Graphic file (type png)
 <use images/eigs.png>
-Package pdftex.def Info: images/eigs.png  used on input line 384.
+Package pdftex.def Info: images/eigs.png  used on input line 379.
 (pdftex.def)             Requested size: 137.31406pt x 135.80841pt.
 <images/surr.png, id=76, 469.755pt x 442.65375pt>
 File: images/surr.png Graphic file (type png)
 <use images/surr.png>
-Package pdftex.def Info: images/surr.png  used on input line 384.
+Package pdftex.def Info: images/surr.png  used on input line 379.
 (pdftex.def)             Requested size: 140.92758pt x 132.79713pt.
- [12 <./images/eigs.png> <./images/surr.png>] (jrh_proposal.aux)
+ [12 <./images/eigs.png> <./images/surr.png>]
+<images/suffsum.png, id=82, 457.71pt x 438.63875pt>
+File: images/suffsum.png Graphic file (type png)
+<use images/suffsum.png>
+Package pdftex.def Info: images/suffsum.png  used on input line 399.
+(pdftex.def)             Requested size: 137.31406pt x 131.59264pt.
+ [13 <./images/suffsum.png>]
+[14] (jrh_proposal.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 15209 strings out of 492970
- 294186 string characters out of 3126594
- 347073 words of memory out of 3000000
- 18632 multiletter control sequences out of 15000+200000
+ 15214 strings out of 492970
+ 294288 string characters out of 3126594
+ 347074 words of memory out of 3000000
+ 18636 multiletter control sequences out of 15000+200000
  11521 words of font info for 44 fonts, out of 3000000 for 9000
  1302 hyphenation exceptions out of 8191
- 62i,23n,76p,1368b,712s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 62i,23n,76p,1539b,712s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
 /cm/cmbx10.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
 blic/amsfonts/cm/cmcsc10.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/
@@ -741,9 +748,9 @@ al/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/Owne
 r/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.
 pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfon
 ts/symbols/msbm7.pfb>
-Output written on jrh_proposal.pdf (12 pages, 495340 bytes).
+Output written on jrh_proposal.pdf (14 pages, 511027 bytes).
 PDF statistics:
- 144 PDF objects out of 1000 (max. 8388607)
+ 153 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 28 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 33 words of extra memory for PDF output out of 10000 (max. 10000000)
 
