@@ -2,17 +2,19 @@
 \contentsline {subsection}{Data-Consistent Inversion}{2}
 \contentsline {subsection}{Optimization Methods for Solving Inverse Problems}{2}
 \contentsline {subsection}{Dimension Reduction}{4}
-\contentsline {subsection}{Derivative-Free Optimization}{6}
-\contentsline {section}{Research Questions}{7}
-\contentsline {subsection}{Impact of Noise on MAP Point and Updated Prior}{7}
+\contentsline {subsection}{Derivative-Free Optimization}{7}
+\contentsline {section}{Research Questions}{8}
+\contentsline {subsection}{Forming a Data-Consistent Deregularization for Nonlinear $f$}{8}
+\contentsline {subsection}{Impact of Noise on MAP Point and Updated Prior}{8}
 \contentsline {subsection}{Learning and Sampling}{8}
 \contentsline {subsubsection}{Learning the Active Subspace}{8}
-\contentsline {subsection}{Using the Active Subspace}{8}
-\contentsline {subsubsection}{DFO in the Active Variables Only}{8}
-\contentsline {subsubsection}{Representations and Surrogate Modeling}{8}
-\contentsline {subsubsection}{Solving the Forward Problem}{8}
-\contentsline {subsubsection}{Forming the Misfit Function}{9}
-\contentsline {subsection}{Application: Callibrated Anomolous Diffusion in Tokamak Plasmas}{9}
-\contentsline {subsection}{Application: Magnetic Equilibria in Tokamaks}{9}
-\contentsline {section}{Preliminary Results and Research Plan}{9}
-\contentsline {section}{Timeline}{9}
+\contentsline {subsubsection}{Lipschitz Constant Learning}{8}
+\contentsline {subsection}{Using the Active Subspace}{9}
+\contentsline {subsubsection}{DFO in the Active Variables Only}{9}
+\contentsline {subsubsection}{Representations and Surrogate Modeling}{9}
+\contentsline {subsubsection}{Solving the Forward Problem}{9}
+\contentsline {subsubsection}{Forming the Misfit Function}{10}
+\contentsline {subsection}{Application: Callibrated Anomolous Diffusion in Tokamak Plasmas}{10}
+\contentsline {subsection}{Application: Magnetic Equilibria in Tokamaks}{10}
+\contentsline {section}{Preliminary Results and Research Plan}{10}
+\contentsline {section}{Timeline}{10}

@@ -99,18 +99,15 @@ We begin our discussion by defining a parameter space $\Lambda$ of dimension $N$
 
 We follow [B,T,S] to formulate an inverse problem in our setting. Then, we briefly present the data-consistent solution; we refer to [B] for details.
 
-\change{Avoid "so-called", if you are defining terms use em or bf and not quotes}
-First, we assume we have prior knowledge of the parameter space, given by the %so-called 
- prior distribution, $\pi_\Lambda^\text{prior}(\lambda)$. In practical applications, a prior distribution may be given by application experts, but may also reflect the state of knowledge on $\Lambda$ obtained by other mathematical or statistical processes. Second, we assume that we have a so-called ``observed" density, $\pi_\mathcal{D}(d)$, which represents our uncertain state of knowledge of observed data and is uncertain due to noise in $f$ and potential measurement error. Informally, the inverse problem is the task of finding an \textit{updated} probability distribution, $\pi_\Lambda^\text{update}$, in $\Lambda$ space that combines the given prior information and data.
+First, we assume we have prior knowledge of the parameter space, given by the \emph{prior distribution}, $\pi_\Lambda^\text{prior}(\lambda)$. In practical applications, a prior distribution may be given by application experts, but may also reflect the state of knowledge on $\Lambda$ obtained by other mathematical or statistical processes. Second, we assume that we have an \emph{observed density}, $\pi_\mathcal{D}(d)$, which represents our uncertain state of knowledge of observed data and is uncertain due to noise in $f$ and potential measurement error. Informally, the inverse problem is the task of finding an \emph{updated} probability distribution, $\pi_\Lambda^\text{update}$, in $\Lambda$ space that combines the given prior information and data.
 
-It has been shown [] that the so-called classical Bayesian or statistical Bayesian [T,S] solution to the inverse problem is not generally a ``pull-back probability measure," in the sense that the image of the updated distribution $\pi_\Lambda^\text{update}$ under the map $f$, called the push-forward, is not equal to (and often not ``close" to) the ``observed" probability distribution, $\pi_\mathcal{D}$. 
+It has been shown [B] that the so-called classical Bayesian or statistical Bayesian solution to the inverse problem is not generally a ``pull-back probability measure," in the sense that the image of the updated distribution $\pi_\Lambda^\text{update}$ under the map $f$, called the push-forward, is not equal to (and often not ``close" to) the ``observed" probability distribution, $\pi_\mathcal{D}$. 
 
 
 
-\change{Define the forward uncertainty problem.  i.e. given distributions on $\lambda \in \Lambda$, solve for the pdf of $f(\lambda)$.  The forward uncertainty problem is different from 
-forward model or the forward map, which is simply evaluating $f(\lambda)$.}
+Given a distribution on $\lambda \in \Lambda$, the \emph{forward problem} is finding the probability distribution of $f(\lambda)$. The forward problem is, in its own right, a nontrivial and important problem in uncertainty quantification. As it turns out, performing DCI will require solving a forward problem. 
 
-Data-consistent inversion (DCI) seeks an updated solution $\pi_\Lambda^\text{update}$ for which the push-forward exactly equals $\pi_\mathcal{D}$. To obtain such a solution, it is necessary to compute the push-forward of $\pi_\Lambda^\text{prior}$. We may form the push-forward of the prior by solving a \textit{forward problem}; with certain assumptions on $f, \Lambda,$ and $\mathcal{D}$ the forward problem may be straightforward, with other assumptions, this problem is non-trivial. We denote the solution to the forward problem with $\pi_\mathcal{D}^{f(\Lambda)}$. Then, as in [], the \textit{data-consistent} solution to the inverse problem is
+Data-consistent inversion (DCI) seeks an updated solution $\pi_\Lambda^\text{update}$ for which the push-forward exactly equals $\pi_\mathcal{D}$. To obtain such a solution, it is necessary to compute the push-forward of $\pi_\Lambda^\text{prior}$. We may form the push-forward of the prior by solving the corresponding forward problem; with certain assumptions on $f, \Lambda,$ and $\mathcal{D}$ the forward problem may be straightforward, with other assumptions, this problem is non-trivial. We denote the solution to the forward problem with $\pi_\mathcal{D}^{f(\Lambda)}$. Then, as in [], the \textit{data-consistent} solution to the inverse problem is
 
 \begin{equation} \label{eq:1}
 \pi_\Lambda^\text{update}=\pi_\Lambda^\text{prior}(\lambda)\frac{\pi_\mathcal{D}(f(\lambda))}{\pi_\mathcal{D}^{f(\Lambda)}(f(\lambda))}.
@@ -156,43 +153,46 @@ T(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(f(\lambda)-d_{\text
 
 \vspace{.125cm}
 
-In the preceding example, we observe for linear $f$ and $N=M$, the classical MAP point, given by $\lambda_S^*=0.12$ and obtained by minimizing $S$, strikes a balance between the prior belief that $\lambda=0.1$ and the fact that the value $\lambda=0.125$ is the pre-image of $0.25$ under $f$, the observed data point. The data-consistent MAP point, given by $\lambda_T^*=0.125$, is exactly the pre-image of $d_\text{obs}$. Indeed, since the linear map $A$ is full rank in Example 1, the third term in \eqref{eq:3} fully deregularizes (cancels out) the second term, so that the minimum of $T$ is actually just the minimum of the first term, the data mismatch. We see here that classical Bayesian inverse problem theory and DCI ask and answer different questions. For a similar, concrete example where the number of parameters $N$ is greater than the number of data, $M$ (so that the problem is under-determined), we refer the interested reader to []. 
-\question{See below, you can use Tim's example}
+In the preceding example, we observe for linear $f$ and $N=M$, the classical MAP point, given by $\lambda_S^*=0.12$ and obtained by minimizing $S$, strikes a balance between the prior belief that $\lambda=0.1$ and the fact that the value $\lambda=0.125$ is the pre-image of $0.25$ under $f$, the observed data point. The data-consistent MAP point, given by $\lambda_T^*=0.125$, is exactly the pre-image of $d_\text{obs}$. Indeed, since the linear map $A$ is full rank in Example 1, the third term in \eqref{eq:3} fully deregularizes (cancels out) the second term, so that the minimum of $T$ is actually just the minimum of the first term, the data mismatch. We see here that classical Bayesian inverse problem theory and DCI pose and answer different questions. For a similar, concrete example where the number of parameters $N$ is greater than the number of data, $M$ (so that the problem is under-determined), we present the following example adapted directly from [Jakeman/Butler].
+
+
+\vspace{.125cm} 
+
+\noindent \textbf{Example 2.} \textit{Let $f(\lambda)=2\lambda_1-\lambda_2$, $\lambda_\text{prior}=(0.1 \quad 0.2)^\top$, $C_\Lambda=\text{diag}[0.5,0.25],$ $d_\text{obs}=0.1$, and $C_\mathcal{D}=[0.25]$; note, $N=2,M=1$. Then we find that $S(\lambda)=2((2\lambda-0.1)^2$, which is minimized by $\lambda^*_S=(,)$. Assuming that $\lambda_\text{prior}$ and $d_\text{obs}$ are the means of Gaussians with standard deviations corresponding to the above covariance matrices, we have $\pi_\Lambda^\text{post} \sim \exp(-S(\lambda_S^*))$. Notice $f(\lambda^*_S)=6/25\neq d_\text{obs}$. We write $T(\lambda)=2(2\lambda-0.25)^2$, which is minimized by $\lambda^*_T=1/8$. Notice $f(\lambda^*_T)=d_\text{obs}$. With Gaussian assumptions on the prior and data, we have $\pi_\Lambda^\text{post} \sim \exp(-T(\lambda_T^*))$.}
+
+
+
+\vspace{.125cm}
 
 
 So far, we have presented a deregularization term in \eqref{eq:3} which will hold only for linear (or linearizable) $f$ and Gaussian assumptions on the parameter and data spaces. For general nonlinear functions $f$, the deregularization must be rewritten. Here, we arrived at an open research question, which we discuss further in the proceeding section.
 
 
 
-\todo{Varis: This was the best I could do, and I am not sure it is correct! Can you edit/perhaps add some content here??}
-
-\question{I have the following figure, which corresponds to the example from Tim's talk}. 
-\change{Add the 2nd example which includes deregularization, here?}
-
 \begin{figure}
 \includegraphics[width=\textwidth]{Regularization-all-in-one.pdf}
+
+\textbf{Figure 1:}
 \end{figure}
 
 
 
 
-
-
-
 \subsection{Dimension Reduction}
+We consider functions from a high-dimensional space $\Lambda$ to a data space of much less dimension. Many of the processes of interest in this paper require function evaluations, which are generally expensive due to the many parameters. It is not often the case that every parameter has an equal impact on function values; usually some parameters matter more than others. If it is possible to mimic the response of $f$ by processing fewer parameters, we can expect computations savings in many of the problems (i.e., minimization and forward problems) considered here.
 
-\question{Why? Motivate Dimension Reduction}
+
 In our setting, it may be advantageous to perform dimension reduction on $f$. In particular, we shall consider Active Subspace methods described by Paul Constantine in [] and an equivalent method by T.M. Russi in []. These techniques seek to explain outputs $f(\Lambda)$ in a subspace $A \subset \Lambda$ for which the $\dim (A) <N$. Here we discuss the theoretical formulation of $A$, but also how it may be found in practice.
 
 We begin by noting $\nabla f(\lambda)\in \Lambda$ is a column vector of the same dimension as inputs $\lambda$ with rows containing the $N$ partial derivatives of $f$, which for this discussion we assume exist, and are square integrable in $\Lambda$ equipped with some probability density that is positive everywhere in $\Lambda$ and 0 otherwise; for instance, we could consider $\pi_\Lambda^\text{prior}(\lambda)$, the density describing our prior state of knowledge, which we choose to abbreviate as $\pi_\Lambda$ for this discussion. In classical active subspace analysis, one transforms inputs $\lambda$ to the origin with some fixed variance, typically so that $\lambda\in [-1,1]$. Then, as in [C,E,W, and C], we may write
 
-\begin{equation} \label{eq:6}
+\begin{equation} \label{eq:5}
 W=\int_\Lambda \nabla f(\lambda) \nabla f(\lambda)^\top  \pi_\Lambda(\lambda) d\lambda,
 \end{equation} 
 
 \noindent which is an $N\times N$ symmetric positive semi-definite matrix which defines a certain covariance structure of $\nabla f$ over $\Lambda$. This interpretation of \eqref{eq:5} leads one to the idea of computing the Singular Value Decomposition of $W$,
 
-\begin{equation} \label{eq:7}
+\begin{equation} \label{eq:6}
 W=U\Sigma V^*,
 \end{equation} 
 
@@ -202,13 +202,13 @@ The fact that $u_1,\ldots,u_{j}$ correspond to the nontrivial singular values is
 
 For a point $\lambda \in \Lambda$, we define
 
-\begin{equation} \label{eq:8}
+\begin{equation} \label{eq:7}
   \mathcal{P}_A(\lambda)=\sum_{i=1}^{j}\left( u_i^T \lambda\right)u_i \in A, 
 \end{equation}
 
 \noindent which is a projection of the point $\lambda$ in the ``active directions" of $f$. We call this projection an ``active variable," which is a point in the active subspace $A$. We have arrived at the property that 
 
-\begin{equation} \label{eq:9}
+\begin{equation} \label{eq:8}
 f\left(\mathcal{P}_A(\lambda)\right) \approx f(\lambda).
 \end{equation}
 
@@ -220,7 +220,7 @@ In the following, we assume that we lack an analytic form of $\nabla f$; if the 
 
 One initializes the method by performing $M$ random draws of $\lambda_i \in \Lambda$. We then compute $f(\lambda_i)$ for all $i=1,\ldots,M$ samples, which we note will require, at the very least, $M$ evaluations of $f$; in a realistic setting, this would require $M$ solves of a model (e.g., $M$ solves of a PDE constrained system). In our notations, we have $\mathcal{D}=\{f(\lambda_i)\}_{i=1}^M$. Next, we need $\nabla_\Lambda f$ evaluated at $\lambda_i$ for all $i=1,\ldots,M$, which we assume that we do not have in closed analytic form. Hence, we generally need some gradient approximation method, and typically a locally linear approximation to the gradient is a fair balance between reasonably estimating the gradient and not pushing computational expenses to an unreasonable regime. With this approximation formed, we denote each estimation to $\nabla f(\lambda_i)$ with $\reallywidehat{\nabla f}(\lambda_i)$ and we define the $N \times M$ matrix
 
-\begin{equation} \label{eq:10}
+\begin{equation} \label{eq:9}
 \tilde{W}:=\begin{bmatrix}
 \reallywidehat{\nabla f}(\lambda_1)^\top
 \cdot \cdot \cdot
@@ -239,11 +239,10 @@ by checking for resolution in a so-called ``sufficient summary plot" [Constantin
 
 \subsection{Derivative-Free Optimization}
 
-%\todo{Varis: I'll write an intro here connecting DF algorithms to noisy simulations due to turbulence/chaos to }
-Many important physical systems possess turbulent or chaotic behavior.  The physical state of the system $u(x,\lambda)$ and the corrsponding parameter
-to observable map $f(u(x,\lambda))$ may be modelled as a stochastic process, or as a deterministic function with additive or multiplicative ``noise''.  
+Many important physical systems possess turbulent or chaotic behavior.  The physical state of the system $u(x,\lambda)$ and the corresponding parameter
+to observable map $f(u(x,\lambda))$ may be modeled as a stochastic process, or as a deterministic function with additive or multiplicative noise.  
 In this setting, the efficient extraction of accurate gradients of $f$ in parameter space is a challenging undertaking, as popular techniques based on
-linearization, including adjoint methods, are inaccurate\cite{QiQi}.  The finite-difference approximations to $\nabla f_\Lambda$ 
+linearization, including adjoint methods, are inaccurate \cite{QiQi}.  The finite-difference approximations to $\nabla f_\Lambda$ 
 involve $N=\text{dim}\Lambda$ 
 additional, usually nonlinear model solves for the physical system state $u(x,\lambda_i + \delta \lambda_i)$, and is greatly polluted by the noise in $f$.
 
@@ -252,10 +251,12 @@ that do not require gradient information from $f$.
 We consider derivative-free optimization (DFO) algorithms suited for additive and multiplicative noise as in [C/W]. This technique requires nothing more than evaluations of the noisy model and random draws from a normal distribution. Briefly, this method finds a new iterate by randomly perturbing the previous iterate in $\Lambda$; iterates are not allowed to stray much, though, due to relatively small smoothing factors and step sizes. The smoothing factor and step size in the DF algorithms are of great importance to their convergence and termination. As in [Chen and Wild], both the smoothing factor and step size will depend on a scale factor of the $L_1$ Lipschitz constant of $f$. As such, it will be of interest to obtain estimates of $L_1$, which is not straightforward in a gradient-free setting. We refer to [Others] for Lipschitz constant learning in this setting, and discuss this problem more thoroughly in the proceeding sections.
 
 
-\question{The reference here is Nesterov?}
-In detail, as in [], we consider the problem
+\question{The reference here is Nesterov? No - I have two papers here; one paper by Kvasov/Sergeyev and another by Callies}
 
-\begin{eqnarray} \label{eq:11}
+
+In detail, as in [CW], we consider the problem
+
+\begin{eqnarray} \label{eq:10}
 \min_{x\in\R^N} \quad \mathbb{E}\left[f(x)+\nu (x; \xi))\right],
 \end{eqnarray} 
 
@@ -283,13 +284,19 @@ Chen and Wild propose the ``STARS (STep-size Approximation in Randomized Search)
 
 \section{Research Questions}
 
-In the following section, we pose research questions to be investigated within the framework provided in the preceding section. 
+In the following section, we pose research questions to be investigated within the framework provided in the preceding section.
+
+\subsection{Forming a Data-Consistent Deregularization for Nonlinear $f$} 
 
 \subsection{Impact of Noise on MAP Point and Updated Prior}
 
-\subsection{Learning and Sampling}
+\subsection{Learning and Sampling} With the viewpoint that evaluations of the model are costly, we want to compute $f(\lambda)$ as little as possible with learning as much as possible about the function. We are interested in several problems that involve sampling $\Lambda$ and evaluating $f$ including solving the forward problem, finding an active subspace via Monte Carlo, and performing DFO. We also hope to investigate the possibility of learning noise and $L_1$ Lipschitz constants from random sampling.
 
-\subsubsection{Learning the Active Subspace}
+\subsubsection{Learning the Active Subspace} We are interested in several research questions regrading the active subspace learned from different sets of samples in $\Lambda$. Generally, for fixed $f$, we are interested in comparing active subspaces obtained from sampling $f$ with few samples, or with samples generated from some other process, such as a DFO algorithm.
+
+A challenge in learning the active subspace is exploring $\Lambda$ thoroughly enough to resolve $f$ in fewer variables. The samples (i.e., iterates) formed in a DFO algorithm are only allowed to stray from previous samples by a value proportional to the $L_1$ Lipschitz constant of $f$; hence, iterates may explore the space in $\Lambda$ near the initial iterate in a DFO scheme very thoroughly while missing other global phenomenon. If we only wish to find an active subspace of $f$ in some neighborhood of a point $\lambda \in \Lambda$, such samples may suffice; if we hope to achieve a global understanding of $A$, we may need to consider supplementing the samples with other, more explorative draws in $\Lambda$.
+
+\subsubsection{Lipschitz Constant Learning} We explore ways in which one may approximate the $L_1$ Lipschitz constant of $f$ using sampling. Since many DFO algorithms use parameters for step sizes and smoothing that depend on $L_1$, the literature [] contains attempts to learn Lipschitz constants from sampling alone. We are most interested in methods that require few evaluations of $f$.
 
 \subsection{Using the Active Subspace} Generally, if an active subspace $A$ exists for a model $f$, dimension reduction may be performed by, for instance, projecting inputs $\lambda$ into $A$ then evaluating $f$ for the projection; i.e., form $f\left(\mathcal{P}_A(\lambda)\right)$. Computational expense may be saved by projecting points $\lambda$ into their so-called active variables, since such projections are of lower dimension than $\lambda$. This property gives the ability to save computational expense for a number of problems in Uncertainty Quantification, including optimization, representation and solving inverse problems. In the following, we consider ways in which we may use the information given by an active subspace $A(f;\mathcal{D})$.
 
