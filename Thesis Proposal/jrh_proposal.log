@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.11.7)  20 NOV 2018 12:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.11.7)  20 NOV 2018 19:39
 entering extended mode
 **./jrh_proposal.tex
 (jrh_proposal.tex
@@ -665,108 +665,216 @@ G,.JBIG2,.JB2,.eps]
 )
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
- ABD: EveryShipout initializing macros (jrh_proposal.toc)
+ ABD: EveryShipout initializing macros
+
+LaTeX Warning: Citation `Butler' on page 1 undefined on input line 65.
+
+
+LaTeX Warning: Citation `tarantola_book' on page 1 undefined on input line 65.
+
+
+LaTeX Warning: Citation `Russi' on page 1 undefined on input line 67.
+
+
+LaTeX Warning: Citation `Constantine2015' on page 1 undefined on input line 67.
+
+
+(jrh_proposal.toc)
 \tf@toc=\write4
 \openout4 = `jrh_proposal.toc'.
 
- [1{C:/Users/Owner/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
-Overfull \hbox (5.4pt too wide) detected at line 144
+ [1{C:/Users/Owner/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+
+LaTeX Warning: Citation `BJW18a' on page 2 undefined on input line 101.
+
+
+LaTeX Warning: Citation `tarantola_book' on page 2 undefined on input line 101.
+
+
+
+LaTeX Warning: Citation `Stuart_Bayesian' on page 2 undefined on input line 101
+.
+
+
+LaTeX Warning: Citation `BJW18a' on page 2 undefined on input line 101.
+
+
+LaTeX Warning: Citation `BJW18a' on page 2 undefined on input line 105.
+
+
+LaTeX Warning: Citation `tarantola_book' on page 2 undefined on input line 119.
+
+
+[2]
+
+LaTeX Warning: Citation `tarantola_book' on page 3 undefined on input line 121.
+
+
+
+LaTeX Warning: Citation `BJW18a' on page 3 undefined on input line 130.
+
+
+LaTeX Warning: Citation `tarantola_book' on page 3 undefined on input line 137.
+
+
+
+LaTeX Warning: Citation `BJW18a' on page 3 undefined on input line 139.
+
+
+LaTeX Warning: Citation `tarantola_book' on page 3 undefined on input line 140.
+
+
+
+Overfull \hbox (5.4pt too wide) detected at line 147
 \OML/cmm/m/it/10 T\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 \OT1/cmr/m/n/10 ) = [] [] 
 \OML/cmm/m/it/10 ;
  []
 
 [3]
-<Regularization-all-in-one.pdf, id=28, 1450.65915pt x 808.09508pt>
+
+LaTeX Warning: Citation `BJW18a' on page 4 undefined on input line 159.
+
+<Regularization-all-in-one.pdf, id=29, 1450.65915pt x 808.09508pt>
 File: Regularization-all-in-one.pdf Graphic file (type pdf)
 <use Regularization-all-in-one.pdf>
-Package pdftex.def Info: Regularization-all-in-one.pdf  used on input line 175.
+Package pdftex.def Info: Regularization-all-in-one.pdf  used on input line 178.
 
 (pdftex.def)             Requested size: 397.485pt x 221.41917pt.
- [4] [5 <./Regularization-all-in-one.pdf>] [6]
+[4]
 
-LaTeX Warning: Citation `QiQi' on page 7 undefined on input line 251.
+LaTeX Warning: Citation `Constantine2015' on page 5 undefined on input line 195
+.
 
-[7] [8] [9] [10]
 
-LaTeX Warning: Marginpar on page 11 moved.
+LaTeX Warning: Citation `Russi' on page 5 undefined on input line 195.
+
+[5 <./Regularization-all-in-one.pdf>]
+
+LaTeX Warning: Citation `Russi' on page 6 undefined on input line 211.
+
+
+LaTeX Warning: Citation `Russi' on page 6 undefined on input line 225.
+
+[6]
+
+LaTeX Warning: Citation `Constantine2015' on page 7 undefined on input line 243
+.
+
+
+LaTeX Warning: Citation `Lea2000' on page 7 undefined on input line 254.
+
+
+LaTeX Warning: Citation `Qiqi2014' on page 7 undefined on input line 254.
+
+[7] [8]
+
+LaTeX Warning: Citation `Tarantola_book' on page 9 undefined on input line 317.
+
+
+[9]
+
+LaTeX Warning: Citation `Constantine2015' on page 10 undefined on input line 33
+8.
+
+[10]
+
+LaTeX Warning: Citation `Wesson' on page 11 undefined on input line 347.
+
+
+LaTeX Warning: Citation `KU_TOTALF' on page 11 undefined on input line 348.
+
+
+LaTeX Warning: Citation `battaglia' on page 11 undefined on input line 348.
+
+
+LaTeX Warning: Citation `KU_TOTALF' on page 11 undefined on input line 349.
 
 
 LaTeX Warning: Marginpar on page 11 moved.
 
 [11]
-<images/eigs.png, id=74, 457.71pt x 452.69125pt>
+<images/eigs.png, id=75, 457.71pt x 452.69125pt>
 File: images/eigs.png Graphic file (type png)
 <use images/eigs.png>
-Package pdftex.def Info: images/eigs.png  used on input line 379.
+Package pdftex.def Info: images/eigs.png  used on input line 387.
 (pdftex.def)             Requested size: 137.31406pt x 135.80841pt.
-<images/surr.png, id=76, 469.755pt x 442.65375pt>
+<images/surr.png, id=77, 469.755pt x 442.65375pt>
 File: images/surr.png Graphic file (type png)
 <use images/surr.png>
-Package pdftex.def Info: images/surr.png  used on input line 379.
+Package pdftex.def Info: images/surr.png  used on input line 387.
 (pdftex.def)             Requested size: 140.92758pt x 132.79713pt.
  [12 <./images/eigs.png> <./images/surr.png>]
-<images/suffsum.png, id=82, 457.71pt x 438.63875pt>
+
+LaTeX Warning: Citation `Constantine2015' on page 13 undefined on input line 39
+9.
+
+<images/suffsum.png, id=83, 457.71pt x 438.63875pt>
 File: images/suffsum.png Graphic file (type png)
 <use images/suffsum.png>
-Package pdftex.def Info: images/suffsum.png  used on input line 403.
+Package pdftex.def Info: images/suffsum.png  used on input line 411.
 (pdftex.def)             Requested size: 137.31406pt x 131.59264pt.
- [13] [14 <./images/suffsum.png>]
-<images/stars.png, id=91, 383.4325pt x 263.98625pt>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [13]
+[14 <./images/suffsum.png>]
+<images/stars.png, id=92, 383.4325pt x 263.98625pt>
 File: images/stars.png Graphic file (type png)
 <use images/stars.png>
-Package pdftex.def Info: images/stars.png  used on input line 424.
+Package pdftex.def Info: images/stars.png  used on input line 432.
 (pdftex.def)             Requested size: 115.03062pt x 79.19647pt.
-<images/minvec2.png, id=92, 401.5pt x 263.98625pt>
+<images/minvec2.png, id=93, 401.5pt x 263.98625pt>
 File: images/minvec2.png Graphic file (type png)
 <use images/minvec2.png>
-Package pdftex.def Info: images/minvec2.png  used on input line 424.
+Package pdftex.def Info: images/minvec2.png  used on input line 432.
 (pdftex.def)             Requested size: 120.45091pt x 79.19647pt.
-<images/minvec4.png, id=93, 382.42876pt x 263.98625pt>
+<images/minvec4.png, id=94, 382.42876pt x 263.98625pt>
 File: images/minvec4.png Graphic file (type png)
 <use images/minvec4.png>
-Package pdftex.def Info: images/minvec4.png  used on input line 424.
+Package pdftex.def Info: images/minvec4.png  used on input line 432.
 (pdftex.def)             Requested size: 114.7295pt x 79.19647pt.
- [15 <./images/stars.png> <./images/minvec2.png> <./images/minvec4.png>]
-[16] (jrh_proposal.aux)
+ [15 <./images/stars.png> <./images/minvec2.png> <./images/minvec4.png>] [16] (
+jrh_proposal.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 15229 strings out of 492970
- 294584 string characters out of 3126594
- 347074 words of memory out of 3000000
- 18648 multiletter control sequences out of 15000+200000
- 11521 words of font info for 44 fonts, out of 3000000 for 9000
+ 15215 strings out of 492970
+ 294233 string characters out of 3126594
+ 345786 words of memory out of 3000000
+ 18633 multiletter control sequences out of 15000+200000
+ 11830 words of font info for 45 fonts, out of 3000000 for 9000
  1302 hyphenation exceptions out of 8191
- 62i,23n,76p,2365b,712s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 62i,23n,76p,2365b,710s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
 /cm/cmbx10.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
-blic/amsfonts/cm/cmcsc10.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/
-fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/Owner/AppData/Local/Program
-s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Owner/AppData/
-Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/Ow
-ner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb>
+blic/amsfonts/cm/cmbx8.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fo
+nts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Users/Owner/AppData/Local/Programs
+/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/Owner/AppData/L
+ocal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Ow
+ner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi5.pfb>
 <C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/c
-m/cmmi8.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publi
-c/amsfonts/cm/cmr10.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts
-/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTe
-X 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/Owner/AppData/Local/Pro
-grams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/Owner/AppDat
-a/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users
-/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.p
+m/cmmi7.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publi
+c/amsfonts/cm/cmmi8.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts
+/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Owner/AppData/Local/Programs/MiKT
+eX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/Owner/AppData/Local/Pr
+ograms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/Owner/AppDa
+ta/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/
+Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.p
 fb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfont
-s/cm/cmsy8.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
-blic/amsfonts/cm/cmti10.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/f
-onts/type1/public/amsfonts/cm/cmti7.pfb><C:/Users/Owner/AppData/Local/Programs/
-MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti8.pfb><C:/Users/Owner/AppData/Loc
-al/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/Owne
-r/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.
-pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfon
-ts/symbols/msbm7.pfb>
-Output written on jrh_proposal.pdf (16 pages, 535522 bytes).
+s/cm/cmsy7.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
+blic/amsfonts/cm/cmsy8.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fo
+nts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/Owner/AppData/Local/Programs/
+MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti7.pfb><C:/Users/Owner/AppData/Loc
+al/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti8.pfb><C:/Users/Owner
+/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C
+:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/sym
+bols/msbm10.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/p
+ublic/amsfonts/symbols/msbm7.pfb>
+Output written on jrh_proposal.pdf (16 pages, 543864 bytes).
 PDF statistics:
- 165 PDF objects out of 1000 (max. 8388607)
+ 169 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  48 words of extra memory for PDF output out of 10000 (max. 10000000)
 

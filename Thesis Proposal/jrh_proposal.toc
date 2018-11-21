@@ -13,7 +13,6 @@
 \contentsline {subsubsection}{DFO in the Active Variables Only}{10}
 \contentsline {subsubsection}{Representations and Surrogate Modeling}{10}
 \contentsline {subsubsection}{Solving the Forward Problem}{11}
-\contentsline {subsubsection}{Forming the Misfit Function}{11}
 \contentsline {subsection}{Application: Callibrated Anomolous Diffusion in Tokamak Plasmas}{11}
 \contentsline {subsection}{Application: Magnetic Equilibria in Tokamaks}{11}
 \contentsline {section}{Preliminary Results and Research Plan}{11}
