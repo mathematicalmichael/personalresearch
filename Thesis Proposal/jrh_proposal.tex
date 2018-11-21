@@ -6,6 +6,8 @@
 \usepackage{scalerel}
 
 
+
+
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\R}{\mathbb{R}}
@@ -208,7 +210,7 @@ W=U\Sigma V^*,
 
 \noindent where $U$ is $N \times N$ unitary, $\Sigma$ is $N \times N$ diagonal with the singular values of $W$ along its diagonal, and $V^*$ is $N \times N$ unitary. With the singular values of $W$ in hand, we search for a drop-off in the spectrum of $W$. In detail, we plot the singular values, $\{\sigma_i\}_{i=1}^n$ and seek a drop-off in magnitude between some pair of singular values, $\sigma_{j}$ and $\sigma_{j+1}$. The active subspace is the span of $u_1,\ldots,u_{j}$, which are the first $j$ columns of $W$, the so-called ``left singular vectors" of $W$. 
 
-The fact that $u_1,\ldots,u_{j}$ correspond to the nontrivial singular values is exactly why they account for the most amount of variance in function values. In fact, one can view AS analysis as an artful choice of principal components after a \textit{full} Principal Component Analysis (PCA) is performed in the gradient space $W$; for more details on this viewpoint, we refer the interested reader to Section 6.4 in \cite{Russi}.
+The fact that $u_1,\ldots,u_{j}$ correspond to the nontrivial singular values is exactly why they account for the most amount of variance in function values. In fact, one can view active subspace analysis as an artful choice of principal components after a \textit{full} Principal Component Analysis (PCA) is performed in the gradient space $W$; for more details on this viewpoint, we refer the interested reader to Section 6.4 in \cite{Russi}.
 
 For a point $\lambda \in \Lambda$, we define
 
@@ -227,7 +229,7 @@ In practice, finding an active subspace of $f$ will require forming an approxima
 In the following, we assume that we lack an analytic form of $\nabla f$; if the analytic gradient is available, the proceeding Monte Carlo method remains valid, and all notations corresponding to approximating $\nabla f$ may be dropped.
 
 
-One initializes the method by performing $S$ random draws of $\lambda_i \in \Lambda$. We then compute $f(\lambda_i)$ for all $i=1,\ldots,S$ samples, which we note will require, at the very least, $S$ evaluations of $f$; in a realistic setting, this would require $S$ solves of a model such as a PDE-constrained system. In our notations, we have $\mathcal{D}=\{f(\lambda_i)\}_{i=1}^S$. Next, we need $\nabla_\Lambda f$ evaluated at $\lambda_i$ for all $i=1,\ldots,S$, which we assume that we do not have in closed analytic form. Hence, we generally need some gradient approximation method, and typically a locally linear approximation to the gradient is a fair balance between reasonably estimating the gradient and not pushing computational expenses to an unreasonable regime. With this approximation formed, we denote each estimation to $\nabla f(\lambda_i)$ with $\reallywidehat{\nabla f}(\lambda_i)$ and we define the $N \times S$ matrix $\tilde{W}$ (which is presented below as $\tilde{W}^\top$)
+One initializes the method by performing $S$ random draws of $\lambda_i \in \Lambda$. We then compute $f(\lambda_i)$ for all $i=1,\ldots,S$ samples, which we note will require, at the very least, $S$ evaluations of $f$; in a realistic setting, this would require $S$ solves of a model such as a PDE-constrained system. We define $D_S=\{(\lambda_i,f(\lambda_i))\}_{i=1}^S\in \mathcal{D}$, a set of $S$ pairs of samples $\lambda_i$ and their function values. Next, we need $\nabla_\Lambda f$ evaluated at $\lambda_i$ for all $i=1,\ldots,S$, which we assume that we do not have in closed analytic form. Hence, we generally need some gradient approximation method, and typically a locally linear approximation to the gradient is a fair balance between reasonably estimating the gradient and not pushing computational expenses to an unreasonable regime. With this approximation formed, we denote each estimation to $\nabla f(\lambda_i)$ with $\reallywidehat{\nabla f}(\lambda_i)$ and we define the $N \times S$ matrix $\tilde{W}$ (which is presented below as $\tilde{W}^\top$)
 
 \begin{equation} \label{eq:9}
 \tilde{W}^\top:=\begin{bmatrix}
@@ -237,7 +239,7 @@ One initializes the method by performing $S$ random draws of $\lambda_i \in \Lam
 \end{bmatrix}.
 \end{equation}  
 
-Forming the SVD of $\tilde{W}$, $\tilde{W}=\tilde{U}\tilde{\Sigma}\tilde{V}^*$, we search for a drop off in the magnitude of the singular values $\{\tilde{\sigma}_i\}_{i=1}^S$. Assuming such a drop off occurs for an index $j:1<j<S$, we have the $j$ corresponding left singular vectors,$ \tilde{u},\ldots,\tilde{u}_{j}$.  We let $A\left(f;\mathcal{D}\right):=\text{span}\{\tilde{u},\ldots,\tilde{u}_{j}\}$ to denote the active subspace of $f$ with respect to the data $\mathcal{D}$. We choose to use a notation with $\mathcal{D}$ included to emphasize the dependence of the active subspace on the random draws made in $\Lambda$, which led to our particular $\mathcal{D}$.
+Forming the SVD of $\tilde{W}$, $\tilde{W}=\tilde{U}\tilde{\Sigma}\tilde{V}^*$, we search for a drop off in the magnitude of the singular values $\{\tilde{\sigma}_i\}_{i=1}^S$. Assuming such a drop off occurs for an index $j:1<j<S$, we have the $j$ corresponding left singular vectors,$ \tilde{u},\ldots,\tilde{u}_{j}$.  We let $A\left(f; D_S \right):=\text{span}\{\tilde{u},\ldots,\tilde{u}_{j}\}$ to denote the active subspace of $f$ with respect to the samples $D_S$. We choose to use a notation with $D_S$ included to emphasize the dependence of the active subspace on the random draws made in $\Lambda$, which led to our particular $D_S$ set of samples.
 
 In practice, we can check the extent to which the active subspace accounts for functions values $f(\lambda)$ 
 by checking for resolution in a \emph{sufficient summary plot} \cite{Constantine2015}, where we plot active variables against function values. In these plots, we hope to see a pattern between the active variables versus their function values. For example, if $f$ is quadratic in its active variables, then we expect to see quadratic-resolved sufficient summary plots.
@@ -328,7 +330,7 @@ A challenge in learning the active subspace is exploring $\Lambda$ thoroughly en
 
 \subsubsection{Lipschitz Constant Learning} We explore ways in which one may approximate the $L_1$ Lipschitz constant of $f$ using sampling. Since many DFO algorithms use parameters for step sizes and smoothing that depend on $L_1$, the literature [\textbf{KS}] contains attempts to learn Lipschitz constants from sampling alone. We are most interested in methods that require few evaluations of $f$.
 
-\subsection{Using the Active Subspace} Generally, if an active subspace $A$ exists for a model $f$, dimension reduction may be performed by, for instance, projecting inputs $\lambda$ into $A$ then evaluating $f$ for the projection; i.e., form $f\left(\mathcal{P}_A(\lambda)\right)$. Computational expense may be saved by projecting points $\lambda$ into their so-called active variables, since such projections are of lower dimension than $\lambda$. This property gives the ability to save computational expense for a number of problems in Uncertainty Quantification, including optimization, representation and solving inverse problems. In the following, we consider ways in which we may use the information given by an active subspace $A(f;\mathcal{D})$.
+\subsection{Using the Active Subspace} Generally, if an active subspace $A$ exists for a model $f$, dimension reduction may be performed by, for instance, projecting inputs $\lambda$ into $A$ then evaluating $f$ for the projection; i.e., form $f\left(\mathcal{P}_A(\lambda)\right)$. Computational expense may be saved by projecting points $\lambda$ into their so-called active variables, since such projections are of lower dimension than $\lambda$. This property gives the ability to save computational expense for a number of problems in Uncertainty Quantification, including optimization, representation and solving inverse problems. In the following, we consider ways in which we may use the information given by an active subspace $A(f;D_S)$.
 
 \subsubsection{DFO in the Active Variables Only} Given some $f$ and its corresponding active subspace $A(f;\mathcal{D})$ found by the Monte Carlo method discussed in the preceding section, we are interested in investigating the effectiveness of only optimizing $f$ in its active variables. There are several approaches one may consider, and handful of those approaches and their corresponding results are discussed in the proceeding section. The most compelling approach we have observed is to modify the DFO algorithm discussed above to only take random walks in directions lying in $A$. That is, at iteration $k$, standard DFO algorithms [\textbf{CW}] use random walks given by drawing a random vector $v^{(k)}$ of dimension $N$ in which every component $v_i^{(k)},i=1,\ldots,N$ of $v$ is  drawn from a specified normal distribution. Instead, given the first $j$ singular unit vectors $u_1,\ldots,u_j$ corresponding to the SVD of $\hat{W}$, one may take $j$ draws from a specified normal distribution, which we denote with $s_i\sim N(\mu,\sigma^2)$, and form the random vector $v$ for the $k$-th step in a DFO algorithm as $v^{(k)}=\sum_{i=1}^js_iu_i$, which is just a linear combination of the active variables of $f$ with coefficients given by random draws; we see that such a vector could be interpreted as a random walk in $A$.
 
@@ -396,11 +398,11 @@ We revisit Example 3, and present two different active subspaces of $f$ -- one a
 
 In Figure 2, we show the results from the first active subspace of $f$, which was obtained from 1000 iid uniform random samples in $[-1,1]^{10}$; i.e., for any sample $\lambda_i$, we have $\lambda_i \sim U[-1,1]^{10}$. The plot on the left-hand side of Figure 2 shows the resulting eigenvalues (the squares of the singular values) from taking the SVD of $\hat{W}$, which we recall is simply a matrix (in this case $1000 \times 10$) where row $i$ is the transpose of approximated gradient of $f$ evaluated at a sample $\lambda_i$, $i=1,\ldots,1000$. Notice that there is one dominating eigenvalue, which is on the order of $10^6$; this matches intuition since the final term in $f(\lambda)$, given by $2^{10}\lambda_{10}^2$, will be, at most, on the order of $10^3$ (and again, eigenvalues are the squares of singular values). This eigenvalue corresponds to $\lambda_{10}$, meaning that the value of $\lambda_{10}$ has the most impact out of all other parameters on the function values $f(\lambda)$. Notice that the eigenvalue near $10^6$ does not dominate the other eigenvalues by much; indeed, another eigenvalue appears around the order $10^5$. Since the second-to-last term in $f$ is small (with coefficient $2^{-9}$), this order $10^5$ eigenvalue must correspond to $2^8\lambda_8^2$.
 
-The active subspace implementation used here \cite{Constantine2015} detects the $10^6$ order eigenvalue as dominating enough to determine that $A(f;\mathcal{D})$ is one-dimensional, spanned by the singular vector corresponding to the direction $(0,\ldots,0,1)$, which is a unit vector in the axis of $\lambda_{10}$, orthogonal to all other axes in $\Lambda$.
+The active subspace implementation used here \cite{Constantine2015} detects the $10^6$ order eigenvalue as dominating enough to determine that $A$ is one-dimensional, spanned by the singular vector corresponding to the direction $(0,\ldots,0,1)$, which is a unit vector in the axis of $\lambda_{10}$, orthogonal to all other axes in $\Lambda$.
 
 The plot on the right-hand side of Figure 2 shows the sufficient summary plot, where the 1000 samples are projected into $A$ using \eqref{eq:7} and their values are plotted along the horizontal axis against their original function values on the vertical axis. The sufficient summary plot can be thought of as a visualization of $f$ along the axes for which $f$ is active; thus, we are seeing a quadratic response in $f$ versus points projected onto the $\lambda_{10}$ axis. We use the mentioned software tools to fit the response with a polynomial surrogate, which is a fit where $R^2\approx 0.9$. Indeed, points do not fall perfectly along the surrogate since there are other parameters which contribute to the value of $f$.
 
-Now we investigate the effectiveness of learning $A(f)$ with different samples. Since we want to avoid evaluating $f$ heavily and we want to perform several analyses of $f$, it will be advantageous to ``recycle" function values whenever possible. 
+Now we investigate the effectiveness of learning $A$ with different samples. Since we want to avoid evaluating $f$ heavily and we want to perform several analyses of $f$, it will be advantageous to ``recycle" function values whenever possible. 
 
 
 
@@ -477,10 +479,13 @@ We outline a rough timeline for the remaining 2 years in a 5.5 year plan.
 %%%%%%%%%%%%%% References %%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+%\printbibliography
+
 % Here are the papers I referrenced along with how they are shown above
 
-%[Constantine Book] -> This is your Constantine 2015, so Ill change those throughout to %\cite{Constantine2015}
-%\bibitem{Constantine} Constantine, Paul G. ``Active Subspaces: Emerging Ideas for Dimension Reduction in Parameter Studies." SIAM, 2015.
+% All citations that need to be changed to %\cite{.} are bolded
+
+
 
 %[Constantine MC]
 %Constantine, Eftekhari, Wakin. ``Computing Active Subspaces Efficiently with Gradient Sketching." 2015.
@@ -488,10 +493,14 @@ We outline a rough timeline for the remaining 2 years in a 5.5 year plan.
 % [C/W]
 %\bibitem{Chen and Wild} Chen and Wild. ``Randomized Derivative-Free Optimization of Noisy Convex Functions." Funded by the Department of Energy. 2015.
 
-% [RUSSI]
+% [KS] 
+% Kvasov and Sergeyev. "Lipschitz gradeints for global optimization in one-point-based partitioning scheme." 2013.
+
+% [RUSSI] -> Changed these to \cite{Russi}
 %\bibitem{Russi} Russi, Trent M. ``Uncertainty Quantification with Experimental Data and Complex System Models." Dissertation, University of California Berkeley. 2010.
 
-% [KS]
-% Kvasov and Sergeyev. "Lipschitz gradeints for global optimization in one-point-based partitioning scheme." 2013.
+
+%[Constantine Book] -> This is your Constantine 2015, so I changed those throughout to %\cite{Constantine2015}
+%\bibitem{Constantine} Constantine, Paul G. ``Active Subspaces: Emerging Ideas for Dimension Reduction in Parameter Studies." SIAM, 2015.
 
 \end{document}

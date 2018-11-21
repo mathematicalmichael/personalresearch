@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.11.7)  20 NOV 2018 19:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.11.7)  20 NOV 2018 20:07
 entering extended mode
 **./jrh_proposal.tex
 (jrh_proposal.tex
@@ -564,24 +564,24 @@ Package: titlesec 2016/03/21 v2.10.2 Sectioning titles
 ) (jrh_proposal.aux)
 \openout1 = `jrh_proposal.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Try loading font information for U+msa on input line 57.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Try loading font information for U+msa on input line 59.
 
 ("C:\Users\Owner\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 57.
+LaTeX Font Info:    Try loading font information for U+msb on input line 59.
 ("C:\Users\Owner\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
@@ -667,16 +667,16 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
  ABD: EveryShipout initializing macros
 
-LaTeX Warning: Citation `Butler' on page 1 undefined on input line 65.
+LaTeX Warning: Citation `Butler' on page 1 undefined on input line 67.
 
 
-LaTeX Warning: Citation `tarantola_book' on page 1 undefined on input line 65.
+LaTeX Warning: Citation `tarantola_book' on page 1 undefined on input line 67.
 
 
-LaTeX Warning: Citation `Russi' on page 1 undefined on input line 67.
+LaTeX Warning: Citation `Russi' on page 1 undefined on input line 69.
 
 
-LaTeX Warning: Citation `Constantine2015' on page 1 undefined on input line 67.
+LaTeX Warning: Citation `Constantine2015' on page 1 undefined on input line 69.
 
 
 (jrh_proposal.toc)
@@ -685,109 +685,109 @@ LaTeX Warning: Citation `Constantine2015' on page 1 undefined on input line 67.
 
  [1{C:/Users/Owner/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
 
-LaTeX Warning: Citation `BJW18a' on page 2 undefined on input line 101.
+LaTeX Warning: Citation `BJW18a' on page 2 undefined on input line 103.
 
 
-LaTeX Warning: Citation `tarantola_book' on page 2 undefined on input line 101.
+LaTeX Warning: Citation `tarantola_book' on page 2 undefined on input line 103.
 
 
 
-LaTeX Warning: Citation `Stuart_Bayesian' on page 2 undefined on input line 101
+LaTeX Warning: Citation `Stuart_Bayesian' on page 2 undefined on input line 103
 .
 
 
-LaTeX Warning: Citation `BJW18a' on page 2 undefined on input line 101.
+LaTeX Warning: Citation `BJW18a' on page 2 undefined on input line 103.
 
 
-LaTeX Warning: Citation `BJW18a' on page 2 undefined on input line 105.
+LaTeX Warning: Citation `BJW18a' on page 2 undefined on input line 107.
 
 
-LaTeX Warning: Citation `tarantola_book' on page 2 undefined on input line 119.
+LaTeX Warning: Citation `tarantola_book' on page 2 undefined on input line 121.
 
 
 [2]
 
-LaTeX Warning: Citation `tarantola_book' on page 3 undefined on input line 121.
+LaTeX Warning: Citation `tarantola_book' on page 3 undefined on input line 123.
 
 
 
-LaTeX Warning: Citation `BJW18a' on page 3 undefined on input line 130.
+LaTeX Warning: Citation `BJW18a' on page 3 undefined on input line 132.
 
 
-LaTeX Warning: Citation `tarantola_book' on page 3 undefined on input line 137.
-
-
-
-LaTeX Warning: Citation `BJW18a' on page 3 undefined on input line 139.
-
-
-LaTeX Warning: Citation `tarantola_book' on page 3 undefined on input line 140.
+LaTeX Warning: Citation `tarantola_book' on page 3 undefined on input line 139.
 
 
 
-Overfull \hbox (5.4pt too wide) detected at line 147
+LaTeX Warning: Citation `BJW18a' on page 3 undefined on input line 141.
+
+
+LaTeX Warning: Citation `tarantola_book' on page 3 undefined on input line 142.
+
+
+
+Overfull \hbox (5.4pt too wide) detected at line 149
 \OML/cmm/m/it/10 T\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 \OT1/cmr/m/n/10 ) = [] [] 
 \OML/cmm/m/it/10 ;
  []
 
 [3]
 
-LaTeX Warning: Citation `BJW18a' on page 4 undefined on input line 159.
+LaTeX Warning: Citation `BJW18a' on page 4 undefined on input line 161.
 
 <Regularization-all-in-one.pdf, id=29, 1450.65915pt x 808.09508pt>
 File: Regularization-all-in-one.pdf Graphic file (type pdf)
 <use Regularization-all-in-one.pdf>
-Package pdftex.def Info: Regularization-all-in-one.pdf  used on input line 178.
+Package pdftex.def Info: Regularization-all-in-one.pdf  used on input line 180.
 
 (pdftex.def)             Requested size: 397.485pt x 221.41917pt.
 [4]
 
-LaTeX Warning: Citation `Constantine2015' on page 5 undefined on input line 195
+LaTeX Warning: Citation `Constantine2015' on page 5 undefined on input line 197
 .
 
 
-LaTeX Warning: Citation `Russi' on page 5 undefined on input line 195.
+LaTeX Warning: Citation `Russi' on page 5 undefined on input line 197.
 
 [5 <./Regularization-all-in-one.pdf>]
 
-LaTeX Warning: Citation `Russi' on page 6 undefined on input line 211.
+LaTeX Warning: Citation `Russi' on page 6 undefined on input line 213.
 
 
-LaTeX Warning: Citation `Russi' on page 6 undefined on input line 225.
+LaTeX Warning: Citation `Russi' on page 6 undefined on input line 227.
 
 [6]
 
-LaTeX Warning: Citation `Constantine2015' on page 7 undefined on input line 243
+LaTeX Warning: Citation `Constantine2015' on page 7 undefined on input line 245
 .
 
 
-LaTeX Warning: Citation `Lea2000' on page 7 undefined on input line 254.
+LaTeX Warning: Citation `Lea2000' on page 7 undefined on input line 256.
 
 
-LaTeX Warning: Citation `Qiqi2014' on page 7 undefined on input line 254.
+LaTeX Warning: Citation `Qiqi2014' on page 7 undefined on input line 256.
 
 [7] [8]
 
-LaTeX Warning: Citation `Tarantola_book' on page 9 undefined on input line 317.
+LaTeX Warning: Citation `Tarantola_book' on page 9 undefined on input line 319.
 
 
 [9]
 
-LaTeX Warning: Citation `Constantine2015' on page 10 undefined on input line 33
-8.
+LaTeX Warning: Citation `Constantine2015' on page 10 undefined on input line 34
+0.
 
 [10]
 
-LaTeX Warning: Citation `Wesson' on page 11 undefined on input line 347.
+LaTeX Warning: Citation `Wesson' on page 11 undefined on input line 349.
 
 
-LaTeX Warning: Citation `KU_TOTALF' on page 11 undefined on input line 348.
+LaTeX Warning: Citation `KU_TOTALF' on page 11 undefined on input line 350.
 
 
-LaTeX Warning: Citation `battaglia' on page 11 undefined on input line 348.
+LaTeX Warning: Citation `battaglia' on page 11 undefined on input line 350.
 
 
-LaTeX Warning: Citation `KU_TOTALF' on page 11 undefined on input line 349.
+LaTeX Warning: Citation `KU_TOTALF' on page 11 undefined on input line 351.
 
 
 LaTeX Warning: Marginpar on page 11 moved.
@@ -796,22 +796,22 @@ LaTeX Warning: Marginpar on page 11 moved.
 <images/eigs.png, id=75, 457.71pt x 452.69125pt>
 File: images/eigs.png Graphic file (type png)
 <use images/eigs.png>
-Package pdftex.def Info: images/eigs.png  used on input line 387.
+Package pdftex.def Info: images/eigs.png  used on input line 389.
 (pdftex.def)             Requested size: 137.31406pt x 135.80841pt.
 <images/surr.png, id=77, 469.755pt x 442.65375pt>
 File: images/surr.png Graphic file (type png)
 <use images/surr.png>
-Package pdftex.def Info: images/surr.png  used on input line 387.
+Package pdftex.def Info: images/surr.png  used on input line 389.
 (pdftex.def)             Requested size: 140.92758pt x 132.79713pt.
  [12 <./images/eigs.png> <./images/surr.png>]
 
-LaTeX Warning: Citation `Constantine2015' on page 13 undefined on input line 39
-9.
+LaTeX Warning: Citation `Constantine2015' on page 13 undefined on input line 40
+1.
 
 <images/suffsum.png, id=83, 457.71pt x 438.63875pt>
 File: images/suffsum.png Graphic file (type png)
 <use images/suffsum.png>
-Package pdftex.def Info: images/suffsum.png  used on input line 411.
+Package pdftex.def Info: images/suffsum.png  used on input line 413.
 (pdftex.def)             Requested size: 137.31406pt x 131.59264pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -821,17 +821,17 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 <images/stars.png, id=92, 383.4325pt x 263.98625pt>
 File: images/stars.png Graphic file (type png)
 <use images/stars.png>
-Package pdftex.def Info: images/stars.png  used on input line 432.
+Package pdftex.def Info: images/stars.png  used on input line 434.
 (pdftex.def)             Requested size: 115.03062pt x 79.19647pt.
 <images/minvec2.png, id=93, 401.5pt x 263.98625pt>
 File: images/minvec2.png Graphic file (type png)
 <use images/minvec2.png>
-Package pdftex.def Info: images/minvec2.png  used on input line 432.
+Package pdftex.def Info: images/minvec2.png  used on input line 434.
 (pdftex.def)             Requested size: 120.45091pt x 79.19647pt.
 <images/minvec4.png, id=94, 382.42876pt x 263.98625pt>
 File: images/minvec4.png Graphic file (type png)
 <use images/minvec4.png>
-Package pdftex.def Info: images/minvec4.png  used on input line 432.
+Package pdftex.def Info: images/minvec4.png  used on input line 434.
 (pdftex.def)             Requested size: 114.7295pt x 79.19647pt.
  [15 <./images/stars.png> <./images/minvec2.png> <./images/minvec4.png>] [16] (
 jrh_proposal.aux)
@@ -872,7 +872,7 @@ al/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti8.pfb><C:/Users/Owner
 :/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/sym
 bols/msbm10.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/p
 ublic/amsfonts/symbols/msbm7.pfb>
-Output written on jrh_proposal.pdf (16 pages, 543864 bytes).
+Output written on jrh_proposal.pdf (16 pages, 543990 bytes).
 PDF statistics:
  169 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
