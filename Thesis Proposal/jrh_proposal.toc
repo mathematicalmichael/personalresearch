@@ -8,17 +8,16 @@
 \contentsline {subsection}{Impact of Noise on MAP Point and Updated Prior}{9}
 \contentsline {subsection}{Learning and Sampling}{9}
 \contentsline {subsubsection}{Learning the Active Subspace}{9}
-\contentsline {subsubsection}{Lipschitz Constant Learning}{10}
-\contentsline {subsection}{Using the Active Subspace}{10}
-\contentsline {subsubsection}{DFO in the Active Variables Only}{10}
+\contentsline {subsubsection}{Lipschitz Constant Learning}{9}
+\contentsline {subsection}{Using the Active Subspace}{9}
+\contentsline {subsubsection}{DFO in the Active Variables Only}{9}
 \contentsline {subsubsection}{Representations and Surrogate Modeling}{10}
-\contentsline {subsubsection}{Solving the Forward Problem}{11}
-\contentsline {subsection}{Application: Callibrated Anomolous Diffusion in Tokamak Plasmas}{11}
-\contentsline {subsection}{Application: Magnetic Equilibria in Tokamaks}{11}
+\contentsline {subsubsection}{Solving the Forward Problem}{10}
+\contentsline {subsection}{Application: Callibrated Anomolous Diffusion in Tokamak Plasmas}{10}
 \contentsline {section}{Preliminary Results and Research Plan}{11}
 \contentsline {subsection}{Forming a Data-Consistent Deregularization for Nonlinear $f$}{11}
-\contentsline {subsection}{Impact of Noise on MAP Point and Updated Prior}{12}
+\contentsline {subsection}{Impact of Noise on MAP Point and Updated Prior}{11}
 \contentsline {subsection}{Learning and Sampling}{12}
-\contentsline {subsection}{Using the Active Subspace}{14}
+\contentsline {subsection}{Using the Active Subspace}{13}
 \contentsline {subsection}{Software Dissemination}{15}
 \contentsline {section}{Timeline}{15}
