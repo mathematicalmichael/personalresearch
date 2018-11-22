@@ -355,6 +355,15 @@ investigate the data-consistent calibration of an anomalous diffusion model in a
 \subsection{Application: Magnetic Equilibria in Tokamaks}
 \todo{Varis: I'll write this, covering Grad-Shafonov Equations, and why these MHD equilibria are important to kinetic simulations.}
 
+In dimensionless coordinates, the axisymmetric  Grad-Shafronox equations are \cite{Takeda91}
+\begin{equation}
+r\frac{\partial}{\partial r} \left( \frac{1}{r} \frac{\partial }{\psi_n}{\partial r} \right) + \frac{\partial^2 \psi_n}{\partial z^2} = -\alpha^2 \half \frac{d f^2}{d \psi_n} - r^2\alpha^2 \frac{dp}{d\psi_n}
+\end{equation}
+
+In equilibrium fitting to experimental data\cite{Lao85}, $p$ and $f^2$ are expanded as basis functions(usually polynomials) in $\psi_n$, with the extra constraint that $p$ and $f^2$ vanish at the boundary($\psi_n=1$).  
+
+
+
 
 \todo{Varis: I'll write a brief section transitioning from current toy problems to pde models to plasma physics models}
 
