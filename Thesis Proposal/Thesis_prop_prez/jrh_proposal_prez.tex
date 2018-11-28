@@ -1,0 +1,167 @@
+\documentclass[11pt]{beamer}
+
+
+\usepackage{amssymb, amsmath, graphicx, caption, enumerate}
+\graphicspath{ {images/} }
+\usepackage{amsthm}
+\usepackage{xargs}
+\usepackage{scalerel}
+
+
+
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\op}[1]{\left(#1\right)}
+\newcommand{\cp}[1]{\left[#1\right]}
+\newcommand{\av}[1]{\left| #1\right|}
+\newcommand{\st}[1]{\left\{#1\right\}}
+
+
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+\newcommandx{\question}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
+\newcommandx{\change}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
+\newcommandx{\add}[2][1=]{\todo[linecolor=OliveGreen,backgroundcolor=OliveGreen!25,bordercolor=OliveGreen,#1]{#2}}
+\newcommandx{\improve}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
+\newcommandx{\thiswillnotshow}[2][1=]{\todo[disable,#1]{#2}}
+\newcommandx{\remove}[2][1=]{\todo[linecolor=yelllow,backgroundcolor=yellow!10,bordercolor=red,#1]{#2}}
+
+
+\newcommand\reallywidehat[1]{\arraycolsep=0pt\relax%
+\begin{array}{c}
+\stretchto{
+  \scaleto{
+    \scalerel*[\widthof{\ensuremath{#1}}]{\kern-.5pt\bigwedge\kern-.5pt}
+    {\rule[-\textheight/2]{1ex}{\textheight}} %WIDTH-LIMITED BIG WEDGE
+  }{\textheight} % 
+}{0.5ex}\\           % THIS SQUEEZES THE WEDGE TO 0.5ex HEIGHT
+#1\\                 % THIS STACKS THE WEDGE ATOP THE ARGUMENT
+\rule{-1ex}{0ex}
+\end{array}
+}
+
+
+\usetheme{CUDenver}
+\renewcommand{\familydefault}{\sfdefault}
+\usefonttheme[onlymath]{serif}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\setbeamertemplate{itemize items}{>>}
+\setbeamertemplate{itemize subitem}[square]
+\setbeamertemplate{itemize subsubitem}[ball]
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+
+
+\author{Jordan Hall}
+\title[CUDenver Theme]{Thesis Proposal}
+\institute[UCD]{
+Department of Mathematical and Statistical Sciences\\
+University of Colorado Denver
+}
+\date{Tuesday, December 4, 2018}
+
+\begin{document}
+% ------------------------------------------------
+\begin{frame}[t,plain]
+    \titlepage
+\end{frame}
+
+% start the content of the presentation
+
+\begin{frame}{Overview}
+\tableofcontents
+\end{frame}
+
+
+% ------------------------------------------------
+\section{Literature Review and Framework}
+% ------------------------------------------------
+\begin{frame}
+
+\begin{center}
+\textbf{Notation}
+\end{center}
+
+\begin{itemize}
+
+	\item We define a parameter space $\Lambda$ with dimension $N$ and a data space $\mathcal{D}$ with dimension $M$. Generally $M \leq N$.
+	
+	\item We define a parameter-to-data map $f$, which is noisy and $\nabla f$ may be inaccessible.
+	
+	\item We consider additive noise in $f$, which is modeled by draws $f(\lambda)=f(\lambda)+\epsilon(\lambda)$ for additive noise and $f(\lambda)=f(\lambda)(1+\epsilon(\lambda))$ for multiplicative noise.
+
+\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------
+\subsection{Data-Consistent Inversion}
+% ------------------------------------------------
+
+\begin{frame}
+
+\begin{itemize}
+
+	\item We will follow
+
+
+
+\end{itemize}
+
+
+
+\end{frame}
+
+
+
+
+
+
+% ------------------------------------------------
+\section{Research Questions}
+% ------------------------------------------------
+\begin{frame}
+
+$x$
+
+\end{frame}
+
+\section{Preliminary Results and Research Plan}
+% ------------------------------------------------
+\begin{frame}
+
+$x$
+
+\end{frame}
+
+
+\section{Timeline}
+% ------------------------------------------------
+\begin{frame}
+
+$x$
+
+\end{frame}
+
+
+\section{References}
+% ------------------------------------------------
+\begin{frame}
+
+$x$
+
+\end{frame}
+
+
+
+
+
+
+
+\end{document}
+
