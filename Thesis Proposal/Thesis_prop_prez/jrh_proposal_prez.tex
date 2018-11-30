@@ -57,16 +57,21 @@
 
 
 
-\author{Jordan Hall}
+\author{Jordan R. Hall}
+
 \title[CUDenver Theme]{Thesis Proposal}
+
 \institute[UCD]{
 Department of Mathematical and Statistical Sciences\\
 University of Colorado Denver
 }
+
 \date{Tuesday, December 4, 2018}
 
 \begin{document}
 % ------------------------------------------------
+
+
 \begin{frame}[t,plain]
     \titlepage
 \end{frame}
@@ -93,23 +98,29 @@ University of Colorado Denver
 	
 	\item We define a parameter-to-data map $f$, which is noisy and $\nabla f$ may be inaccessible.
 	
-	\item We consider additive noise in $f$, which is modeled by draws $f(\lambda)=f(\lambda)+\epsilon(\lambda)$ for additive noise and $f(\lambda)=f(\lambda)(1+\epsilon(\lambda))$ for multiplicative noise.
+	
+	\item We write $d=f(\lambda) \in \mathcal{D}$ to denote a particular datum corresponding to the evaluation of a point $\lambda \in \Lambda$.
 
 \end{itemize}
 
 \end{frame}
 
 % ------------------------------------------------
-\subsection{Data-Consistent Inversion}
+\subsection{Data-Consistent Inversion (DCI)}
 % ------------------------------------------------
 
 \begin{frame}
 
 \begin{itemize}
 
-	\item We will follow
+	\item Following Butler, Stuart, and Tarantola, we formulate the Stochastic Inverse Problem (SIP).
+	
+	\item  We define prior knowledge of the parameter space, given by the \emph{prior distribution}, $\pi_\Lambda^\text{prior}(\lambda)$.
 
-
+	\item We define the \emph{observed distribution}, $\pi_\mathcal{D}(d)$, which represents our uncertain state of knowledge of observed data.
+	
+	\item The SIP is the task of finding an \emph{updated} probability distribution, $\pi_\Lambda^\text{update}$, in $\Lambda$ space that combines the given prior information and data.
+	
 
 \end{itemize}
 
@@ -118,6 +129,140 @@ University of Colorado Denver
 \end{frame}
 
 
+\begin{frame}
+
+\begin{itemize}
+
+\item Given a distribution on $\lambda \in \Lambda$, the \emph{forward Uncertainty Quantification (UQ) problem} is finding the probability distribution of $f(\lambda)$. The forward UQ problem is, in its own right, a nontrivial and important problem in UQ.
+
+\item The \textit{classical Bayesian} or \textit{statistical Bayesian} solution to the inverse problem is not generally a 
+\textit{pull-back probability measure}, meaning the image of the updated distribution $\pi_\Lambda^\text{update}$ under the map $f$, called the \textit{push-forward} of $\pi_\Lambda^\text{update}$, is not equal to the observed probability distribution, $\pi_\mathcal{D}$. 
+
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{itemize}
+
+	\item Data-consistent inversion (DCI) seeks an updated solution $\pi_\Lambda^\text{update}$ for which the push-forward exactly equals $\pi_\mathcal{D}$. 
+	
+	\item To obtain such a solution, we must solve the forward problem $f(\pi_\Lambda^\text{prior})$.
+	
+	\item We denote the solution to the forward problem with $\pi_\mathcal{D}^{f(\Lambda)}(d)$.
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{itemize}
+
+
+	\item As in Butler, the data-consistent solution to the SIP is 
+	
+\begin{equation} \label{eq:1}
+\pi_\Lambda^\text{update}=\pi_\Lambda^\text{prior}(\lambda)\frac{\pi_\mathcal{D}(f(\lambda))}{\pi_\mathcal{D}^{f(\Lambda)}(f(\lambda))}.
+\end{equation}
+
+	
+\end{itemize}
+
+
+\end{frame}
+
+% ------------------------------------------------
+\subsection{Optimization Methods for Solving Inverse Problems}
+% ------------------------------------------------
+
+\begin{frame}
+
+\begin{itemize}
+
+	\item With an expensive $f$ and large $N$, approximately solving the forward UQ problem needed to form \eqref{eq:1} generally requires density estimation which converges at best near a Monte Carlo $\mathcal{O}\left(\frac{1}{\sqrt{N}} \right)$ convergence rate.
+	
+	\item The solution to the SIP can be obtained exactly or approximately by solving an equivalent deterministic convex optimization problem.
+	
+	\begin{itemize}
+		\item The classical formulation of the objective function (Tarantola) can be altered (Wildey, Butler, et al) to obtain a data-consistent (approximate) solution, depending on $f, \pi_\Lambda^{\text{prior}},$ and $\pi_\mathcal{D}(d)$.
+	\end{itemize}
+
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{itemize}
+	
+	\item Given observed data $d_{\text{obs}} \sim \pi_\mathcal{D}$ and a draw $\lambda_\text{prior}\sim \pi_\Lambda^\text{prior}$, as in Tarantola, we define the \textit{classical misfit function,}
+
+
+\begin{equation} \label{eq:2}
+S(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(f(\lambda)-d_{\text{obs}})\right|\right|_2^2+\left|\left|C_\Lambda^{-1/2}(\lambda-\lambda_{\text{prior}})\right|\right|_2^2\right).
+\end{equation} 
+
+\item In Tarantola, it is assumed that $\pi_\Lambda^\text{prior}$ and $\pi_\mathcal{D}$ are Gaussians, and the misfit function is specified by $\lambda_{\text{prior}}=\bar{\lambda}$ and $d_{\text{obs}}=\bar{d}$, the respective means of the prior and observed densities.
+
+\item The minimum of $S$ is called the maximum a posteriori point, or \textit{MAP point}, $\lambda_S^*$, and the classical solution to the SIP is $\pi_\Lambda^\text{update}(\lambda) \sim \exp(-S(\lambda_S^*)).$ 
+
+
+\end{itemize}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{itemize}
+
+	\item Widley, Butler, et al reformulate $S$ to write an objective function with a minimizer which is a data-consistent MAP point. We write the \textit{data-consistent misfit function,}
+	
+	
+	
+$$T(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(f(\lambda)-d_{\text{obs}})\right|\right|_2^2+\left|\left|C_\Lambda^{-1/2}(\lambda-\lambda_{\text{prior}})\right|\right|_2^2\right)$$
+	
+
+\begin{equation} \label{eq:3}
+-\frac{1}{2}\left(\left|\left|C_A^{-1/2}(f(\lambda)-f(\lambda_{\text{prior}}))\right|\right|_2^2\right),
+\end{equation} 
+
+\noindent where $C_A=AC_\Lambda A^T$. 
+	
+	\item An additional ``deregularization" term is appended so that if a unique solution exists, the regularization will be ``turned off." For now, we assume that $f$ is linear (or can be linearized locally), and write the matrix $A$ to define that action of $f$ on $\Lambda$. 
+
+
+
+
+
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+
+
+
+\begin{itemize}
+
+	\item We note that in the case that $\pi_\Lambda$ and $\pi_\mathcal{D}$ are Gaussian and $f$ is linear, the data-consistent solution to our inverse problem is given exactly by $\pi_\Lambda^\text{update}(\lambda)\sim \exp(-T(\lambda))$. 
+
+	\item The deregularization term will ensure a solution that updates the distribution on $\Lambda$ only in the directions in which the data is informative. 
+
+
+
+\end{itemize}
+
+
+
+\end{frame}
 
 
 
@@ -131,6 +276,10 @@ $x$
 
 \end{frame}
 
+
+
+% ------------------------------------------------
+
 \section{Preliminary Results and Research Plan}
 % ------------------------------------------------
 \begin{frame}
@@ -140,14 +289,45 @@ $x$
 \end{frame}
 
 
+
+
+% ------------------------------------------------
 \section{Timeline}
 % ------------------------------------------------
 \begin{frame}
 
-$x$
+We outline a rough timeline for the remaining 2 years in a 5.5 year plan.
+
+\begin{itemize}
+\tiny
+
+\item Clean existing algorithms and examples, generate richer research results related to DFO and active subspaces, and build a model inverse problem for investigation. (Dec 2018/Jan 2019)
+
+\item On RA for Spring 2019.
+
+\item Write and present MS-level results. (Feb/Mar 2019)
+
+\item Work on theoretical formulation of deregularization for nonlinear $f$. Work on generating notebooks and examples. (Ongoing/Spring and Summer 2019)
+
+\item Summer research; begin writing thesis; summer school/internship/conference (?) (Jun/Jul/Aug 2019)
+
+\item Fall 2019 - Writing phase, revisions.
+
+\item Spring 2020 - Final revisions, software.
+
+\item Summer 2020 Internship/collaborations, publishing, formatting.
+
+\item Defend thesis Summer 2020 or early Fall 2020.
+
+
+\end{itemize}
+
 
 \end{frame}
 
+
+
+% ------------------------------------------------
 
 \section{References}
 % ------------------------------------------------
