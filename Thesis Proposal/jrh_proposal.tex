@@ -127,11 +127,7 @@ solving the stochastic inverse problem (SIP) under consideration. In particular,
 S(\lambda)=\frac{1}{2}\left(||f(\lambda)-d_{\text{obs}}||_\mathcal{D}^2+||\lambda-\lambda_{\text{prior}}||_\Lambda^2\right).
 \end{equation}
 
-\begin{figure} 
-\includegraphics[width=\textwidth]{Regularization-all-in-one.pdf}
 
-\textbf{Figure 1:} This figure from \cite{wildeyprez} shows the process of obtaining the statistical/classical Bayesian solution and data-consistent solution from solving the equivalent deterministic optimization problem corresponding to Example 2.
-\end{figure}
 
 The misfit function appears in the classical (i.e., statistical Bayesian) solution to the inverse problem, as $\pi_\Lambda^\text{update}(\lambda) \sim \exp(-S(\lambda)).$ 
 %We observe
@@ -167,6 +163,11 @@ T(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(f(\lambda)-d_{\text
 
 In the preceding example, we observe for linear $f$ and $N=M$, the classical MAP point, given by $\lambda_S^*=0.12$ and obtained by minimizing $S$, strikes a balance between the prior belief that $\lambda=0.1$ and the fact that the value $\lambda=0.125$ is the pre-image of $0.25$ under $f$, the observed data point. The data-consistent MAP point, given by $\lambda_T^*=0.125$, is exactly the pre-image of $d_\text{obs}$. Indeed, since the linear map $A$ is full rank in Example 1, the third term in \eqref{eq:3} fully deregularizes (cancels out) the second term, so that the minimum of $T$ is actually just the minimum of the first term, the data mismatch. We see here that classical Bayesian inverse problem theory and DCI pose and answer different questions. For a similar, concrete example where the number of parameters $N$ is greater than the number of data, $M$ (so that the problem is under-determined), we present the following example adapted directly from \cite{BJW18a}.
 
+\begin{figure} 
+\includegraphics[width=\textwidth]{Regularization-all-in-one.pdf}
+
+\textbf{Figure 1:} This figure from \cite{wildeyprez} shows the process of obtaining the statistical/classical Bayesian solution and data-consistent solution from solving the equivalent deterministic optimization problem corresponding to Example 2.
+\end{figure}
 
 \vspace{.125cm} 
 
@@ -176,7 +177,7 @@ which is minimized by $\lambda^*_S=(7/50,19/100)$.
 Assuming that $\lambda_\text{prior}$ and $d_\text{obs}$ are the means of Gaussians with standard deviations corresponding to the given covariance matrices, we have $\pi_\Lambda^\text{post} \sim \exp(-S(\lambda_S^*))$. 
 Notice $f(\lambda^*_S)=9/100\neq d_\text{obs}$. In the data-consistent formulation, we have 
 $$T(\lambda)=2(2\lambda_1-\lambda_2-0.1)^2+\frac{1}{9}\left((\lambda_1-0.1)^2+8(\lambda_1-0.1)(\lambda_2-0.2)+16(\lambda_2-0.2)^2\right),$$ 
-which is minimized by $\lambda^*_T=(13/90,17/90)$. Notice $f(\lambda^*_T)=d_\text{obs}$. With Gaussian assumptions on the prior and data, we have $\pi_\Lambda^\text{post} \sim \exp(-T(\lambda_T^*))$. Figure 1 below shows plots of $\lambda_S^*$ and $\lambda_T^*$ along with the relevant visualizations of the terms in $S$ and $T$.} 
+which is minimized by $\lambda^*_T=(13/90,17/90)$. Notice $f(\lambda^*_T)=d_\text{obs}$. With Gaussian assumptions on the prior and data, we have $\pi_\Lambda^\text{post} \sim \exp(-T(\lambda_T^*))$. Figure 1 shows plots of $\lambda_S^*$ and $\lambda_T^*$ along with the relevant visualizations of the terms in $S$ and $T$.} 
 
 
 
@@ -309,20 +310,14 @@ In the following section, we pose research questions to be investigated within t
 \left|\left|C_A^{-1/2}(f(\lambda)-f(\lambda_{\text{prior}}))\right|\right|_2^2,
 \end{equation} 
 
-\noindent where $C_A=AC_\Lambda A^\top$. Expanding $f$ linearly around $\lambda_\text{prior}$, we have $f(\lambda)-f(\lambda_\text{prior})=\nabla f (\lambda_\text{prior})^\top (\lambda-\lambda_\text{prior})$ so that in a neighborhood centered at $\lambda_\text{prior}$ we may write $f(\lambda)-f(\lambda_\text{prior})=A (\lambda-\lambda_\text{prior})$, where $A=\nabla f (\lambda_\text{prior})^\top$, which is an $N \times M$ matrix. We may rewrite \eqref{eq:11} as
+\noindent where $C_A=AC_\Lambda A^\top$. We may expand $f$ linearly around some $\lambda \in \Lambda$ and write $f(\lambda)-f(\lambda_\text{prior})=\nabla f (\lambda)^\top (\lambda-\lambda_\text{prior})$ so that in a neighborhood  about $\lambda$ we may write $f(\lambda)-f(\lambda_\text{prior})=A (\lambda-\lambda_\text{prior})$, where $A=\nabla f (\lambda)^\top$, which is an $N \times M$ matrix. We may rewrite \eqref{eq:11} as
 
 
 \begin{equation} \label{eq:12}
 (A(\lambda-\lambda_\text{prior}))^\top (AC_\Lambda A^\top)^{-1}A(\lambda-\lambda_\text{prior}).
 \end{equation}
 
-In order to fully determine the form of \eqref{eq:12}, we must determine $(AC_\Lambda A^\top)^{-1}$. In fact, if we can solve $(AC_\Lambda A^\top)X=A(\lambda-\lambda_\text{prior})$ for $X$, then \eqref{eq:12} becomes
-
-\begin{equation} \label{eq:13}
-(A(\lambda-\lambda_\text{prior}))^\top X.
-\end{equation}
-
-The conditioning of the linear algebra problem of finding such an $X$ is not characterized here, and will be a focus of research. We refer to \cite{Tarantola} for a similar Newton-based approach. We note that since we assume $\nabla f$ is inaccessible, forming the data-consistent deregularization term in this regime may require gradient approximation methods for $f$.
+In order to fully determine the form of \eqref{eq:12}, we must determine $(AC_\Lambda A^\top)^{-1}$. We refer to \cite{Tarantola} for a similar Newton-based approach. We note that since we assume $\nabla f$ is inaccessible, forming the data-consistent deregularization term in this regime may require gradient approximation methods for $f$ or more general surrogate modeling.
 
 \subsection{Impact of Noise on MAP Point and Updated Prior} The effects of noise on individual methods considered in this paper -- particularly: DCI, the deterministic optimization solution for SIPs, active subspaces, and DFO) -- have been characterized to varying extents in corresponding literature. We are particularly interested in investigating the impact of additive and multiplicative noise models in our framework, which essentially involves embedding the aforementioned methods within each other, performing them in series, or both.
 
@@ -346,7 +341,7 @@ Relevant research directions include: considering other ways to embed the inform
 \subsubsection{Representations and Surrogate Modeling} We are generally interested in the representation and surrogates one may form with an active subspace. If $f$ is truly a black box, then it lacks an analytic form we can access. By performing dimension reduction, it is possible to test the resolution of function values $f$ versus active variables by forming a sufficient summary plot or \emph{response surface} \cite{Constantine2015}. Depending on the quality and form of the resolution, one may (or may not) be able to discern the relation between $f$ and its active variables visually, by fitting a surrogate through the response surface and testing the fit, or both. Representing $f$ with a lower-dimensional surrogate may help with solving other problems of interest. In particular, we may be able to solve a forward problem at lower cost, or pose the convex optimization for solving an inverse problem with such a representation used to form the misfit functions considered in the preceding section.
 
 
-\subsubsection{Solving the Forward Problem} If the action of the map $f$ can be captured by a lower-dimensional representation, we may be able to more cheaply solve for the push-forward needed for DCI. Research directions include: generally comparing the cost of solving the forward problem with KDE for an $f$ defined in its full variables versus some surrogate for $f$ defined over $A$; analyzing differences in MAP points and updated densities in $\Lambda$ when the push-forward is obtained from its full variables or only from active variables.
+\subsubsection{Solving the Forward UQ Problem} If the action of the map $f$ can be captured by a lower-dimensional representation, we may be able to more cheaply solve for the push-forward needed for DCI. Research directions include: generally comparing the cost of solving the forward problem with KDE for an $f$ defined in its full variables versus some surrogate for $f$ defined over $A$; analyzing differences in MAP points obtained from DFO and updated densities in $\Lambda$ when the push-forward is obtained from its full variables or only from active variables.
 
 
 \subsection{Application: Callibrated Anomolous Diffusion in Tokamak Plasmas}
@@ -367,9 +362,9 @@ In dimensionless coordinates, the axisymmetric  Grad-Shafronov equation is \cite
 r\frac{\partial}{\partial r} \left( \frac{1}{r} \frac{\partial }{\psi_n}{\partial r} \right) + \frac{\partial^2 \psi_n}{\partial z^2} = -\frac{\alpha^2}{2} \frac{d f^2}{d \psi_n} - r^2\alpha^2 \frac{dp}{d\psi_n}
 \end{equation}
 
-In equilibrium fitting to experimental data\cite{Lao85}, $p$ and $f^2$ are expanded as basis functions(usually polynomials) in $\psi_n$, with the extra constraint that $p$ and $f^2$ vanish at the boundary($\psi_n=1$).   Typically, the expansion of the normalized pressure and $f^2$ are fixed
-at a specified degree.    Depending on the amount of available experimental data, this leads to a PDE-constrained optimization problem that will typically regularization.  Alternatively, we can view this problem as finding the updated PDF of the uncertain parameters in the expansions of $p$ and $f^2$.  This PDF is
-crucial to prediction of plasma profiles(e.g. ion/electron density or temperature) and transport as these properties are extremely sensitive to perturbations
+In equilibrium fitting to experimental data \cite{Lao85}, $p$ and $f^2$ are expanded as basis functions (usually polynomials) in $\psi_n$, with the extra constraint that $p$ and $f^2$ vanish at the boundary ($\psi_n=1$).   Typically, the expansion of the normalized pressure and $f^2$ are fixed
+at a specified degree.    Depending on the amount of available experimental data, this leads to a PDE-constrained optimization problem that will typically require regularization.  Alternatively, we can view this problem as finding the updated PDF of the uncertain parameters in the expansions of $p$ and $f^2$.  This PDF is
+crucial to prediction of plasma profiles (e.g. ion/electron density or temperature) and transport as these properties are extremely sensitive to perturbations
 in the magnetic equilibrium, especially in the edge.
 
 %\todo{Varis: I'll write a brief section transitioning from current toy problems to pde models to plasma physics models}
@@ -386,7 +381,7 @@ In this section, we re-visit the questions from the previous section to discuss 
 
 \subsection{Forming a Data-Consistent Deregularization for Nonlinear $f$} Forming a data-consistent mismatch function for a nonlinear $f$ will require manipulating only the deregularization term, which in the linear case, uses a matrix $A$ to perform the action of $f$ on inputs. For an $f$ that is not linear (or easily linearizable), we must consider ways in which $f$ may expressed for the deregularization. This is a theoretical task which will require a closer literature review and heavy collaboration with advisers.
 
-While the attempts at formulating the nonlinear deregularization in the preceding section -- particularly \eqref{eq:13} -- may be correct mathematically, it may not be a practical or tractable approach for solving for such a form. Ideas to explore may include ways in which the active subspace of $f$ could lead to more easily obtained linearizations around particular points in $\Lambda$. As we will observe, the $f$ as defined in Example 3 is globally quadratic with respect to its active subspace, and won't permit a global linearization. We may consider, however, a local linearization at various points on the response surface $f(\mathcal{P}_A(\lambda))$ may be acceptable, particularly near 0.
+Ideas to explore may include ways in which the active subspace of $f$ could lead to more easily obtained linearizations around particular points in $\Lambda$, but we also must consider more general surrogate modeling. As we will observe, the $f$ as defined in Example 3 is globally quadratic with respect to its active subspace, and won't permit a global linearization. We may consider, however, a local linearization at various points on the response surface $f(\mathcal{P}_A(\lambda))$ which may be acceptable, particularly near 0.
 
 
 \subsection{Impact of Noise on MAP Point and Updated Prior}
