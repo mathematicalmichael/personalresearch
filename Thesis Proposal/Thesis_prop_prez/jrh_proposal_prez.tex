@@ -88,6 +88,7 @@ University of Colorado Denver
 % ------------------------------------------------
 \section{Literature Review and Framework}
 % ------------------------------------------------
+
 \begin{frame}
 
 \begin{center}
@@ -96,12 +97,20 @@ University of Colorado Denver
 
 \begin{itemize}
 
-	\item We define a parameter space $\Lambda$ with dimension $N$ and a data space $\mathcal{D}$ with dimension $M$. Generally $M \leq N$.
+	\item We define a model parameter space $\Lambda$ with dimension $N$ and a data space $\mathcal{D}$ with dimension $M$. 
+	\begin{itemize}
+		\item In most settings, $\Lambda$ will be of higher dimension than $\mathcal{D}$.
+	\end{itemize}
 	
-	\item We define a parameter-to-data map $f$, which is noisy and $\nabla f$ may be inaccessible.
+	\item We define a parameter-to-data map $f:\Lambda\rightarrow \mathcal{D}$, 
+	\begin{itemize} 
+	 	\item $f$ may be polluted by noise.
+		\item  $\nabla f$ may be inaccessible.	
+	\end{itemize}
 	
+	\item We write $d=f(\lambda) \in \mathcal{D}$ to denote a particular datum corresponding to the evaluation of a point $\lambda \in \Lambda$. %\alphax
 	
-	\item We write $d=f(\lambda) \in \mathcal{D}$ to denote a particular datum corresponding to the evaluation of a point $\lambda \in \Lambda$.
+	%\item We note a probability distribution function of a random variable x as
 
 \end{itemize}
 
@@ -113,31 +122,42 @@ University of Colorado Denver
 
 \begin{frame}
 
-\begin{itemize}
-
-	\item Following Butler, Stuart, and Tarantola, we formulate the Stochastic Inverse Problem (SIP).
+	\begin{block}{The Stocastic Inverse Problem(SIP)\footnotemark[1]\footnotemark[2]\footnotemark[3]}
 	
-	\item  We define prior knowledge of the parameter space, given by the \emph{prior distribution}, $\pi_\Lambda^\text{prior}(\lambda)$.
+	\begin{itemize}
 
-	\item We define the \emph{observed distribution}, $\pi_\mathcal{D}(d)$, which represents our uncertain state of knowledge of observed data.
+	%\item Following Butler, Stuart, and Tarantola, we formulate the Stochastic Inverse Problem (SIP).
 	
-	\item The SIP is the task of finding an \emph{updated} probability distribution, $\pi_\Lambda^\text{update}$, in $\Lambda$ space that combines the given prior information and data.
-	
+	\item  %: We define prior knowledge of the parameter space, given by t
+	The \emph{prior distribution}, $\pi_\Lambda^\text{prior}(\lambda)$:
+	Our prior or initial knowledge of the parameter space $\Lambda$.
 
+	\item %We define 
+	The \emph{observed distribution}, $\pi_\mathcal{D}(d)$:  
+	our uncertain state of knowledge of the observed data $\mathcal{D}$.
+	
+	\item The solution of our SIP, %The SIP is the task of finding 
+	an \emph{updated probability distribution}, $\pi_\Lambda^\text{update}$: which
+	combines the given prior information and the observed data.
+	
 \end{itemize}
 
+\end{block}
 
-
+\footnotetext[1]{T. Butler and J. Jakeman and T. Wildey.
+``Combining Push-Forward Measures and Bayes' Rule to Construct Consistent Solutions to Stochastic Inverse Problems." SIAM Journal on Scientific Computing, Volume 40, No. 2, pp. A984-A1011, 2018.}
+	\footnotetext[2]{Tarantola, Albert. ``Inverse Problem Theory and Methods for Model Parameter Estimation." SIAM. 2005.}
+	\footnotetext[3]{Stuart, Andrew. ``Inverse problems: A Bayesian perspective." Acta Numerica, volume 19, pp. 451-559. 2010}
+	
 \end{frame}
 
 
 \begin{frame}
-
 \begin{itemize}
 
 \item Given a distribution on $\lambda \in \Lambda$, the \emph{forward Uncertainty Quantification (UQ) problem} is finding the probability distribution of $f(\lambda)$. The forward UQ problem is, in its own right, a nontrivial and important problem in UQ.
 
-\item The \textit{classical Bayesian} or \textit{statistical Bayesian} solution to the inverse problem is not generally a 
+\item The \textit{classical Bayesian} or \textit{statistical Bayesian} solution to the inverse problem is generally {\em not consistent}:  
 \textit{pull-back probability measure}, meaning the image of the updated distribution $\pi_\Lambda^\text{update}$ under the map $f$, called the \textit{push-forward} of $\pi_\Lambda^\text{update}$, is not equal to the observed probability distribution, $\pi_\mathcal{D}$. 
 
 
