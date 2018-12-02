@@ -81,6 +81,8 @@ University of Colorado Denver
 % start the content of the presentation
 
 \begin{frame}{Overview}
+
+\small
 \tableofcontents
 \end{frame}
 
@@ -444,7 +446,7 @@ f\left(\mathcal{P}_\A(\lambda)\right) \approx f(\lambda).
 
 \item We form the $N \times S$ matrix $\tilde{W}$ (which we present as $\tilde{W}^\top$)
 
-\begin{equation} \label{eq:9}
+\begin{equation} \label{eq:8}
 \tilde{W}^\top:=\begin{bmatrix}
 \reallywidehat{\nabla f}(\lambda_1)
 \cdot \cdot \cdot
@@ -673,17 +675,132 @@ additional, usually nonlinear model solves for the physical system state $u(x,\l
 
 	\item Computational expense may be saved by projecting points $\lambda$ into their active variables, since such projections are of lower dimension than $\Lambda$. 
 	
-	\item This property gives the ability to save computational expense for a number of problems in Uncertainty Quantification, including optimization, representation and solving inverse problems.
+	\item This property gives the ability to save computational expense for a number of problems in Uncertainty Quantification, including optimization, representation, and solving inverse problems.
 
 \end{itemize}
 
 \end{frame}
 
+\begin{frame}
 
+\begin{itemize}
+	\item We are interested in investigating the effectiveness of only optimizing $f$ in its active variables.
+	
+	\item The most compelling approach we have observed is to modify the DFO algorithm discussed above to only take random walks in directions lying in $\A$.
+	
+	\begin{itemize}
+	
+	
+	\item Given the first $j$ singular unit vectors $u_1,\ldots,u_j$ corresponding to the SVD of $\hat{W}$, one may take $j$ draws from a specified normal distribution, which we denote with $s_i\sim N(\mu,\sigma^2)$, and form the random vector $v$ for the $k$-th step in a DFO algorithm as $v^{(k)}=\sum_{i=1}^js_iu_i$; we see that such a vector could be interpreted as a random walk in $\A$.
+	
+	\end{itemize}
+
+	
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{itemize}
+
+	\item We are generally interested in the representation and surrogates one may form with an active subspace. By performing dimension reduction, it is possible to test the resolution of function values $f$ versus active variables by forming a sufficient summary plot or \emph{response surface} (). 
+	
+\begin{itemize}
+
+
+	\item Depending on the quality and form of the resolution, one may (or may not) be able to discern the relation between $f$ and its active variables visually, by fitting a surrogate through the response surface and testing the fit, or both. 
+
+\end{itemize}	
+	
+	\item Representing $f$ with a lower-dimensional surrogate may help with solving other problems of interest: we may be able to solve a forward problem at lower cost, or pose the convex objective function for solving an inverse problem using a surrogate.
+	
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{itemize}
+
+	\item If the action of the map $f$ can be captured by a lower-dimensional representation, we may be able to more cheaply solve for the push-forward needed for DCI. 
+	
+	\item Research directions include: 
+	
+	\begin{itemize}
+	
+
+		\item generally comparing the cost of solving the forward problem with KDE for an $f$ defined in its full variables versus some surrogate for $f$ defined over $A$; 
+		
+		\item analyzing differences in MAP points obtained from DFO and updated densities in $\Lambda$ when the push-forward is obtained from its full variables or only from active variables.
+
+	\end{itemize}		
+
+\end{itemize}
+
+
+\end{frame}
+
+% ------------------------------------------------
+\subsection{Application: Callibrated Anomolous Diffusion in Tokamak Plasmas}
+% ------------------------------------------------
+
+
+\begin{frame}
+
+\begin{itemize}
+
+	\item Transport in tokamak plasmas can be strongly driven by a combination of {\em neoclassical} effects
+and plasma microturbulence.  Neoclassical theory modifies classical diffusion by adding  effects due to the geometry of the fusion reactor.  
+
+	\item Complex particle motion may be described by the solution of an axisymmetric version of the Vlasov-Boltzman equation (Wesson).
+Simulating the microturbulence in the plasma involves expensive kinetic simulations, especially when simulating the plasma edge (KU Total F). 
+
+	\begin{itemize}
+	
+ 
+
+		\item An alternative approach is to fit an anomalous diffusion model to  experimental or high-fidelity simulation data.  Deterministic efforts in this setting include (Batt).  We propose to 
+investigate the data-consistent calibration of an anomalous diffusion model in an axisymmetric setting(XGCa) to high-fidelity experimental or simulation data (XGC1) (Ku).
+
+	\end{itemize}	
+
+
+\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------
+\subsection{Application: Magnetic Equilibria in Tokamaks}
+% ------------------------------------------------
+
+\begin{frame}
+
+	\begin{itemize}
+	
+
+	\item In dimensionless coordinates, the axisymmetric  Grad-Shafronov equation is (Takeda91)
+
+\begin{equation}
+r\frac{\partial}{\partial r} \left( \frac{1}{r} \frac{\partial\psi_n}{\partial r} \right) + \frac{\partial^2 \psi_n}{\partial z^2} = -\frac{\alpha^2}{2} \frac{d f^2}{d \psi_n} - r^2\alpha^2 \frac{dp}{d\psi_n}.
+\end{equation}
+
+	\item In equilibrium fitting to experimental data (Lao85), $p$ and $f^2$ are expanded as basis functions (usually polynomials) in $\psi_n$, with the extra constraint that $p$ and $f^2$ vanish at the boundary ($\psi_n=1$).
+
+\item We can view this problem as finding the updated PDF of the uncertain parameters in the expansions of $p$ and $f^2$.  This PDF is
+crucial to prediction of plasma profiles (e.g. ion/electron density or temperature) and transport as these properties are extremely sensitive to perturbations
+in the magnetic equilibrium, especially in the edge.
+
+	\end{itemize}
+
+
+\end{frame}
 
 
 % ------------------------------------------------
-
 \section{Preliminary Results and Research Plan}
 % ------------------------------------------------
 \begin{frame}
