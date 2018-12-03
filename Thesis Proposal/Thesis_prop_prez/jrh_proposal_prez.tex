@@ -370,7 +370,7 @@ $T$ minimized by $\lambda^*_T=(13/90,17/90)$. Notice $f(\lambda^*_T)=9/90=d_\tex
 \begin{figure} 
 \includegraphics[scale=0.2]{Regularization-all-in-one.pdf}
 
-This figure from \footnotemark[1] shows the process of obtaining the statistical/classical Bayesian solution and data-consistent solution in Example 2.
+This figure \footnotemark[1] shows the process of obtaining the statistical/classical Bayesian solution and data-consistent solution in Example 2.
 \end{figure}
 
 \footnotetext[1]{Wildey, T., Butler, T., Jakeman, J., Walsh, S.}
@@ -567,7 +567,7 @@ to observable map $f(u(x,\lambda))$ may be modeled as a stochastic process, or a
 
 
 \item In this setting, the efficient extraction of accurate gradients of $f$ in parameter space is a challenging undertaking, as popular techniques based on
-linearization, including adjoint methods, are inaccurate (Lea/Qiqi).  
+linearization, including adjoint methods, are inaccurate \footnotemark[1] \footnotemark[2].  
 
 \item The finite-difference approximations to $\nabla f_\Lambda$ 
 involve $N=\text{dim}\Lambda$ 
@@ -578,6 +578,8 @@ additional, usually nonlinear model solves for the physical system state $u(x,\l
 
 \end{itemize}
 
+\footnotetext[1]{Lea}
+\footnotetext[2]{Qiqi}
 
 \end{frame}
 
@@ -618,7 +620,7 @@ additional, usually nonlinear model solves for the physical system state $u(x,\l
 
 \end{itemize}
 
-\begin{block}{Optimization Under Uncertainty \footnotemark[1]}
+\begin{block}{Optimization Under Additive Uncertainty \footnotemark[1]}
 \begin{eqnarray} \label{eq:9}
 \min_{\lambda \in \R^N} \quad \mathbb{E}\left[f(\lambda)+\nu (\lambda; \epsilon)\right],
 \end{eqnarray} 
@@ -798,7 +800,7 @@ additional, usually nonlinear model solves for the physical system state $u(x,\l
 
 \begin{itemize}
 
-	\item We are generally interested in the representation and surrogates one may form with an active subspace. By performing dimension reduction, it is possible to test the resolution of function values $f$ versus active variables by forming a sufficient summary plot or \emph{response surface} (). 
+	\item We are generally interested in the representation and surrogates one may form with an active subspace. By performing dimension reduction, it is possible to test the resolution of function values $f$ versus active variables by forming a sufficient summary plot or \emph{response surface}. 
 	
 \begin{itemize}
 
@@ -847,22 +849,25 @@ additional, usually nonlinear model solves for the physical system state $u(x,\l
 \begin{itemize}
 
 	\item Transport in tokamak plasmas can be strongly driven by a combination of {\em neoclassical} effects
-and plasma microturbulence.  Neoclassical theory modifies classical diffusion by adding  effects due to the geometry of the fusion reactor.  
+and plasma microturbulence.
 
-	\item Complex particle motion may be described by the solution of an axisymmetric version of the Vlasov-Boltzman equation (Wesson).
-Simulating the microturbulence in the plasma involves expensive kinetic simulations, especially when simulating the plasma edge (KU Total F). 
+	\item Complex particle motion may be described by the solution of an axisymmetric version of the Vlasov-Boltzman equation \footnotemark[1].
+Simulating the microturbulence in the plasma involves expensive kinetic simulations, especially when simulating the plasma edge \footnotemark[2]. 
 
 	\begin{itemize}
 	
  
 
-		\item An alternative approach is to fit an anomalous diffusion model to  experimental or high-fidelity simulation data.  Deterministic efforts in this setting include (Batt).  We propose to 
-investigate the data-consistent calibration of an anomalous diffusion model in an axisymmetric setting(XGCa) to high-fidelity experimental or simulation data (XGC1) (Ku).
+		\item An alternate approach is fitting an anomalous diffusion model to  experimental or high-fidelity simulation data.  Deterministic efforts in this setting include \footnotemark[3].  We propose to investigate the data-consistent calibration of an anomalous diffusion model in an axisymmetric setting (XGCa) to high-fidelity experimental or simulation data (XGC1) \footnotemark[2].
 
 	\end{itemize}	
 
 
 \end{itemize}
+
+\footnotetext[1]{Wesson}
+\footnotetext[2]{S. Ku and R. Hager and C.S. Chang and J.M. Kwon and S.E. Parker}
+\footnotetext[3]{Battaglia et al}
 
 \end{frame}
 
@@ -875,20 +880,33 @@ investigate the data-consistent calibration of an anomalous diffusion model in a
 	\begin{itemize}
 	
 
-	\item In dimensionless coordinates, the axisymmetric  Grad-Shafronov equation is (Takeda91)
+	\item In dimensionless coordinates, the axisymmetric  Grad-Shafronov equation is given by
+	
+	\begin{block}{The Grad-Shafronov Equation \footnotemark[1]}
 
 \begin{equation}
 r\frac{\partial}{\partial r} \left( \frac{1}{r} \frac{\partial\psi_n}{\partial r} \right) + \frac{\partial^2 \psi_n}{\partial z^2} = -\frac{\alpha^2}{2} \frac{d f^2}{d \psi_n} - r^2\alpha^2 \frac{dp}{d\psi_n}.
 \end{equation}
 
-	\item In equilibrium fitting to experimental data (Lao85), $p$ and $f^2$ are expanded as basis functions (usually polynomials) in $\psi_n$, with the extra constraint that $p$ and $f^2$ vanish at the boundary ($\psi_n=1$).
+	\end{block}
+
+
+	\item In equilibrium, fitting to experimental data \footnotemark[2], $p$ and $f^2$ are expanded as basis functions (usually polynomials) in $\psi_n$, with the extra constraint that $p$ and $f^2$ vanish at the boundary.
+
+\begin{itemize}
+
+
 
 \item We can view this problem as finding the updated PDF of the uncertain parameters in the expansions of $p$ and $f^2$.  This PDF is
 crucial to prediction of plasma profiles (e.g. ion/electron density or temperature) and transport as these properties are extremely sensitive to perturbations
 in the magnetic equilibrium, especially in the edge.
 
-	\end{itemize}
+\end{itemize}
 
+\end{itemize}
+
+\footnotetext[1]{Takeda, T. and Tokuda, S.}
+\footnotetext[2]{Lao et al}
 
 \end{frame}
 
@@ -1055,7 +1073,7 @@ method to the determination of data-consistent MHD equilibria.
 	
 	\item Some of the algorithms used here and other algorithms that are of interest are within open-source packages available online \footnotemark[1] \footnotemark[2]. 
 	
-	\item Other schemes considered here make modifications to given algorithms and remain under development. A major goal of this thesis proposal will be developing well-documented, open-source software complete with python Jupyter Notebooks and illustrative, replicable examples.
+	\item Other schemes considered here make modifications to given algorithms and remain under development. A major goal of this thesis proposal will be producing well-documented, open-source software complete with python Jupyter Notebooks containing illustrative, replicable examples.
 
 
 \end{itemize}
