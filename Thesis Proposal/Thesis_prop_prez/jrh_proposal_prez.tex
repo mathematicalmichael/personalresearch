@@ -124,44 +124,43 @@ University of Colorado Denver
 
 \begin{frame}
 
-	\begin{block}{The Stocastic Inverse Problem(SIP)\footnotemark[1]\footnotemark[2]\footnotemark[3]}
+\begin{block}{The Stocastic Inverse Problem (SIP) \footnotemark[1]\footnotemark[2]\footnotemark[3]}
 	
-	\begin{itemize}
-
-	%\item Following Butler, Stuart, and Tarantola, we formulate the Stochastic Inverse Problem (SIP).
-	
-	\item  %: We define prior knowledge of the parameter space, given by t
-	The \emph{prior distribution}, $\pi_\Lambda^\text{prior}(\lambda)$:
-	Our prior or initial knowledge of the parameter space $\Lambda$.
-
-	\item %We define 
-	The \emph{observed distribution}, $\pi_\mathcal{D}(d)$:  
-	our uncertain state of knowledge of the observed data $\mathcal{D}$.
-	
-	\item The solution of our SIP, %The SIP is the task of finding 
-	an \emph{updated probability distribution}, $\pi_\Lambda^\text{update}$: which
-	combines the given prior information and the observed data.
-	
-\end{itemize}
+Given the \emph{prior distribution}, $\pi_\Lambda^\text{prior}(\lambda)$, the prior or initial knowledge of the parameter space $\Lambda$ and the \emph{observed distribution}, $\pi_\mathcal{D}(d)$, the uncertain state of knowledge of the observed data in $\mathcal{D}$, the SIP is obtaining an \emph{updated probability distribution}, $\pi_\Lambda^\text{update}(\lambda)$ combining the given prior information and the observed data.
 
 \end{block}
 
-\footnotetext[1]{T. Butler and J. Jakeman and T. Wildey.
-``Combining Push-Forward Measures and Bayes' Rule to Construct Consistent Solutions to Stochastic Inverse Problems." SIAM Journal on Scientific Computing, Volume 40, No. 2, pp. A984-A1011, 2018.}
-	\footnotetext[2]{Tarantola, Albert. ``Inverse Problem Theory and Methods for Model Parameter Estimation." SIAM. 2005.}
-	\footnotetext[3]{Stuart, Andrew. ``Inverse problems: A Bayesian perspective." Acta Numerica, volume 19, pp. 451-559. 2010}
+
+\footnotetext[1]{T. Butler and J. Jakeman and T. Wildey.}
+\footnotetext[2]{Tarantola, Albert.}
+\footnotetext[3]{Stuart, Andrew.}
 	
 \end{frame}
 
 
 \begin{frame}
+
+\begin{block}{The Forward Uncertainty Quantification (UQ) Problem}
+
+Given a probability distribution which is nonzero for every $\lambda \in \Lambda$, the \emph{forward UQ problem} is finding the probability distribution of $f(\Lambda)$. 
+
+
+\end{block}
+
+
 \begin{itemize}
 
-\item Given a distribution on $\lambda \in \Lambda$, the \emph{forward Uncertainty Quantification (UQ) problem} is finding the probability distribution of $f(\lambda)$. The forward UQ problem is, in its own right, a nontrivial and important problem in UQ.
+\item The forward UQ problem is, in its own right, a nontrivial and important problem in UQ.
 
-\item The \textit{classical Bayesian} or \textit{statistical Bayesian} solution to the inverse problem is generally {\em not consistent}:  
-\textit{pull-back probability measure}, meaning the image of the updated distribution $\pi_\Lambda^\text{update}$ under the map $f$, called the \textit{push-forward} of $\pi_\Lambda^\text{update}$, is not equal to the observed probability distribution, $\pi_\mathcal{D}$. 
+\item The \textit{classical Bayesian} or \textit{statistical Bayesian} solution to the inverse problem is generally {\em not consistent};
+i.e., it is not a \textit{pull-back probability measure}. 
 
+
+\begin{itemize}
+
+	\item This means the distribution of points drawn from the updated distribution $\pi_\Lambda^\text{update}$ and mapped through $f$, called the \textit{push-forward} of $\pi_\Lambda^\text{update}$, is not equal to the observed probability distribution, $\pi_\mathcal{D}$. 
+
+\end{itemize}
 
 \end{itemize}
 
@@ -171,7 +170,7 @@ University of Colorado Denver
 
 \begin{itemize}
 
-	\item Data-consistent inversion (DCI) seeks an updated solution $\pi_\Lambda^\text{update}$ for which the push-forward exactly equals $\pi_\mathcal{D}$. 
+	\item Data-Consistent Inversion (DCI) seeks an updated solution $\pi_\Lambda^\text{update}$ for which the push-forward exactly equals $\pi_\mathcal{D}$. 
 	
 	\item To obtain such a solution, we must solve the forward problem $f(\pi_\Lambda^\text{prior})$.
 	
@@ -180,15 +179,19 @@ University of Colorado Denver
 
 
 
-	\item As in Butler, the data-consistent solution to the SIP is 
-	
+	\item We present the data-consistent solution \footnotemark[1],
+
+\end{itemize}
+
+\begin{block}{Data-Consistent Solution to the SIP}
+
 \begin{equation} \label{eq:1}
 \pi_\Lambda^\text{update}(\lambda)=\pi_\Lambda^\text{prior}(\lambda)\frac{\pi_\mathcal{D}(f(\lambda))}{\pi_\mathcal{D}^{f(\Lambda)}(f(\lambda))}.
 \end{equation}
 
-	
-\end{itemize}
+\end{block}
 
+\footnotetext[1]{T. Butler and J. Jakeman and T. Wildey.}
 
 \end{frame}
 
@@ -205,10 +208,13 @@ University of Colorado Denver
 	\item In the case that $f$ is a linear operator and the prior and observed densities are Gaussians, the solution to the SIP can be obtained exactly, and its mean is equivalent to the solution of a deterministic convex optimization problem.
 	
 	\begin{itemize}
-		\item The classical formulation of the objective function (Tarantola) can be altered (Wildey, Butler, et al) to obtain a data-consistent (approximate) solution with $f$ linear and Gaussian $\pi_\Lambda^{\text{prior}},$ $\pi_\mathcal{D}$.
+		\item The classical form of the objective function \footnotemark[1] can be altered \footnotemark[2] to obtain a data-consistent (approximate) solution with $f$ linear and Gaussian $\pi_\Lambda^{\text{prior}},$ $\pi_\mathcal{D}$.
 	\end{itemize}
 
 \end{itemize}
+
+\footnotetext[1]{Tarantola, Albert.}
+\footnotetext[2]{T. Butler and J. Jakeman and T. Wildey.}
 
 \end{frame}
 
@@ -217,14 +223,18 @@ University of Colorado Denver
 
 \begin{itemize}
 	
-	\item With $f$ linear, we define its matrix $A$. Given observed data $d_{\text{obs}} \sim \pi_\mathcal{D}$ and a draw $\lambda_\text{prior}\sim \pi_\Lambda^\text{prior}$, as in Tarantola, we define the \textit{classical misfit function,}
+	\item Assuming $f$ is linear, we define its matrix, $A$. Given observed data $d_{\text{obs}} \sim \pi_\mathcal{D}$ and a draw $\lambda_\text{prior}\sim \pi_\Lambda^\text{prior}$, we define
+
+\begin{block}{The Classical Misfit Function}
 
 
 \begin{equation} \label{eq:2}
 S(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(A\lambda-d_{\text{obs}})\right|\right|_2^2+\left|\left|C_\Lambda^{-1/2}(\lambda-\lambda_{\text{prior}})\right|\right|_2^2\right).
-\end{equation} 
+\end{equation}
 
-\item In Tarantola, it is assumed that $\pi_\Lambda^\text{prior}$ and $\pi_\mathcal{D}$ are Gaussians, and the misfit function is specified by $\lambda_{\text{prior}}=\bar{\lambda}$ and $d_{\text{obs}}=\bar{d}$, the respective means of the prior and observed densities.
+\end{block} 
+
+\item It is assumed that $\pi_\Lambda^\text{prior}$ and $\pi_\mathcal{D}$ are Gaussians, and the misfit function is specified by $\lambda_{\text{prior}}=\bar{\lambda}$ and $d_{\text{obs}}=\bar{d}$, the respective means of the prior and observed densities.
 
 \item The minimum of $S$ is called the maximum a posteriori point, or \textit{MAP point}, $\lambda_S^*$, and the classical solution to the SIP is $\pi_\Lambda^\text{update}(\lambda) = c\cdot \exp(-S(\lambda)),$ where $c$ is a constant.
 
@@ -243,9 +253,9 @@ S(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(A\lambda-d_{\text{o
 
 
 
-	\item Widley, Butler, et al reformulate $S$ to write an objective function with a minimizer which is a data-consistent MAP point. 
+	\item $S$ is reformulated so it is an objective function with a minimizer corresponding to the \textit{data-consistent} MAP point. 
 	
-		\item An additional ``deregularization" term is appended so that if a unique solution exists, the regularization will be ``turned off." We write the \textit{data-consistent misfit function,}
+		\item An additional \textit{deregularization} term is appended so that if a unique solution exists, the regularization will be ``turned off." We write the \textit{data-consistent misfit function,}
 	
 	
 	
@@ -1036,7 +1046,63 @@ We outline a rough timeline for the remaining 2 years in a 5.5 year plan.
 
 \section{References}
 % ------------------------------------------------
-\begin{frame}
+\begin{frame}[allowframebreaks]
+
+%%%%%%%%%%%%%% References %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{thebibliography}{65}
+
+\tiny
+
+\bibitem{battaglia} Battaglia, D. J.  and Burrell, K. H.  and Chang, C. S.  and Ku, S.  and deGrassie, J. S.  and Grierson, B. A. ``Kinetic neoclassical transport in the H-mode pedestal." Physics of Plasmas,Volume 21, No. 7. 2014.
+
+
+\bibitem{BJW18a} T. Butler and J. Jakeman and T. Wildey.
+``Combining Push-Forward Measures and Bayes' Rule to Construct Consistent Solutions to Stochastic Inverse Problems." SIAM Journal on Scientific Computing, Volume 40, No. 2, pp. A984-A1011, 2018.
+
+\bibitem{Calliess} Jan-Peter Calliess. ``Lipschitz optimisation for Lipschitz interpolation." In 2017 American Control Conference (ACC 2017), Seattle, WA, USA, May 2017.
+
+\bibitem{CW} Chen and Wild. ``Randomized Derivative-Free Optimization of Noisy Convex Functions." Funded by the Department of Energy. 2015.
+
+\bibitem{Constantine2015} Constantine, Paul G. ``Active Subspaces: Emerging Ideas for Dimension Reduction in Parameter Studies." SIAM, 2015.
+
+\bibitem{ConstantineMC} Constantine, Eftekhari, Wakin. ``Computing Active Subspaces Efficiently with Gradient Sketching." Conference paper, 2015 IEEE 6th International Workshop on Computational Advances in Multi-Sensor Adaptive Processing (CAMSAP).
+
+
+\bibitem{KS} Kvasov and Sergeyev. ``Lipschitz gradients for global optimization in a one-point-based partitioning scheme." Journal of Computational and Applied Mathematics. Volume 236, Issue 16, pp. 4042-4054. 2012.
+
+\bibitem{KU_TOTALF} S. Ku and R. Hager and C.S. Chang and J.M. Kwon and S.E. Parker. ``A new hybrid-Lagrangian numerical scheme for gyrokinetic simulation of tokamak edge plasma." Journal of Computational Physics, Volume 315, pp. 467-475. 2016.
+
+\bibitem{Lao85} Lao, L.L, St. John, H, R.D. Stambaugh, A.G. Kellman, and Pfeiffer, W.,``Reconstruction of current profile parameters and plasma shapes in tokamaks'', Nuclear Fusion, Volume 25,No. 11,pp. 1611,1985.
+
+\bibitem{lea2000} Lea, Daniel J. and Allen, Myles R. and Haine, Thomas W. N. ``Sensitivity analysis of the climate of a chaotic system." Tellus A, Volume 52, No. 5, pp. 523-532. 2000.
+
+
+
+\bibitem{Russi} Russi, Trent M. ``Uncertainty Quantification with Experimental Data and Complex System Models." Dissertation, University of California Berkeley. 2010.
+
+\bibitem{Smith}  Smith, Ralph.``Uncertainty Quantification: Theory, Implementation, and Applications.” SIAM, 2013.
+
+\bibitem{Stuart} Stuart, Andrew. ``Inverse problems: A Bayesian perspective." Acta Numerica, volume 19, pp. 451-559. 2010.
+
+
+
+\bibitem{Tarantola} Tarantola, Albert. ``Inverse Problem Theory and Methods for Model Parameter Estimation." SIAM. 2005.
+
+\bibitem{Takeda91} Takeda, T. and Tokuda S.,``Computation of MHD equilibrium of tokamak plasma'',
+Journal of Computational Physics,93,1,1 - 107,1991.
+
+\bibitem{Qiqi2014} Qiqi Wang and Rui Hu and Patrick Blonigan. ``Least Squares Shadowing sensitivity analysis of chaotic limit cycle oscillations." Journal of Computational Physics, Volume 267, pp. 210-224. 2014.
+
+
+\bibitem{Wesson} Wesson, J. ``Tokamaks." ``Oxford University Press, 4th edition." 2011.
+
+\bibitem{wildeyprez} Wildey, T., Butler, T., Jakeman, J., Walsh, S. " A Consistent Bayesian Approach for Stochastic Inverse Problems Based on Push-forward Measures." SAND2017-3436PE. 2017.
+
+
+\end{thebibliography}
+
+
+
 
 
 
