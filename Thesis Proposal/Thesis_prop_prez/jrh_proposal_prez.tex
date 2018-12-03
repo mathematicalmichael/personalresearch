@@ -82,7 +82,7 @@ University of Colorado Denver
 
 \begin{frame}{Overview}
 
-\small
+\tiny
 \tableofcontents
 \end{frame}
 
@@ -299,6 +299,27 @@ $$T(\lambda)=2(2\lambda-0.25)^2,$$
 \noindent which is minimized by $\lambda^*_T=1/8$. Notice $f(\lambda^*_T)=d_\text{obs}$. With Gaussian assumptions on the prior and data, we have $\pi_\Lambda^\text{post} \sim \exp(-T(\lambda))$ with mean $\lambda_T^*$.
 
 
+
+\end{frame}
+
+\begin{frame}
+
+\begin{center} 
+\includegraphics[scale=0.15]{param}
+
+\textit{Distributions in parameter space from Example 1.}
+\end{center}
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{center} 
+\includegraphics[scale=0.125]{data}
+
+\textit{Distributions in data space from Example 1.}
+\end{center}
 
 \end{frame}
 
@@ -693,6 +714,10 @@ additional, usually nonlinear model solves for the physical system state $u(x,\l
 	
 	\item Given the first $j$ singular unit vectors $u_1,\ldots,u_j$ corresponding to the SVD of $\hat{W}$, one may take $j$ draws from a specified normal distribution, which we denote with $s_i\sim N(\mu,\sigma^2)$, and form the random vector $v$ for the $k$-th step in a DFO algorithm as $v^{(k)}=\sum_{i=1}^js_iu_i$; we see that such a vector could be interpreted as a random walk in $\A$.
 	
+	\begin{itemize}
+		\item Other weighting schemes on the $u_i$'s could be considered, such as weights given by singular values.
+	\end{itemize}
+	
 	\end{itemize}
 
 	
@@ -803,12 +828,156 @@ in the magnetic equilibrium, especially in the edge.
 % ------------------------------------------------
 \section{Preliminary Results and Research Plan}
 % ------------------------------------------------
+
+
+% ------------------------------------------------
+\subsection{Data-Consistent Deregularization for Nonlinear $f$}
+% ------------------------------------------------
+
 \begin{frame}
 
-$x$
+\begin{itemize}
+
+	\item We must consider ways to express the deregularization for nonlinear $f$. This is a theoretical task which will require a closer literature review and heavy collaboration with advisers.
+
+	\item Ideas to explore may include ways in which the active subspace of $f$ could lead to more easily obtained linearizations around particular points in $\Lambda$
+	
+	\item We also must consider more general surrogate modeling. As we will observe, the $f$ as defined in Example 3 is globally quadratic with respect to its active subspace, and won't permit a global linearization. We may consider, however, a local linearization at various points on the response surface $f(\mathcal{P}_A(\lambda))$ which may be acceptable, particularly near 0.
+
+\end{itemize}
 
 \end{frame}
 
+% ------------------------------------------------
+\subsection{Impact of Noise on MAP Point and Updated Prior}
+% ------------------------------------------------
+
+\begin{frame}
+
+\begin{itemize}
+
+	\item We have performed several numerical experiments in which $f$ with additive noise is minimized with DFO at the same time that the active subspace is formed. For comparison, we have also performed numerical experiments in which $f$ with additive noise is minimized via DFO with no active subspace analysis, and likewise we have searched for the active subspace of $f$ using random points in $\Lambda$.
+	
+
+
+	\item The first concrete research step to obtain experimental evidence of noise effects will be increasing the noise level until results no longer match expectations. Rigorous characterization must follow.
+	
+	\item With an understanding of how error impacts DFO and active subspaces, we can consider the impact of noise on MAP points and updated priors.
+
+
+\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------
+\subsection{Learning and Sampling}
+% ------------------------------------------------
+
+\begin{frame}
+
+ \textbf{Example 3.} Let $\Lambda=[-1,1]^{11}$ and define $$f(\lambda)=\sum_{i=0}^{10} 2^{(-1)^i i}\lambda_i^2+\epsilon(\lambda),$$ where $\epsilon(\lambda)$ is a draw of additive noise corresponding to the input $\lambda$; here, we take draws of $\epsilon$ of order $10^{-4}$. We see that $\mathcal{D}=[0,2^{10}]$ and $N=11$, $M=1$. Note that the minimimum of $f$ is given by $0 \in \Lambda$. Here, as $i$ increases, terms in $f$ become either more important or less important, depending on whether $i$ is even or odd.
+
+
+\end{frame}
+
+\begin{frame}
+ 
+\includegraphics[scale=0.3]{eigs.png} \includegraphics[scale=0.3]{surr.png}
+
+Left: A plot of the eigenvalues of the matrix $\hat{W}$ formed from 1000 Monte Carlo samples in $\Lambda$. We see one dominant eigenvalue on the order of $10^6$. Right: A sufficient summary plot where all 1000 samples are projected into $\A$ and plotted against their function values; a quadratic surrogate fits the projected data with $R^2=$.
+
+
+
+
+\end{frame}
+
+\begin{frame}
+ 
+%\includegraphics[scale=0.3]{eigs.png} \includegraphics[scale=0.3]{surr.png}
+
+Put in the eig vals and suff summ plot from DFO samples side-by-side as above.
+
+
+
+
+\end{frame}
+
+% ------------------------------------------------
+\subsection{Using the Active Subspace}
+% ------------------------------------------------
+
+\begin{frame}
+
+\begin{itemize}
+
+	\item We are generally interested in using the active subspace of a function whenever it may reduce
+computational expense while maintaining a representations that does not deviate too far from the true action of $f$. 
+
+\begin{itemize}
+
+
+	\item Here we consider the effectiveness of DFO performed on $f$ from Example 3 using 500 iterations of unmodified STARS versus a scheme that blends STARS and active subspace analysis using only 150 iterations.
+	
+	
+
+\end{itemize}
+
+
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}
+
+
+side-by-side of STARS vs modified STARS
+
+
+\end{frame}
+
+
+% ------------------------------------------------
+\subsection{From Model Problems to Fusion Applications}
+% ------------------------------------------------
+
+\begin{frame}
+
+\begin{itemize}
+
+	\item We propose to investigate the approximate solution of data-consistent inverse problems via optimization approaches.  For derivative free optimization, we plan to transition from our noisy
+functions to the data consistent inversion of a subgrid LES model for isotropic turbulent flow.  
+
+
+	\item In the case of models where $\lambda$-gradients are available and not of suspect quality, we will
+transition from an approximate DCI for a model elliptic problem with a parameterized forcing function, with parameter gradients obtained via adjoint methods.  Success here will allow us to extend the
+method to the determination of data-consistent MHD equilibria.  
+
+
+
+\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------
+\subsection{Software Dissemination}
+% ------------------------------------------------
+
+
+\begin{frame}
+
+\begin{itemize}
+
+	\item Currently, only some of the software used to produce results in this paper are publicly available on GitHub.com. 
+	
+	\item Some of the algorithms used here and other algorithms that are of interest are within open-source packages available online including those of Constantine and Butler et al. 
+	
+	\item Other schemes considered here make modifications to given algorithms and remain under development. A major goal of this thesis proposal will be developing well-documented, open-source software complete with python Jupyter Notebooks and illustrative, replicable examples.
+
+
+\end{itemize}
+
+\end{frame}
 
 
 
@@ -820,21 +989,21 @@ $x$
 We outline a rough timeline for the remaining 2 years in a 5.5 year plan.
 
 \begin{itemize}
-\tiny
+\small
 
 \item Clean existing algorithms and examples, generate richer research results related to DFO and active subspaces, and build a model inverse problem for investigation. (Dec 2018/Jan 2019)
 
-\item On RA for Spring 2019.
+\item On RA for Spring 2019. (Jan 2019-May 2019)
 
 \item Write and present MS-level results. (Feb/Mar 2019)
 
 \item Work on theoretical formulation of deregularization for nonlinear $f$. Work on generating notebooks and examples. (Ongoing/Spring and Summer 2019)
 
-\item Summer research; begin writing thesis; summer school/internship/conference (?) (Jun/Jul/Aug 2019)
+\item Summer research; begin writing thesis; summer school/internship/conferences. (Jun/Jul/Aug 2019)
 
-\item Fall 2019 - Writing phase, revisions.
+\item Fall 2019 - Writing phase, revisions. 
 
-\item Spring 2020 - Final revisions, software.
+\item Spring 2020 - Final revisions, software, documentation.
 
 \item Summer 2020 Internship/collaborations, publishing, formatting.
 
@@ -854,7 +1023,7 @@ We outline a rough timeline for the remaining 2 years in a 5.5 year plan.
 % ------------------------------------------------
 \begin{frame}
 
-$x$
+
 
 \end{frame}
 
