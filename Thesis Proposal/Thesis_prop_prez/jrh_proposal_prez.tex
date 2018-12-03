@@ -203,7 +203,8 @@ i.e., it is not a \textit{pull-back probability measure}.
 
 \begin{itemize}
 
-	\item With an expensive $f$ and large $N$, approximately solving the forward UQ problem needed to form \eqref{eq:1} generally requires density estimation which converges at best near a Monte Carlo $\mathcal{O}\left(\frac{1}{\sqrt{N}} \right)$ convergence rate.
+	\item %With an expensive $f$ and large $N$, 
+	Approximately solving the forward UQ problem needed to form \eqref{eq:1} generally requires density estimation, which converges at best like Monte Carlo,  $ \sim \mathcal{O}\left(\frac{1}{\sqrt{n}} \right)$, where $n$ represents the number of samples of $f$.
 	
 	\item In the case that $f$ is a linear operator and the prior and observed densities are Gaussians, the solution to the SIP can be obtained exactly, and its mean is equivalent to the solution of a deterministic convex optimization problem.
 	
@@ -236,8 +237,11 @@ S(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(A\lambda-d_{\text{o
 
 \item It is assumed that $\pi_\Lambda^\text{prior}$ and $\pi_\mathcal{D}$ are Gaussians, and the misfit function is specified by $\lambda_{\text{prior}}=\bar{\lambda}$ and $d_{\text{obs}}=\bar{d}$, the respective means of the prior and observed densities.
 
-\item The minimum of $S$ is called the maximum a posteriori point, or \textit{MAP point}, $\lambda_S^*$, and the classical solution to the SIP is $\pi_\Lambda^\text{update}(\lambda) = c\cdot \exp(-S(\lambda)),$ where $c$ is a constant.
+\item The statistical mode of the posterior is called the maximum a posteriori point, or \textit{MAP point}.  
 
+\item The $\lambda$ value that minimizes $S$ is the MAP,$\lambda_S^*$, and the classical solution to the (linear) SIP is $\pi_\Lambda^\text{update}(\lambda) = c\cdot \exp(-S(\lambda)).$ 
+
+%where $c$ is a constant. 
 
 \end{itemize}
 
