@@ -881,22 +881,30 @@ in the magnetic equilibrium, especially in the edge.
 \end{frame}
 
 \begin{frame}
+
+\begin{center}
+
  
 \includegraphics[scale=0.3]{eigs.png} \includegraphics[scale=0.3]{surr.png}
 
-Left: A plot of the eigenvalues of the matrix $\hat{W}$ formed from 1000 Monte Carlo samples in $\Lambda$. We see one dominant eigenvalue on the order of $10^6$. Right: A sufficient summary plot where all 1000 samples are projected into $\A$ and plotted against their function values; a quadratic surrogate fits the projected data with $R^2=$.
+Left: A plot of the eigenvalues of the matrix $\hat{W}$ formed from 1000 Monte Carlo samples in $\Lambda$. We see one dominant eigenvalue on the order of $10^6$. Right: A sufficient summary plot where all 1000 samples are projected into $\A$ and plotted against their function values; a quadratic surrogate fits the projected data with $R^2\approx 0.9$.
 
+\end{center}
 
 
 
 \end{frame}
 
 \begin{frame}
+
+\begin{center}
+
  
-%\includegraphics[scale=0.3]{eigs.png} \includegraphics[scale=0.3]{surr.png}
+\includegraphics[scale=0.3]{DFO_eigs.png} \includegraphics[scale=0.3]{DFO_suffsum.png}
 
-Put in the eig vals and suff summ plot from DFO samples side-by-side as above.
+Left: A plot of the eigenvalues of the matrix $\hat{W}$ formed from using 100 DFO iterates as samples in $\Lambda$. We again see one dominant eigenvalue between orders $10^6$ and $10^7$. Right: A sufficient summary plot where all 100 samples are projected into $\A$ and plotted against their function values.
 
+\end{center}
 
 
 
@@ -931,7 +939,14 @@ computational expense while maintaining a representations that does not deviate 
 \begin{frame}
 
 
-side-by-side of STARS vs modified STARS
+\begin{center}
+
+ 
+\includegraphics[scale=0.25]{pure_stars.png} \includegraphics[scale=0.25]{mod_stars.png}
+
+Left: A log-log plot of the number of iterations (500) versus their function values in STARS. Right: A log-log plot of the number of iterations (150) versus their functions values in modified STARS.
+
+\end{center}
 
 
 \end{frame}
