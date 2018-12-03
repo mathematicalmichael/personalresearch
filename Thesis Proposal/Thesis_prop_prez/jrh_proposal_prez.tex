@@ -255,10 +255,11 @@ S(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(A\lambda-d_{\text{o
 
 	\item $S$ is reformulated so it is an objective function with a minimizer corresponding to the \textit{data-consistent} MAP point. 
 	
-		\item An additional \textit{deregularization} term is appended so that if a unique solution exists, the regularization will be ``turned off." We write the \textit{data-consistent misfit function,}
+		\item A \textit{deregularization} term is appended so that if a unique solution exists, the regularization will be canceled. We define
 	
-	
-	
+\begin{block}{The Data-Consistent Misfit Function}
+
+
 $$T(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(A\lambda-d_{\text{obs}})\right|\right|_2^2+\left|\left|C_\Lambda^{-1/2}(\lambda-\lambda_{\text{prior}})\right|\right|_2^2\right)$$
 	
 
@@ -268,7 +269,7 @@ $$T(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(A\lambda-d_{\text
 
 \noindent where $C_A=AC_\Lambda A^T$. 
 	
-
+\end{block}
 
 
 \end{itemize}
@@ -299,7 +300,9 @@ $$T(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(A\lambda-d_{\text
 
 \begin{frame}
 
-\noindent \textbf{Example 1.} Let $f(\lambda)=2\lambda$, $\lambda_\text{prior}=0.1$, $C_\Lambda=[0.5],$ $d_\text{obs}=0.25$, and $C_\mathcal{D}=[0.25]$; note, $N=M=1$. Then we find that 
+\begin{block}{Example 1.}
+
+\noindent Let $f(\lambda)=2\lambda$, $\lambda_\text{prior}=0.1$, $C_\Lambda=[0.5],$ $d_\text{obs}=0.25$, and $C_\mathcal{D}=[0.25]$; note, $N=M=1$. Then we find that 
 
 $$S(\lambda)=2((2\lambda-0.25)^2+(\lambda-0.1)^2),$$ 
 
@@ -307,7 +310,7 @@ $$S(\lambda)=2((2\lambda-0.25)^2+(\lambda-0.1)^2),$$
 $$T(\lambda)=2(2\lambda-0.25)^2,$$ 
 
 \noindent which is minimized by $\lambda^*_T=1/8$. Notice $f(\lambda^*_T)=d_\text{obs}$. With Gaussian assumptions on the prior and data, we have $\pi_\Lambda^\text{post} \sim \exp(-T(\lambda))$ with mean $\lambda_T^*$.
-
+\end{block}
 
 
 \end{frame}
@@ -336,7 +339,10 @@ $$T(\lambda)=2(2\lambda-0.25)^2,$$
 
 \begin{frame}
 
-\noindent \textbf{Example 2.} Let $f(\lambda)=2\lambda_1-\lambda_2$, $\lambda_\text{prior}=(0.1 \quad 0.2)^\top$, $C_\Lambda=\text{diag}[0.5,0.25],$ $d_\text{obs}=0.1$, and $C_\mathcal{D}=[0.25]$.
+\begin{block}{Example 2. \footnotemark[1]}
+
+
+\noindent  Let $f(\lambda)=2\lambda_1-\lambda_2$, $\lambda_\text{prior}=(0.1 \quad 0.2)^\top$, $C_\Lambda=\text{diag}[0.5,0.25],$ $d_\text{obs}=0.1$, and $C_\mathcal{D}=[0.25]$.
 
 \vspace{0.25cm}
 
@@ -352,8 +358,10 @@ Assuming that $\lambda_\text{prior}$ and $d_\text{obs}$ are the means of Gaussia
 In the data-consistent formulation, we have 
 $T$ minimized by $\lambda^*_T=(13/90,17/90)$. Notice $f(\lambda^*_T)=9/90=d_\text{obs}$. With Gaussian assumptions, we have $\pi_\Lambda^\text{post} \sim \exp(-T(\lambda))$ with mean $\lambda_T^*$. 
 
+\end{block}
 
 
+\footnotetext[1]{Wildey, T., Butler, T., Jakeman, J., Walsh, S.}
 \end{frame}
 
 \begin{frame}
@@ -362,8 +370,10 @@ $T$ minimized by $\lambda^*_T=(13/90,17/90)$. Notice $f(\lambda^*_T)=9/90=d_\tex
 \begin{figure} 
 \includegraphics[scale=0.2]{Regularization-all-in-one.pdf}
 
-This figure from Wildey, Butler, et al shows the process of obtaining the statistical/classical Bayesian solution and data-consistent solution in Example 2.
+This figure from \footnotemark[1] shows the process of obtaining the statistical/classical Bayesian solution and data-consistent solution in Example 2.
 \end{figure}
+
+\footnotetext[1]{Wildey, T., Butler, T., Jakeman, J., Walsh, S.}
 
 \end{frame}
 
@@ -406,7 +416,11 @@ This figure from Wildey, Butler, et al shows the process of obtaining the statis
 		\item We consider $\pi_\Lambda^\text{prior}(\lambda)$, the density describing our prior state of knowledge, which we abbreviate as $\pi_\Lambda$.
 \end{itemize}
 
-\item One transforms inputs $\lambda$ to the origin with some fixed variance, typically so that $\lambda\in [-1,1]^N$. Then, as in Const. MC, we define
+\item One transforms inputs $\lambda$ to the origin with some fixed variance, typically so that $\lambda\in [-1,1]^N$. We define
+
+\end{itemize}
+
+\begin{block}{Covariance in Gradient Space \footnotemark[1]}
 
 \begin{equation} \label{eq:4}
 W=\int_\Lambda \nabla f(\lambda) \nabla f(\lambda)^\top  \pi_\Lambda(\lambda) d\lambda,
@@ -414,7 +428,11 @@ W=\int_\Lambda \nabla f(\lambda) \nabla f(\lambda)^\top  \pi_\Lambda(\lambda) d\
 
 \noindent which is an $N\times N$ symmetric positive semi-definite matrix.
 
-\end{itemize}
+\end{block}
+
+%\footnotetext[1]{Constantine, Eftekkari, Wakin}
+\footnotetext[1]{Constantine}
+
 
 \end{frame}
 
@@ -426,11 +444,16 @@ W=\int_\Lambda \nabla f(\lambda) \nabla f(\lambda)^\top  \pi_\Lambda(\lambda) d\
 
 \item Interpreting $W$ as a certain covariance structure over $\Lambda$ leads one to the idea of computing the Singular Value Decomposition of $W$,
 
+\begin{block}{Singular Value Decomposition (SVD) of $W$}
+
 \begin{equation} \label{eq:5}
 W=U\Sigma V^*,
 \end{equation} 
 
+
 \noindent where $U$ is $N \times N$ unitary, $\Sigma$ is $N \times N$ diagonal with the singular values of $W$ along its diagonal, and $V^*$ is $N \times N$ unitary.
+
+\end{block}
 
 \item We plot the singular values, $\{\sigma_i\}_{i=1}^n$ and seek a drop-off in magnitude between some pair of singular values, $\sigma_{j}$ and $\sigma_{j+1}$. The active subspace is the span of $u_1,\ldots,u_{j}$, which are the first $j$ columns of $U$, the left singular vectors of $W$. 
 
@@ -445,18 +468,25 @@ W=U\Sigma V^*,
 
 	\item For a point $\lambda \in \Lambda$, we define
 
+\begin{block}{Projection into $\mathcal{A}$, \textit{active variables}}
+
 \begin{equation} \label{eq:6}
   \mathcal{P}_\A(\lambda)=\sum_{i=1}^{j}\left( u_i^T \lambda\right)u_i \in \A, 
 \end{equation}
 
-\noindent which is the projection of $\lambda$ in the active directions of $f$. We call this projection an active variable, which is a point in the active subspace $\A$. 
+\noindent which is the projection of $\lambda$ in the active directions of $f$.
+
+\end{block}
 
 \item We have arrived at the property that 
+
+\begin{block}{Resolution of $f$ in $\mathcal{A}$}
 
 \begin{equation} \label{eq:7}
 f\left(\mathcal{P}_\A(\lambda)\right) \approx f(\lambda).
 \end{equation}
 
+\end{block}
 
 \end{itemize}
 
@@ -469,15 +499,20 @@ f\left(\mathcal{P}_\A(\lambda)\right) \approx f(\lambda).
 
 \begin{itemize}
 
-\item In practice, finding an active subspace of $f$ requires forming an approximation to $W$ via Monte Carlo. Here we consider a method by Russi.
+\item Finding an active subspace requires forming an approximation to $W$ via Monte Carlo. Here we consider techniques in \footnotemark[1] \footnotemark[2].
 
 
 
-\item We define $D_S=\{(\lambda_i,f(\lambda_i))\}_{i=1}^S$, a set of $S$ pairs of samples $\lambda_i \in \Lambda$ and their function values. One may use $D_S$ to approximate $\nabla f$. We denote each estimation to $\nabla f(\lambda_i)$ with $\reallywidehat{\nabla f}(\lambda_i)$.
+\item We let $D_S=\{(\lambda_i,f(\lambda_i))\}_{i=1}^S$, which is a set of $S$ pairs of samples $\lambda_i \in \Lambda$ and their function values. One may use $D_S$ to approximate $\nabla f$. We denote each estimation to $\nabla f(\lambda_i)$ with $\reallywidehat{\nabla f}(\lambda_i)$.
 
 \item We form the $N \times S$ matrix $\tilde{W}$ (which we present as $\tilde{W}^\top$)
 
-\begin{equation} \label{eq:8}
+\end{itemize}
+
+\begin{block}{Monte Carlo Approximation to $W$ \footnotemark[1]}
+
+
+\begin{equation} \label{eq:4}
 \tilde{W}^\top:=\begin{bmatrix}
 \reallywidehat{\nabla f}(\lambda_1)
 \cdot \cdot \cdot
@@ -485,11 +520,13 @@ f\left(\mathcal{P}_\A(\lambda)\right) \approx f(\lambda).
 \end{bmatrix}.
 \end{equation}  
 
+\end{block}
 
-\end{itemize}
-
+\footnotetext[1]{Russi, T.M.}
+\footnotetext[2]{Constantine, Eftekkari, Wakin}
 
 \end{frame}
+
 
 \begin{frame}
 
@@ -497,7 +534,14 @@ f\left(\mathcal{P}_\A(\lambda)\right) \approx f(\lambda).
 
 	\item Forming the SVD of $\tilde{W}$, $\tilde{W}=\tilde{U}\tilde{\Sigma}\tilde{V}^*$, we search for a drop off in the magnitude of the singular values $\{\tilde{\sigma}_i\}_{i=1}^S$. Assuming such a drop off occurs for an index $j:1<j<S$, we have the $j$ corresponding left singular vectors,$ \tilde{u},\ldots,\tilde{u}_{j}$.  
 	
-	\item Then $$\A\left(f; D_S \right):=\text{span}\{\tilde{u},\ldots,\tilde{u}_{j}\}$$ is the active subspace of $f$ with respect to the samples $D_S$.
+	\item Then we define
+
+	\begin{block}{Monte Carlo approximation to $\A$}
+	
+	
+	$$\A\left(f; D_S \right):=\text{span}\{\tilde{u},\ldots,\tilde{u}_{j}\},$$ the active subspace of $f$ with respect to the samples $D_S$.
+	
+	\end{block}		
 
 	\item We check the extent to which the active subspace accounts for functions values $f(\lambda)$ 
 by checking for resolution in a \emph{sufficient summary plot}, where we plot active variables against function values.
