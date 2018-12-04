@@ -609,20 +609,22 @@ additional, usually nonlinear model solves for the physical system state $u(x,\l
  
 
 
-\item We consider derivative-free optimization (DFO) algorithms suited for additive and multiplicative noise \footnotemark[1]. The technique only requires evaluations of the noisy model and random draws from a normal distribution.
-
+\item We are interested in derivative-free optimization (DFO) algorithms suited for additive and multiplicative noise. These techniques only require evaluations of the noisy model and random draws from a normal distribution.
 
 \begin{itemize}
-
-
-\item The method finds a new iterate by randomly perturbing the previous iterate in $\Lambda$.
-
-\item Iterates are not allowed to stray much due to relatively small smoothing factors and step sizes. The smoothing factor and step size in the DF algorithms are of great importance to their convergence and termination. 
-
-\item The smoothing factor and step size will depend on a scale factor of the $L_1$ Lipschitz constant of $f$. It is of interest to obtain estimates of $L_1$, which is not straightforward in a gradient-free setting. We refer to \footnotemark[2] \footnotemark[3] for Lipschitz constant learning.
-
-
+	\item In particular, we consider the STep-size Approximation in Randomized Search (STARS) algorithm \footnotemark[1].
 \end{itemize}
+
+
+
+%%\item The method finds a new iterate by randomly perturbing the previous iterate in $\Lambda$.
+
+%\item Iterates are not allowed to stray much due to relatively small smoothing factors and step sizes. The smoothing factor and step size in the DF algorithms are of great importance to their convergence and termination. 
+
+\item The smoothing factor and step size in STARS depend on scale factors of the $L_1$ Lipschitz constant of $f$. It is of interest to obtain estimates of $L_1$, which is not straightforward in a gradient-free setting. We refer to \footnotemark[2] \footnotemark[3] for Lipschitz constant learning.
+
+\item We note that \textbf{the convergence of STARS is dimension dependent.}
+
 
 \end{itemize}
 
@@ -675,18 +677,33 @@ additional, usually nonlinear model solves for the physical system state $u(x,\l
 
 \begin{frame}
 
-\begin{itemize}
+\begin{block}{Algorithm 1: \textit{Minimization of $f+\epsilon$ via STARS\footnotemark[1].}}
 
-	\item We consider algorithms such as \textit{STARS \footnotemark[1] (STep-size Approximation in Randomized Search)}, which: 
 
-\begin{itemize}
-		\item uses small perturbations in the domain $\Lambda=\R^N$ by the addition of a random vector with components drawn from a normal distribution to iterates $\lambda^{(k)}$; 
-		\item computes the function value at the randomly perturbed point with additive or multiplicative noise drawn from a specified distribution; 
-		\item and updates iterates using a Gaussian-smoothed finite-difference scheme for approximate gradient information in a gradient descent fashion. 
 
-\end{itemize}
+\begin{enumerate}[1:]
 
-\end{itemize}
+\item Define: $\left(\texttt{maxit}; \lambda^{(0)}; f_0:=f(\lambda^{(0)})+\epsilon_0; \mu^*; h\right)$. Set $\texttt{i=1}$.
+
+
+\item Draw a random $N \times 1$ vector $r^i$, where $r^i_j \sim N(0,1)$ for $j=1,\ldots,N$ and draw $\epsilon_i$.
+
+\item Evaluate $g_i:=f(\lambda_{i-1}+\mu^*u_i)+\epsilon_i$.
+
+\item Set $\ds d_i:=\frac{g_i-f_{i-1}}{\mu^*}u_i$.
+
+\item Set $\lambda_i=\lambda_{i-1}-h\cdot d_i$.
+
+\item Evaluate $f_i:=f(\lambda_i)+\epsilon_i$; set \texttt{i=i+1}; return to 2.
+
+\item Terminate when \texttt{i=maxit}.
+
+\end{enumerate}
+
+
+
+\end{block}
+
 
 \footnotetext[1]{Chen and Wild}
 
@@ -710,9 +727,9 @@ additional, usually nonlinear model solves for the physical system state $u(x,\l
 	
 	% FIX THIS	
 	
-	\item For a general nonlinear map $f$, we must reformulate the deregularization which we recall for a linear map $f$ with matrix $A$ may be written
+	\item  Recall for a linear $f$ where $f(\lambda)=A \lambda,$ the deregularization term in \eqref{eq:3} is
 
-\begin{block}{Deregularization Term for Linear $f$}
+\begin{block}{Deregularization Term}
 
 \begin{equation} \label{eq:10}
 \left|\left|C_A^{-1/2}(A\lambda-A\lambda_{\text{prior}})\right|\right|_2^2,
@@ -722,7 +739,14 @@ additional, usually nonlinear model solves for the physical system state $u(x,\l
 
 \end{block}
 
-\item For a nonlinear $f$, we may expand $f$ linearly around some $\lambda \in \Lambda$ and write $f(\lambda)-f(\lambda_\text{prior})=A (\lambda-\lambda_\text{prior})$, where $A=\nabla f (\lambda)^\top$, which is an $N \times M$ matrix. In order to fully determine the form of \eqref{eq:10}, we must find $(f(\lambda)^\top C_\Lambda f(\lambda))^{-1}$.
+\begin{block}{Research Question}
+
+For a nonlinear $f$, inversion via convex optimization may be performed if $f$ is linearized and Gaussian assumptions are met. How can deregularization be performed so that data-consistency may be achieved?
+
+
+\end{block}
+
+%\item For a nonlinear $f$, we may expand $f$ linearly around some $\lambda \in \Lambda$ and write $f(\lambda)-f(\lambda_\text{prior})=A (\lambda-\lambda_\text{prior})$, where $A=\nabla f (\lambda)^\top$, which is an $N \times M$ matrix. In order to fully determine the form of \eqref{eq:10}, we must find $(f(\lambda)^\top C_\Lambda f(\lambda))^{-1}$.
 
 
 \end{itemize}
