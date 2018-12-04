@@ -126,7 +126,13 @@ University of Colorado Denver
 
 \begin{block}{The Stocastic Inverse Problem (SIP) \footnotemark[1]\footnotemark[2]\footnotemark[3]}
 	
-Given the \emph{prior distribution}, $\pi_\Lambda^\text{prior}(\lambda)$, the prior or initial knowledge of the parameter space $\Lambda$ and the \emph{observed distribution}, $\pi_\mathcal{D}(d)$, the uncertain state of knowledge of the observed data in $\mathcal{D}$, the SIP is obtaining an \emph{updated probability distribution}, $\pi_\Lambda^\text{update}(\lambda)$ combining the given prior information and the observed data.
+Given:
+\begin{itemize}
+\item  the \emph{prior distribution}, $\pi_\Lambda^\text{prior}(\lambda)$:  the prior or initial knowledge of the parameter space $\Lambda$ 
+\item the \emph{observed distribution}, $\pi_\mathcal{D}(d)$:  the uncertain state of knowledge of the observed data in $\mathcal{D}$.
+\end{itemize}
+
+The SIP is obtaining an \emph{updated probability distribution}, $\pi_\Lambda^\text{update}(\lambda)$ combining the given prior information and the observed data.
 
 \end{block}
 
@@ -172,9 +178,10 @@ i.e., it is not a \textit{pull-back probability measure}.
 
 	\item Data-Consistent Inversion (DCI) seeks an updated solution $\pi_\Lambda^\text{update}$ for which the push-forward exactly equals $\pi_\mathcal{D}$. 
 	
-	\item To obtain such a solution, we must solve the forward problem $f(\pi_\Lambda^\text{prior})$.
+	\item To obtain such a solution, we must solve the forward UQ  problem.
+	%and find $f(\pi_\Lambda^\text{prior})$.
 	
-	\item We denote the solution to the forward problem with $\pi_\mathcal{D}^{f(\Lambda)}(d)$.
+	\item We denote the solution to the forward  UQ problem with $\pi_\mathcal{D}^{f(\Lambda)}(d)$.
 
 
 
@@ -284,19 +291,21 @@ $$T(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(A\lambda-d_{\text
 \begin{frame}
 
 
-
+\begin{block}{Comments}
 \begin{itemize}
 
 	%\item We call the minimum of $T$, $\lambda_T^*$, the data-consistent MAP point.
 
-	\item In the case that $\pi_\Lambda$ and $\pi_\mathcal{D}$ are Gaussian, the data-consistent solution to our inverse problem is given exactly by $\pi_\Lambda^\text{update}(\lambda_T^*)= c\cdot \exp(-T(\lambda))$. 
+	\item If $\pi_\Lambda$ and $\pi_\mathcal{D}$ are Gaussian, the data-consistent solution to our inverse problem is given exactly by $\pi_\Lambda^\text{update}(\lambda_T^*)= c\cdot \exp(-T(\lambda))$ or, in a more useful form, a Gaussian with mean $\lambda_T^*$ and 
+	Covariance matrix 
+	$$
+	C^U_\Lambda = (A^\top C_\mathcal{D}^{-1}A + C_\Lambda^{-1} -A^\top(C_A)^{-1}A)^{-1}
+	$$
 
-	\item The deregularization term will ensure a solution that updates the distribution on $\Lambda$ in the directions in which the data is informative. 
-
-
+	\item The deregularization term will ensure a solution that updates the initial distribution on $\Lambda$ only in the directions in which the data is informative. 
 
 \end{itemize}
-
+\end{block}
 
 
 \end{frame}
@@ -982,6 +991,7 @@ and transport as these properties.
 
 \begin{frame}
 
+
 \begin{itemize}
 
 	\item We must consider ways to express the deregularization for nonlinear $f$. This is a theoretical task which will require a closer literature review and heavy collaboration with advisers.
@@ -991,6 +1001,7 @@ and transport as these properties.
 	\item We also must consider more general surrogate modeling. As we will observe, the $f$ as defined in Example 3 is globally quadratic with respect to its active subspace, and won't permit a global linearization. We may consider, however, a local linearization at various points on the response surface $f(\mathcal{P}_A(\lambda))$ which may be acceptable, particularly near 0.
 
 \end{itemize}
+
 
 \end{frame}
 
