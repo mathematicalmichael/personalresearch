@@ -209,7 +209,9 @@ i.e., it is not a \textit{pull-back probability measure}.
 	\item In the case that $f$ is a linear operator and the prior and observed densities are Gaussians, the solution to the SIP can be obtained exactly, and its mean is equivalent to the solution of a deterministic convex optimization problem.
 	
 	\begin{itemize}
-		\item The classical form of the objective function \footnotemark[1] can be altered \footnotemark[2] to obtain a data-consistent (approximate) solution with $f$ linear and Gaussian $\pi_\Lambda^{\text{prior}},$ $\pi_\mathcal{D}$.
+		\item The form of the objective function is different for statistical Bayesian inversion and DCI.
+		
+		%\footnotemark[1] can be altered \footnotemark[2] to obtain a data-consistent (approximate) solution with $f$ linear and Gaussian $\pi_\Lambda^{\text{prior}},$ $\pi_\mathcal{D}$.
 	\end{itemize}
 
 \end{itemize}
@@ -224,7 +226,7 @@ i.e., it is not a \textit{pull-back probability measure}.
 
 \begin{itemize}
 	
-	\item Assuming $f$ is linear, we define its matrix, $A$. Given observed data $d_{\text{obs}} \sim \pi_\mathcal{D}$ and a draw $\lambda_\text{prior}\sim \pi_\Lambda^\text{prior}$, we define
+	\item Assume $\pi_\Lambda^\text{prior}$ and $\pi_\mathcal{D}$ are Gaussians with means $\lambda_{\text{prior}}$ and $d_{\text{obs}}$ and covariance matrices $C_\Lambda$ and $C_\D$, respectively. If $f$ is linear, then $f(\lambda)=A \lambda$. We define
 
 \begin{block}{The Classical Misfit Function}
 
@@ -235,11 +237,10 @@ S(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(A\lambda-d_{\text{o
 
 \end{block} 
 
-\item It is assumed that $\pi_\Lambda^\text{prior}$ and $\pi_\mathcal{D}$ are Gaussians, and the misfit function is specified by $\lambda_{\text{prior}}=\bar{\lambda}$ and $d_{\text{obs}}=\bar{d}$, the respective means of the prior and observed densities.
 
 \item The statistical mode of the posterior is called the maximum a posteriori point, or \textit{MAP point}.  
 
-\item The $\lambda$ value that minimizes $S$ is the MAP,$\lambda_S^*$, and the classical solution to the (linear) SIP is $\pi_\Lambda^\text{update}(\lambda) = c\cdot \exp(-S(\lambda)).$ 
+\item The $\lambda$ value that minimizes $S$ is the MAP, $\lambda_S^*$, and the classical solution to the (linear) SIP is $\pi_\Lambda^\text{update}(\lambda) = c\cdot \exp(-S(\lambda)).$ 
 
 %where $c$ is a constant. 
 
@@ -259,7 +260,7 @@ S(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(A\lambda-d_{\text{o
 
 	\item $S$ is reformulated so it is an objective function with a minimizer corresponding to the \textit{data-consistent} MAP point. 
 	
-		\item A \textit{deregularization} term is appended so that if a unique solution exists, the regularization will be canceled. We define
+		\item A \textit{deregularization} term is appended so that if $A$ is invertible, the regularization will be canceled. We define
 	
 \begin{block}{The Data-Consistent Misfit Function}
 
@@ -291,7 +292,9 @@ $$T(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(A\lambda-d_{\text
 
 	\item In the case that $\pi_\Lambda$ and $\pi_\mathcal{D}$ are Gaussian, the data-consistent solution to our inverse problem is given exactly by $\pi_\Lambda^\text{update}(\lambda_T^*)= c\cdot \exp(-T(\lambda))$. 
 
-	\item The deregularization term will ensure a solution that updates the distribution on $\Lambda$ in the directions in which the data is informative. 
+	\item The deregularization term will ensure that the effect of the prior distribution on the solution 
+	
+	%a solution that updates the distribution on $\Lambda$ in the directions in which the data is informative. 
 
 
 
@@ -415,13 +418,13 @@ This figure \footnotemark[1] shows the process of obtaining the statistical/clas
 
 \begin{itemize}
 
-\item $\nabla f(\lambda)\in \Lambda$ is a column vector with rows containing the $N$ partial derivatives of $f$, which for this discussion we assume exist, and are square integrable in $\Lambda$ equipped with some probability density that is positive everywhere in $\Lambda$ and 0 otherwise.
+\item $\nabla f(\lambda)\in \Lambda$ is a column vector containing the $N$ partial derivatives of $f$, which for this discussion we assume exist, and are square integrable in $\Lambda$ equipped with some probability density that is positive everywhere in $\Lambda$ and 0 otherwise.
 
 \begin{itemize}
 		\item We consider $\pi_\Lambda^\text{prior}(\lambda)$, the density describing our prior state of knowledge, which we abbreviate as $\pi_\Lambda$.
 \end{itemize}
 
-\item One transforms inputs $\lambda$ to the origin with some fixed variance, typically so that $\lambda\in [-1,1]^N$. We define
+\item For convenience, one transforms inputs $\lambda$ to the origin with some fixed variance, typically so that $\lambda\in [-1,1]^N$. We define
 
 \end{itemize}
 
@@ -476,7 +479,7 @@ W=U\Sigma V^*,
 \begin{block}{Projection into $\mathcal{A}$, \textit{active variables}}
 
 \begin{equation} \label{eq:6}
-  \mathcal{P}_\A(\lambda)=\sum_{i=1}^{j}\left( u_i^T \lambda\right)u_i \in \A, 
+  \mathcal{P}_\A(\lambda)=\sum_{i=1}^{j}\left( u_i^T \lambda\right)u_i, 
 \end{equation}
 
 \noindent which is the projection of $\lambda$ in the active directions of $f$.
@@ -508,7 +511,9 @@ f\left(\mathcal{P}_\A(\lambda)\right) \approx f(\lambda).
 
 
 
-\item We let $D_S=\{(\lambda_i,f(\lambda_i))\}_{i=1}^S$, which is a set of $S$ pairs of samples $\lambda_i \in \Lambda$ and their function values. One may use $D_S$ to approximate $\nabla f$. We denote each estimation to $\nabla f(\lambda_i)$ with $\reallywidehat{\nabla f}(\lambda_i)$.
+\item We let $D_S=\{(\lambda_i,f(\lambda_i))\}_{i=1}^S$, which is a set of $S$ pairs of samples $\lambda_i \in \Lambda$ and their function values. 
+
+\item One may use $D_S$ to approximate $\nabla f$. We denote each estimation to $\nabla f(\lambda_i) \approx \reallywidehat{\nabla f}(\lambda_i)$.
 
 \item We form the $N \times S$ matrix $\tilde{W}$ (which we present as $\tilde{W}^\top$)
 
@@ -537,19 +542,18 @@ f\left(\mathcal{P}_\A(\lambda)\right) \approx f(\lambda).
 
 \begin{itemize}
 
-	\item Forming the SVD of $\tilde{W}$, $\tilde{W}=\tilde{U}\tilde{\Sigma}\tilde{V}^*$, we search for a drop off in the magnitude of the singular values $\{\tilde{\sigma}_i\}_{i=1}^S$. Assuming such a drop off occurs for an index $j:1<j<S$, we have the $j$ corresponding left singular vectors,$ \tilde{u},\ldots,\tilde{u}_{j}$.  
+	\item Forming the SVD of $\tilde{W}$, $\tilde{W}=\tilde{U}\tilde{\Sigma}\tilde{V}^*$, we search for a drop off in the magnitude of the singular values $\{\tilde{\sigma}_i\}_{i=1}^S$. Assuming such a drop off occurs for an index $j:1<j<S$, we have the $j$ corresponding left singular vectors,$ \tilde{u}_1,\ldots,\tilde{u}_{j}$.  
 	
 	\item Then we define
 
 	\begin{block}{Monte Carlo approximation to $\A$}
 	
 	
-	$$\A\left(f; D_S \right):=\text{span}\{\tilde{u},\ldots,\tilde{u}_{j}\},$$ the active subspace of $f$ with respect to the samples $D_S$.
+	$$\A\left(f; D_S \right):=\text{span}\{\tilde{u}_1,\ldots,\tilde{u}_{j}\},$$ the active subspace of $f$ with respect to the samples $D_S$.
 	
 	\end{block}		
 
-	\item We check the extent to which the active subspace accounts for functions values $f(\lambda)$ 
-by checking for resolution in a \emph{sufficient summary plot}, where we plot active variables against function values.
+	\item For low dimensional $\A$, we may check $f(\mathcal{P}_\A(\lambda))\approx f(\lambda)$ in a \emph{sufficient summary plot}, where we plot active variables against function values.
 
 
 \end{itemize}
@@ -565,7 +569,9 @@ by checking for resolution in a \emph{sufficient summary plot}, where we plot ac
 
 \begin{itemize}
 
-\item Many important physical systems possess turbulent or chaotic behavior.  The physical state of the system $u(x,\lambda)$ and the corresponding parameter
+\item Many important physical systems possess turbulent or chaotic behavior.  
+
+\item The physical state of the system $u(x,\lambda)$ and the corresponding parameter
 to observable map $f(u(x,\lambda))$ may be modeled as a stochastic process, or as a deterministic function with additive or multiplicative noise.  
 
 \begin{itemize}
@@ -693,6 +699,8 @@ additional, usually nonlinear model solves for the physical system state $u(x,\l
 
 \begin{itemize}
 	
+	% FIX THIS	
+	
 	\item For a general nonlinear map $f$, we must reformulate the deregularization which we recall for a linear map $f$ with matrix $A$ may be written
 
 \begin{block}{Deregularization Term for Linear $f$}
@@ -765,7 +773,7 @@ additional, usually nonlinear model solves for the physical system state $u(x,\l
 \end{itemize}
 
 \footnotetext[1]{Jan-Peter Calliess}
-\footnotetext[1]{Kvasov and Sergeyev}
+\footnotetext[2]{Kvasov and Sergeyev}
 
 \end{frame}
 
@@ -774,17 +782,7 @@ additional, usually nonlinear model solves for the physical system state $u(x,\l
 \subsection{Using the Active Subspace}
 % ------------------------------------------------
 
-\begin{frame}
 
-\begin{itemize}
-
-	\item Computational expense may be saved by projecting points $\lambda$ into their active variables, since such projections are of lower dimension than $\Lambda$. 
-	
-	\item This property gives the ability to save computational expense for a number of problems in Uncertainty Quantification, including optimization, representation, and solving inverse problems.
-
-\end{itemize}
-
-\end{frame}
 
 \begin{frame}
 
@@ -810,25 +808,25 @@ additional, usually nonlinear model solves for the physical system state $u(x,\l
 \end{frame}
 
 
-\begin{frame}
+%\begin{frame}
 
-\begin{itemize}
+%\begin{itemize}
 
-	\item We are generally interested in the representation and surrogates one may form with an active subspace. By performing dimension reduction, it is possible to test the resolution of function values $f$ versus active variables by forming a sufficient summary plot or \emph{response surface}. 
+%	\item We are generally interested in the representation and surrogates one may form with an active subspace.  
 	
-\begin{itemize}
+%\begin{itemize}
 
 
-	\item Depending on the quality and form of the resolution, one may (or may not) be able to discern the relation between $f$ and its active variables visually, by fitting a surrogate through the response surface and testing the fit, or both. 
+%	\item Depending on the quality and form of the resolution, one may (or may not) be able to discern the relation between $f$ and its active variables visually, by fitting a surrogate through the response surface and testing the fit, or both. 
 
-\end{itemize}	
+% \end{itemize}	
 	
-	\item Representing $f$ with a lower-dimensional surrogate may help with solving other problems of interest: we may be able to solve a forward problem at lower cost, or pose the convex objective function for solving an inverse problem using a surrogate.
+%	\item Representing $f$ with a lower-dimensional surrogate may help with solving other problems of interest: we may be able to solve a forward problem at lower cost, or pose the convex objective function for solving an inverse problem using a surrogate.
 	
-\end{itemize}
+% \end{itemize}
 
 
-\end{frame}
+% \end{frame}
 
 
 \begin{frame}
