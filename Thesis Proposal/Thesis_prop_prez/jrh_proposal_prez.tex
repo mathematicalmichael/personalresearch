@@ -93,9 +93,9 @@ University of Colorado Denver
 
 \begin{frame}
 
-\begin{center}
-\textbf{Notation}
-\end{center}
+\begin{block}{Notation}
+
+
 
 \begin{itemize}
 
@@ -115,6 +115,8 @@ University of Colorado Denver
 	%\item We note a probability distribution function of a random variable x as
 
 \end{itemize}
+
+\end{block}
 
 \end{frame}
 
@@ -234,6 +236,8 @@ i.e., it is not a \textit{pull-back probability measure}.
 \begin{itemize}
 	
 	\item Assume $\pi_\Lambda^\text{prior}$ and $\pi_\mathcal{D}$ are Gaussians with means $\lambda_{\text{prior}}$ and $d_{\text{obs}}$ and covariance matrices $C_\Lambda$ and $C_\D$, respectively. If $f$ is linear, then $f(\lambda)=A \lambda$. We define
+	
+\end{itemize}
 
 \begin{block}{The Classical Misfit Function}
 
@@ -244,15 +248,19 @@ S(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(A\lambda-d_{\text{o
 
 \end{block} 
 
+\begin{block}{Comments}
+
+\begin{itemize}
 
 \item The statistical mode of the posterior is called the maximum a posteriori point, or \textit{MAP point}.  
 
-\item The $\lambda$ value that minimizes $S$ is the MAP, $\lambda_S^*$, and the classical solution to the (linear) SIP is $\pi_\Lambda^\text{update}(\lambda) = c\cdot \exp(-S(\lambda)).$ 
+\item The $\lambda$ value that minimizes $S$ is the MAP, $\lambda_S^*$, and the classical solution to the (linear) SIP is $\pi_\Lambda^\text{post}(\lambda) = c\cdot \exp(-S(\lambda)).$ 
 
 %where $c$ is a constant. 
 
 \end{itemize}
 
+\end{block}
 
 \end{frame}
 
@@ -298,14 +306,14 @@ $$T(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(A\lambda-d_{\text
 	%\item We call the minimum of $T$, $\lambda_T^*$, the data-consistent MAP point.
 
 
-	\item If $\pi_\Lambda$ and $\pi_\mathcal{D}$ are Gaussian, the data-consistent solution to our inverse problem is given exactly by $\pi_\Lambda^\text{update}(\lambda_T^*)= c\cdot \exp(-T(\lambda))$ or, in a more useful form, a Gaussian with mean $\lambda_T^*$ and 
-	Covariance matrix 
+	\item If $\pi_\Lambda$ and $\pi_\mathcal{D}$ are Gaussian, the data-consistent solution to our inverse problem is given exactly by $\pi_\Lambda^\text{update}(\lambda)= c\cdot \exp(-T(\lambda))$ or, in a more useful form, a Gaussian with mean $\lambda_T^*$ and 
+	covariance matrix 
 	$$
 	C^U_\Lambda = (A^\top C_\mathcal{D}^{-1}A + C_\Lambda^{-1} -A^\top(C_A)^{-1}A)^{-1}
 	$$
 
 
-	\item The deregularization term ensures a solution, updates the initial distribution $\Lambda$, will only regularize in the directions informed by the data.
+	\item The deregularization term in \eqref{eq:3} ensures the updated the initial distribution $\Lambda$ will only be regularized in directions uninformed by data.
 	
 \end{itemize}
 \end{block}
@@ -318,14 +326,27 @@ $$T(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(A\lambda-d_{\text
 
 \begin{block}{Example 1.}
 
-\noindent Let $f(\lambda)=2\lambda$, $\lambda_\text{prior}=0.1$, $C_\Lambda=[0.5],$ $d_\text{obs}=0.25$, and $C_\mathcal{D}=[0.25]$; note, $N=M=1$. Then we find that 
+\noindent Let $f(\lambda)=2\lambda$, $\lambda_\text{prior}=0.1$, $C_\Lambda=[0.5],$ $d_\text{obs}=0.25$, and $C_\mathcal{D}=[0.25]$; note, $N=M=1$. We find
 
-$$S(\lambda)=2((2\lambda-0.25)^2+(\lambda-0.1)^2),$$ 
+$$S(\lambda)=2((2\lambda-0.25)^2+(\lambda-0.1)^2) \quad \text{and} \quad T(\lambda)=2(2\lambda-0.25)^2.$$
 
-\noindent which is minimized by $\lambda^*_S=3/25$. Assuming that $\lambda_\text{prior}$ and $d_\text{obs}$ are the means of Gaussians with variances corresponding to the above covariance matrices, we have $\pi_\Lambda^\text{post} \sim \exp(-S(\lambda))$ with mean $\lambda_S^*$. Notice $f(\lambda^*_S)=6/25\neq d_\text{obs}$. We write 
-$$T(\lambda)=2(2\lambda-0.25)^2,$$ 
+\begin{itemize}
 
-\noindent which is minimized by $\lambda^*_T=1/8$. Notice $f(\lambda^*_T)=d_\text{obs}$. With Gaussian assumptions on the prior and data, we have $\pi_\Lambda^\text{post} \sim \exp(-T(\lambda))$ with mean $\lambda_T^*$.
+	\item $S$ is minimized by $\lambda^*_S=3/25$. 
+	
+	\item With Gaussian assumptions on the prior and data, we have $\pi_\Lambda^\text{post} \sim \exp(-S(\lambda))$ which is a $N(\lambda_S^*, 1/18)$. 
+	
+	\item Notice $f(\lambda^*_S)=6/25\neq d_\text{obs}$. 
+	
+ 
+
+	\item $T$ is minimized by $\lambda^*_T=1/8$. 
+	
+	\item With Gaussian assumptions on the prior and data, we have $\pi_\Lambda^\text{update} \sim \exp(-T(\lambda))$ which is a  $N(\lambda_T^*, 1/16)$.
+	
+	\item Notice $f(\lambda^*_T)=d_\text{obs}$. 
+
+\end{itemize}
 \end{block}
 
 
@@ -358,21 +379,25 @@ $$T(\lambda)=2(2\lambda-0.25)^2,$$
 \begin{block}{Example 2. \footnotemark[1]}
 
 
-\noindent  Let $f(\lambda)=2\lambda_1-\lambda_2$, $\lambda_\text{prior}=(0.1 \quad 0.2)^\top$, $C_\Lambda=\text{diag}[0.5,0.25],$ $d_\text{obs}=0.1$, and $C_\mathcal{D}=[0.25]$.
+\noindent  Let $f(\lambda)=2\lambda_1-\lambda_2$, $\lambda_\text{prior}=(0.1 \quad 0.2)^\top$, $C_\Lambda=\text{diag}[0.5,0.25],$ $d_\text{obs}=0.1$, and $C_\mathcal{D}=[0.25]$. ($N=2$ and $M=1$.)
 
-\vspace{0.25cm}
+\begin{itemize}
 
- With $N=2$ and $M=1$, for any $\lambda \in \Lambda$, $f(\lambda)=d=2\lambda_1-\lambda_2$. Since there is just a single $d_\text{obs}$, we have $0.1=2\lambda_1-\lambda_2$.
 
-\vspace{.25cm}
+ \item For any $\lambda \in \Lambda$, $f(\lambda)=d=2\lambda_1-\lambda_2$. Since there is just a single $d_\text{obs}$, we have $0.1=2\lambda_1-\lambda_2$.
 
-We find $S$ is minimized by $\lambda^*_S=(7/50,19/100)$. 
-Assuming that $\lambda_\text{prior}$ and $d_\text{obs}$ are the means of Gaussians with variances corresponding to the given covariance matrices, we have $\pi_\Lambda^\text{post} \sim \exp(-S(\lambda_S))$ with mean $\lambda_S^*$. Notice $f(\lambda^*_S)=9/100\neq d_\text{obs}$. 
 
-\vspace{.25cm}
+
+	\item $S$ is minimized by $\lambda^*_S=(7/50,19/100)$. 
+With Gaussian assumptions, we have $\pi_\Lambda^\text{post} \sim \exp(-S(\lambda))$ with mean $\lambda_S^*$. Notice $f(\lambda^*_S)=9/100\neq d_\text{obs}$. 
+
  
-In the data-consistent formulation, we have 
-$T$ minimized by $\lambda^*_T=(13/90,17/90)$. Notice $f(\lambda^*_T)=9/90=d_\text{obs}$. With Gaussian assumptions, we have $\pi_\Lambda^\text{post} \sim \exp(-T(\lambda))$ with mean $\lambda_T^*$. 
+	\item In the data-consistent formulation, we have 
+$T$ minimized by $\lambda^*_T=(13/90,17/90)$. Notice $f(\lambda^*_T)=9/90=d_\text{obs}$. With Gaussian assumptions, we have $\pi_\Lambda^\text{update} \sim \exp(-T(\lambda))$ with mean $\lambda_T^*$. 
+
+
+\end{itemize}
+
 
 \end{block}
 
@@ -412,7 +437,7 @@ This figure \footnotemark[1] shows the process of obtaining the statistical/clas
 \item The dimension reduction techniques considered seek to explain outputs $f(\Lambda)$ in an \textit{active subspace} $\mathcal{A} \subset \Lambda$ for which $\dim(\A)<N.$
 
 \begin{itemize}
-\item Many common uses (e.g. statistics) of $f$ involve integration over $\Lambda$ and are subject to the "curse of dimensionality".
+\item Many common uses (e.g., statistics) of $f$ involve integration over $\Lambda$ and are subject to the \textit{curse of dimensionality}.
 \item This forces the use of Monte Carlo or Quasi-Monte Carlo methods.
 \item A lower-dimensional representation of $f$ may enable faster methods.
 \end{itemize}
@@ -1011,7 +1036,7 @@ and transport as these properties.
 
 
 % ------------------------------------------------
-\subsection{Learning and Sampling}
+\subsection{Learning from Sampling}
 % ------------------------------------------------
 
 \begin{frame}
