@@ -778,7 +778,7 @@ where $\sigma_a^2$ is the variance of the additive noise.
 \begin{block}{Deregularization Term}
 
 \begin{equation} \label{eq:10}
-\left|\left|C_A^{-1/2}(A(\lambda-\lambda_{\text{prior})})\right|\right|_2^2,
+\left|\left|C_A^{-1/2}(A(\lambda-\lambda_{\text{prior}})\right|\right|_2^2,
 \end{equation} 
 
 \noindent where $C_A=AC_\Lambda A^\top$. 
@@ -1037,11 +1037,11 @@ r\frac{\partial}{\partial r} \left( \frac{1}{r} \frac{\partial\psi_n}{\partial r
 	\end{block}
 
 
-	\item In equilibrium fitting to data \footnotemark[2]: $p$ and $f^2$ are expanded as basis functions  in $\psi_n$, with the extra constraint that $p$ and $f^2$ vanish at the boundary.
+	\item In equilibrium fitting to data \footnotemark[2]: $p$ and $f^2$ are expanded as basis functions  in $\psi_n$, with the constraint that $p$ and $f^2$ vanish at the boundary.
 	\end{itemize}
 
 \begin{block}{Research Question}
-The updated  PDF $\pi^u_\Lambda$ is important to accurate prediction of plasma profiles.
+The updated  PDF $\pi^u_\Lambda$ is important to prediction of plasma profiles.
 
 \noindent{\bf DCI problem}:Find the updated PDF of the uncertain parameters in the expansions of $p$ and $f^2$.  
  % (e.g. ion/electron density or temperature) 
@@ -1129,9 +1129,11 @@ Left: A plot of the eigenvalues of the matrix $\hat{W}$ formed from using 100 DF
 \begin{center}
 
  
-\includegraphics[scale=0.25]{pure_stars.png} \includegraphics[scale=0.242]{mod_stars.png}
+\includegraphics[scale=0.4]{stars.png} 
 
-Left: A log-log plot of the number of iterations (500) versus their function values in STARS. Right: A log-log plot of the number of iterations (150) versus their functions values in modified STARS.
+\includegraphics[scale=0.3]{minvec2.png} \includegraphics[scale=0.3]{minvec4.png}
+
+Top: 500 iterations of standard DFO; Bottom Left: 25 iterations of minimizing $f$ with DFO along the $\lambda_8$ axis; Bottom Right: 25 iterations of minimizing $f$ with DFO along the $\lambda_6$ axis.
 
 \end{center}
 
