@@ -139,9 +139,9 @@ The SIP is obtaining an \emph{updated probability distribution}, $\pi_\Lambda^\t
 \end{block}
 
 
-\footnotetext[1]{T. Butler and J. Jakeman and T. Wildey.}
-\footnotetext[2]{Tarantola, Albert.}
-\footnotetext[3]{Stuart, Andrew.}
+\footnotetext[1]{T. Butler et al, \textit{Combining Pushforward Measures and Bayes' Rule to Construct Consistent Solutions to SIPs}}
+\footnotetext[2]{Tarantola, Albert, \textit{Inverse Problem Theory and Methods for Model Parameter Estimation}}
+\footnotetext[3]{Stuart, Andrew., \textit{Inverse problems: A Bayesian perspective}}
 	
 \end{frame}
 
@@ -188,11 +188,11 @@ i.e., it is not a \textit{pull-back probability measure}.
 
 
 
-	\item We present the data-consistent solution \footnotemark[1],
+	\item We present the data-consistent solution,
 
 \end{itemize}
 
-\begin{block}{Data-Consistent Solution to the SIP}
+\begin{block}{Data-Consistent Solution to the SIP  \footnotemark[1]}
 
 \begin{equation} \label{eq:1}
 \pi_\Lambda^\text{update}(\lambda)=\pi_\Lambda^\text{prior}(\lambda)\frac{\pi_\mathcal{D}(f(\lambda))}{\pi_\mathcal{D}^{f(\Lambda)}(f(\lambda))}.
@@ -200,7 +200,8 @@ i.e., it is not a \textit{pull-back probability measure}.
 
 \end{block}
 
-\footnotetext[1]{T. Butler and J. Jakeman and T. Wildey.}
+\footnotetext[1]{T. Butler et al, \textit{Combining Pushforward Measures and Bayes' Rule to Construct Consistent Solutions to SIPs}}
+
 
 \end{frame}
 
@@ -225,8 +226,7 @@ i.e., it is not a \textit{pull-back probability measure}.
 
 \end{itemize}
 
-\footnotetext[1]{Tarantola, Albert.}
-\footnotetext[2]{T. Butler and J. Jakeman and T. Wildey.}
+
 
 \end{frame}
 
@@ -239,7 +239,7 @@ i.e., it is not a \textit{pull-back probability measure}.
 	
 \end{itemize}
 
-\begin{block}{The Classical Misfit Function}
+\begin{block}{The Classical Misfit Function \footnotemark[1]}
 
 
 \begin{equation} \label{eq:2}
@@ -262,6 +262,8 @@ S(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(A\lambda-d_{\text{o
 
 \end{block}
 
+\footnotetext[1]{Tarantola, Albert, \textit{Inverse Problem Theory and Methods for Model Parameter Estimation}}
+
 \end{frame}
 
 
@@ -277,7 +279,7 @@ S(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(A\lambda-d_{\text{o
 	
 		\item A \textit{deregularization} term is appended so that if $A$ is invertible, the regularization will be canceled. We define
 	
-\begin{block}{The Data-Consistent Misfit Function}
+\begin{block}{The Data-Consistent Misfit Function \footnotemark[1]}
 
 
 $$T(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(A\lambda-d_{\text{obs}})\right|\right|_2^2+\left|\left|C_\Lambda^{-1/2}(\lambda-\lambda_{\text{prior}})\right|\right|_2^2\right)$$
@@ -293,6 +295,8 @@ $$T(\lambda)=\frac{1}{2}\left(\left|\left|C_\mathcal{D}^{-1/2}(A\lambda-d_{\text
 
 
 \end{itemize}
+
+\footnotetext[1]{Wildey et al, \textit{A Consistent Bayesian Approach for SIPs Based on Push-forward Measures}}
 
 \end{frame}
 
@@ -402,7 +406,7 @@ $T$ minimized by $\lambda^*_T=(13/90,17/90)$. Notice $f(\lambda^*_T)=9/90=d_\tex
 \end{block}
 
 
-\footnotetext[1]{Wildey, T., Butler, T., Jakeman, J., Walsh, S.}
+\footnotetext[1]{Wildey et al, \textit{A Consistent Bayesian Approach for SIPs Based on Push-forward Measures}}
 \end{frame}
 
 \begin{frame}
@@ -414,7 +418,7 @@ $T$ minimized by $\lambda^*_T=(13/90,17/90)$. Notice $f(\lambda^*_T)=9/90=d_\tex
 This figure \footnotemark[1] shows the process of obtaining the statistical/classical Bayesian solution and data-consistent solution in Example 2.
 \end{figure}
 
-\footnotetext[1]{Wildey, T., Butler, T., Jakeman, J., Walsh, S.}
+\footnotetext[1]{Wildey et al, \textit{A Consistent Bayesian Approach for SIPs Based on Push-forward Measures}}
 
 \end{frame}
 
@@ -473,7 +477,7 @@ W=\int_\Lambda \nabla f(\lambda) \nabla f(\lambda)^\top  \pi_\Lambda(\lambda) d\
 \end{block}
 
 %\footnotetext[1]{Constantine, Eftekkari, Wakin}
-\footnotetext[1]{Constantine}
+\footnotetext[1]{Constantine, \textit{Active Subspaces: Emerging Ideas for Dimension Reduction in Parameter Studies}}
 
 
 \end{frame}
@@ -566,8 +570,8 @@ f\left(\mathcal{P}_\A(\lambda)\right) \approx f(\lambda).
 
 \end{block}
 
-\footnotetext[1]{Russi, T.M.}
-\footnotetext[2]{Constantine, Eftekkari, Wakin}
+\footnotetext[1]{Russi, \textit{UQ with Experimental Data and Complex System Models}}
+\footnotetext[2]{Constantine et al, \textit{Computing Active Subspaces Efficiently with Gradient Sketching}}
 
 \end{frame}
 
@@ -623,8 +627,8 @@ additional, usually nonlinear model solves for the physical system state $u(x,\l
 
 \end{itemize}
 
-\footnotetext[1]{Lea}
-\footnotetext[2]{Qiqi}
+\footnotetext[1]{Lea, \textit{Sensitivity analysis of the climate of a chaotic system}}
+\footnotetext[2]{Qiqi, \textit{Least Squares Shadowing sensitivity analysis of chaotic limit cycle oscillations}}
 
 \end{frame}
 
@@ -653,9 +657,9 @@ additional, usually nonlinear model solves for the physical system state $u(x,\l
 
 \end{itemize}
 
-\footnotetext[1]{Chen and Wild}
-\footnotetext[2]{Jan-Peter Calliess}
-\footnotetext[3]{Kvasov and Sergeyev}
+\footnotetext[1]{Chen and Wild, \textit{Randomized DFO of Noisy Convex Functions}}
+\footnotetext[2]{Jan-Peter Calliess, \textit{Lipschitz optimisation for Lipscitz interpolation}}
+\footnotetext[3]{Kvasov and Sergeyev, \textit{Lipschitz gradients for global optimization in a one-point-based partitioning scheme}}
 
 \end{frame}
 
@@ -695,7 +699,7 @@ additional, usually nonlinear model solves for the physical system state $u(x,\l
 
 \end{block}
 
-\footnotetext[1]{Chen and Wild}
+\footnotetext[1]{Chen and Wild, \textit{Randomized DFO of Noisy Convex Functions}}
 
 \end{frame}
 
@@ -730,7 +734,7 @@ additional, usually nonlinear model solves for the physical system state $u(x,\l
 \end{block}
 
 
-\footnotetext[1]{Chen and Wild}
+\footnotetext[1]{Chen and Wild, \textit{Randomized DFO of Noisy Convex Functions}}
 
 \end{frame}
 
@@ -800,7 +804,7 @@ In a noise-free setting, the optimization method for inversion is valid \footnot
 
 \end{block}
 
-\footnotetext[1]{Tarantola}
+\footnotetext[1]{Tarantola, Albert, \textit{Inverse Problem Theory and Methods for Model Parameter Estimation}}
 
 \end{frame}
 
@@ -825,8 +829,8 @@ We are interested in several problems that involve sampling $\Lambda$ and evalua
 
 \end{block}
 
-\footnotetext[1]{Jan-Peter Calliess}
-\footnotetext[2]{Kvasov and Sergeyev}
+\footnotetext[1]{Jan-Peter Calliess, \textit{Lipschitz optimisation for Lipscitz interpolation}}
+\footnotetext[2]{Kvasov and Sergeyev, \textit{Lipschitz gradients for global optimization in a one-point-based partitioning scheme}}
 
 \end{frame}
 
@@ -949,7 +953,7 @@ and plasma {\em microturbulence}.
 \item Neoclassical transport:  simplified Vlasov-Boltzman equation coupled with Maxwell's equations \footnotemark[1].
 \end{itemize}
 
-\footnotetext[1]{Wesson}
+\footnotetext[1]{Wesson, \textit{Tokamaks}}
 
 \end{frame}
 
@@ -973,8 +977,8 @@ effects in macro/meso-scale systems (e.g., turbulence models, sub-grid models).
  
 %\centerline{ \includegraphics[height=.4\textheight]{xgca_calibrate.png}}
 
-\footnotetext[1]{S. Ku and R. Hager and C.S. Chang and J.M. Kwon and S.E. Parker}
-\footnotetext[2]{Battaglia et al}
+\footnotetext[1]{S. Ku et al, \textit{A new hybrid-Lagrangian numerical scheme for gyrokinetic simulation of tokamak edge plasma}}
+\footnotetext[2]{Battaglia et al, \textit{Kinetic neoclassical transport in the H-mode pedestal}}
 
 \end{frame}
  
@@ -987,7 +991,7 @@ effects in macro/meso-scale systems (e.g., turbulence models, sub-grid models).
 \end{block}
 	
 
-\footnotetext[1]{S. Ku and R. Hager and C.S. Chang and J.M. Kwon and S.E. Parker}
+\footnotetext[1]{S. Ku et al, \textit{A new hybrid-Lagrangian numerical scheme for gyrokinetic simulation of tokamak edge plasma}}
 \end{frame}
 
 % ------------------------------------------------
@@ -1022,8 +1026,8 @@ r\frac{\partial}{\partial r} \left( \frac{1}{r} \frac{\partial\psi_n}{\partial r
 
 \end{itemize}
 
-\footnotetext[1]{Takeda, T. and Tokuda, S.}
-\footnotetext[2]{Lao et al}
+\footnotetext[1]{Takeda, T. and Tokuda, S., \textit{Computation of MHD equilibrium of tokamak plasma}}
+\footnotetext[2]{Lao et al, \textit{Reconstruction of current profile parameters and plasma shape in tokamaks}}
 
 \end{frame}
 
@@ -1205,8 +1209,8 @@ We propose to investigate the approximate solution of data-consistent inverse pr
 
 \end{itemize}
 
-\footnotetext[1]{T. Butler and J. Jakeman and T. Wildey}
-\footnotetext[2]{Constantine}
+\footnotetext[1]{T. Butler et al}
+\footnotetext[2]{Constantine et al}
 
 \end{frame}
 
