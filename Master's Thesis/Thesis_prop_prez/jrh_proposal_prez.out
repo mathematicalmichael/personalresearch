@@ -1,0 +1,21 @@
+\BOOKMARK [2][]{Outline0.1}{Literature Review and Framework}{}% 1
+\BOOKMARK [3][]{Outline0.1.1.4}{Data-Consistent Inversion \(DCI\)}{Outline0.1}% 2
+\BOOKMARK [3][]{Outline0.1.2.7}{Optimization Methods for Solving Inverse Problems}{Outline0.1}% 3
+\BOOKMARK [3][]{Outline0.1.3.16}{Dimension Reduction}{Outline0.1}% 4
+\BOOKMARK [3][]{Outline0.1.4.22}{Derivative-Free Optimization \(DFO\)}{Outline0.1}% 5
+\BOOKMARK [2][]{Outline0.2}{Research Questions}{}% 6
+\BOOKMARK [3][]{Outline0.2.1.27}{Data-Consistent Deregularization for Nonlinear f}{Outline0.2}% 7
+\BOOKMARK [3][]{Outline0.2.2.28}{Impact of Noise on MAP Point and Updated Prior}{Outline0.2}% 8
+\BOOKMARK [3][]{Outline0.2.3.29}{Learning from Sampling}{Outline0.2}% 9
+\BOOKMARK [3][]{Outline0.2.4.30}{Using the Active Subspace}{Outline0.2}% 10
+\BOOKMARK [3][]{Outline0.2.5.31}{Application: Callibrated Anomolous Diffusion in Tokamak Plasmas}{Outline0.2}% 11
+\BOOKMARK [3][]{Outline0.2.6.35}{Application: Magnetic Equilibria in Tokamaks}{Outline0.2}% 12
+\BOOKMARK [2][]{Outline0.3}{Preliminary Results and Research Plan}{}% 13
+\BOOKMARK [3][]{Outline0.3.1.36}{Learning from Sampling}{Outline0.3}% 14
+\BOOKMARK [3][]{Outline0.3.2.39}{Using the Active Subspace}{Outline0.3}% 15
+\BOOKMARK [3][]{Outline0.3.3.40}{Data-Consistent Deregularization for Nonlinear f}{Outline0.3}% 16
+\BOOKMARK [3][]{Outline0.3.4.41}{Impact of Noise on MAP Point and Updated Prior}{Outline0.3}% 17
+\BOOKMARK [3][]{Outline0.3.5.42}{From Model Problems to Fusion Applications}{Outline0.3}% 18
+\BOOKMARK [3][]{Outline0.3.6.43}{Software Dissemination}{Outline0.3}% 19
+\BOOKMARK [2][]{Outline0.4}{Timeline}{}% 20
+\BOOKMARK [2][]{Outline0.5}{References}{}% 21

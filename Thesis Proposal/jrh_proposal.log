@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.11.7)  21 NOV 2018 00:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.11.7)  4 DEC 2018 10:23
 entering extended mode
 **./jrh_proposal.tex
 (jrh_proposal.tex
@@ -561,28 +561,31 @@ Package: titlesec 2016/03/21 v2.10.2 Sectioning titles
 \titlewidth=\dimen173
 \titlewidthlast=\dimen174
 \titlewidthfirst=\dimen175
-) (jrh_proposal.aux)
+) (jrh_proposal.aux
+
+LaTeX Warning: Label `eq:9' multiply defined.
+
+)
 \openout1 = `jrh_proposal.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Try loading font information for U+msa on input line 59.
-
-("C:\Users\Owner\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Try loading font information for U+msa on input line 60.
+ ("C:\Users\Owner\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 59.
-("C:\Users\Owner\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
+LaTeX Font Info:    Try loading font information for U+msb on input line 60.
+ ("C:\Users\Owner\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 ("C:\Users\Owner\AppData\Local\Programs\MiKTeX 2.9\tex\context\base\supp-pdf.mk
@@ -669,83 +672,72 @@ Package caption Info: End \AtBeginDocument code.
 \tf@toc=\write4
 \openout4 = `jrh_proposal.toc'.
 
- [1{C:/Users/Owner/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
-<Regularization-all-in-one.pdf, id=24, 1450.65915pt x 808.09508pt>
+ [1{C:/Users/Owner/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2] [3]
+<Regularization-all-in-one.pdf, id=27, 1450.65915pt x 808.09508pt>
 File: Regularization-all-in-one.pdf Graphic file (type pdf)
 <use Regularization-all-in-one.pdf>
-Package pdftex.def Info: Regularization-all-in-one.pdf  used on input line 130.
+Package pdftex.def Info: Regularization-all-in-one.pdf  used on input line 175.
 
 (pdftex.def)             Requested size: 415.5525pt x 231.48088pt.
- [3 <./Regularization-all-in-one.pdf>]
-Underfull \vbox (badness 7451) has occurred while \output is active []
 
- [4]
-[5] [6] [7]
-Overfull \hbox (17.33081pt too wide) in paragraph at lines 309--310
-\OT1/cmr/m/n/10 where $\OML/cmm/m/it/10 C[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 
-AC[]A[]$\OT1/cmr/m/n/10 . Ex-pand-ing $\OML/cmm/m/it/10 f$ \OT1/cmr/m/n/10 lin-
-early around $\OML/cmm/m/it/10 []$\OT1/cmr/m/n/10 , we have $\OML/cmm/m/it/10 
-f\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 \OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10   \OML/c
-mm/m/it/10 f\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 []\OT1/cmr/m/n/10 ) = \OMS/cmsy/
-m/n/10 r\OML/cmm/m/it/10 f\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 []\OT1/cmr/m/n/10 
-)[](\OML/cmm/m/it/10  \OMS/cmsy/m/n/10  
- []
+Underfull \vbox (badness 1242) has occurred while \output is active []
 
-[8] [9] [10]
-<images/eigs.png, id=70, 457.71pt x 452.69125pt>
+ [4 <./Regularization-all-in-one.pdf>] [5] [6] [7] [8] [9] [10] [11]
+<images/eigs.png, id=72, 457.71pt x 452.69125pt>
 File: images/eigs.png Graphic file (type png)
 <use images/eigs.png>
-Package pdftex.def Info: images/eigs.png  used on input line 393.
+Package pdftex.def Info: images/eigs.png  used on input line 410.
 (pdftex.def)             Requested size: 137.31406pt x 135.80841pt.
-<images/surr.png, id=72, 469.755pt x 442.65375pt>
+<images/surr.png, id=74, 469.755pt x 442.65375pt>
 File: images/surr.png Graphic file (type png)
 <use images/surr.png>
-Package pdftex.def Info: images/surr.png  used on input line 393.
+Package pdftex.def Info: images/surr.png  used on input line 410.
 (pdftex.def)             Requested size: 140.92758pt x 132.79713pt.
- [11] [12 <./images/eigs.png> <./images/surr.png>]
-<images/suffsum.png, id=81, 457.71pt x 438.63875pt>
+ [12 <./images/eigs.png> <./images/surr.png>]
+<images/suffsum.png, id=80, 457.71pt x 438.63875pt>
 File: images/suffsum.png Graphic file (type png)
 <use images/suffsum.png>
-Package pdftex.def Info: images/suffsum.png  used on input line 417.
+Package pdftex.def Info: images/suffsum.png  used on input line 434.
 (pdftex.def)             Requested size: 137.31406pt x 131.59264pt.
- [13 <./images/suffsum.png>]
-<images/stars.png, id=87, 383.4325pt x 263.98625pt>
+ [13]
+<images/stars.png, id=85, 383.4325pt x 263.98625pt>
 File: images/stars.png Graphic file (type png)
 <use images/stars.png>
-Package pdftex.def Info: images/stars.png  used on input line 438.
+Package pdftex.def Info: images/stars.png  used on input line 456.
 (pdftex.def)             Requested size: 115.03062pt x 79.19647pt.
-<images/minvec2.png, id=88, 401.5pt x 263.98625pt>
+<images/minvec2.png, id=86, 401.5pt x 263.98625pt>
 File: images/minvec2.png Graphic file (type png)
 <use images/minvec2.png>
-Package pdftex.def Info: images/minvec2.png  used on input line 438.
+Package pdftex.def Info: images/minvec2.png  used on input line 456.
 (pdftex.def)             Requested size: 120.45091pt x 79.19647pt.
-<images/minvec4.png, id=89, 382.42876pt x 263.98625pt>
+<images/minvec4.png, id=87, 382.42876pt x 263.98625pt>
 File: images/minvec4.png Graphic file (type png)
 <use images/minvec4.png>
-Package pdftex.def Info: images/minvec4.png  used on input line 438.
+Package pdftex.def Info: images/minvec4.png  used on input line 456.
 (pdftex.def)             Requested size: 114.7295pt x 79.19647pt.
 
-Underfull \vbox (badness 1622) has occurred while \output is active []
+Underfull \vbox (badness 4013) has occurred while \output is active []
 
- [14 <./images/stars.png> <./images/minvec2.png> <./images/minvec4.png>]
-Overfull \hbox (30.40202pt too wide) in paragraph at lines 469--470
+ [14 <./images/suffsum.png>] [15 <./images/stars.png> <./images/minvec2.png> <.
+/images/minvec4.png>]
+Overfull \hbox (18.45757pt too wide) in paragraph at lines 499--500
 []\OT1/cmr/m/n/10 Summer re-search; be-gin writ-ing the-sis; sum-mer school/int
-ernship/conference (?) (Jun/Jul/Aug
+ernship/conference. (Jun/Jul/Aug
  []
 
-[15] [16] (jrh_proposal.aux)
+[16] (jrh_proposal.aux)
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 15145 strings out of 492970
- 292395 string characters out of 3126594
- 343543 words of memory out of 3000000
+ 15144 strings out of 492970
+ 292389 string characters out of 3126594
+ 344591 words of memory out of 3000000
  18564 multiletter control sequences out of 15000+200000
- 11521 words of font info for 44 fonts, out of 3000000 for 9000
+ 11169 words of font info for 43 fonts, out of 3000000 for 9000
  1302 hyphenation exceptions out of 8191
- 62i,23n,56p,2365b,398s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 62i,23n,56p,2374b,398s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
 /cm/cmbx10.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
 blic/amsfonts/cm/cmcsc10.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/
@@ -764,14 +756,12 @@ s/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.
 pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfon
 ts/cm/cmti10.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/
 public/amsfonts/cm/cmti7.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/
-fonts/type1/public/amsfonts/cm/cmti8.pfb><C:/Users/Owner/AppData/Local/Programs
-/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/Owner/AppData/L
-ocal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Use
-rs/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/
-msbm7.pfb>
-Output written on jrh_proposal.pdf (16 pages, 525240 bytes).
+fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/Owner/AppData/Local/Program
+s/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/Owner/App
+Data/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
+Output written on jrh_proposal.pdf (16 pages, 521794 bytes).
 PDF statistics:
- 161 PDF objects out of 1000 (max. 8388607)
+ 157 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  48 words of extra memory for PDF output out of 10000 (max. 10000000)
 

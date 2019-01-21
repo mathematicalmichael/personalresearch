@@ -1,0 +1,21 @@
+\beamer@sectionintoc {1}{Literature Review and Framework}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Data-Consistent Inversion (DCI)}{4}{0}{1}
+\beamer@subsectionintoc {1}{2}{Optimization Methods for Solving Inverse Problems}{7}{0}{1}
+\beamer@subsectionintoc {1}{3}{Dimension Reduction}{16}{0}{1}
+\beamer@subsectionintoc {1}{4}{Derivative-Free Optimization (DFO)}{22}{0}{1}
+\beamer@sectionintoc {2}{Research Questions}{27}{0}{2}
+\beamer@subsectionintoc {2}{1}{Data-Consistent Deregularization for Nonlinear $f$}{27}{0}{2}
+\beamer@subsectionintoc {2}{2}{Impact of Noise on MAP Point and Updated Prior}{28}{0}{2}
+\beamer@subsectionintoc {2}{3}{Learning from Sampling}{29}{0}{2}
+\beamer@subsectionintoc {2}{4}{Using the Active Subspace}{30}{0}{2}
+\beamer@subsectionintoc {2}{5}{Application: Callibrated Anomolous Diffusion in Tokamak Plasmas}{31}{0}{2}
+\beamer@subsectionintoc {2}{6}{Application: Magnetic Equilibria in Tokamaks}{35}{0}{2}
+\beamer@sectionintoc {3}{Preliminary Results and Research Plan}{36}{0}{3}
+\beamer@subsectionintoc {3}{1}{Learning from Sampling}{36}{0}{3}
+\beamer@subsectionintoc {3}{2}{Using the Active Subspace}{39}{0}{3}
+\beamer@subsectionintoc {3}{3}{Data-Consistent Deregularization for Nonlinear $f$}{40}{0}{3}
+\beamer@subsectionintoc {3}{4}{Impact of Noise on MAP Point and Updated Prior}{41}{0}{3}
+\beamer@subsectionintoc {3}{5}{From Model Problems to Fusion Applications}{42}{0}{3}
+\beamer@subsectionintoc {3}{6}{Software Dissemination}{43}{0}{3}
+\beamer@sectionintoc {4}{Timeline}{44}{0}{4}
+\beamer@sectionintoc {5}{References}{45}{0}{5}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.11.7)  28 NOV 2018 14:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.11.7)  4 DEC 2018 10:39
 entering extended mode
 **./jrh_proposal_prez.tex
 (jrh_proposal_prez.tex
@@ -939,26 +939,29 @@ File: tikzlibraryarrows.code.tex 2008/01/09 v3.0.1a (rcs-revision 1.1)
 flibraryarrows.code.tex"
 File: pgflibraryarrows.code.tex 2013/09/23 v3.0.1a (rcs-revision 1.16)
 \arrowsize=\dimen265
-)) (jrh_proposal_prez.aux)
+)) (jrh_proposal_prez.aux
+
+LaTeX Warning: Label `eq:4' multiply defined.
+
+)
 \openout1 = `jrh_proposal_prez.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 68.
-LaTeX Font Info:    ... okay on input line 68.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 68.
-LaTeX Font Info:    ... okay on input line 68.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 68.
-LaTeX Font Info:    ... okay on input line 68.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 68.
-LaTeX Font Info:    ... okay on input line 68.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 68.
-LaTeX Font Info:    ... okay on input line 68.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 68.
-LaTeX Font Info:    ... okay on input line 68.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 68.
-LaTeX Font Info:    ... okay on input line 68.
-LaTeX Font Info:    Try loading font information for T1+phv on input line 68.
-
-("C:\Users\Owner\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\t1phv.fd"
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Try loading font information for T1+phv on input line 73.
+ ("C:\Users\Owner\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\t1phv.fd"
 File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
 )
 *geometry* driver: auto-detecting
@@ -1027,7 +1030,7 @@ G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 ) ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box60
-Package hyperref Info: Link coloring OFF on input line 68.
+Package hyperref Info: Link coloring OFF on input line 73.
 
 ("C:\Users\Owner\AppData\Local\Programs\MiKTeX 2.9\tex\latex\hyperref\nameref.s
 ty"
@@ -1039,9 +1042,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count179
 )
-LaTeX Info: Redefining \ref on input line 68.
-LaTeX Info: Redefining \pageref on input line 68.
-LaTeX Info: Redefining \nameref on input line 68.
+LaTeX Info: Redefining \ref on input line 73.
+LaTeX Info: Redefining \pageref on input line 73.
+LaTeX Info: Redefining \nameref on input line 73.
  (jrh_proposal_prez.out) (jrh_proposal_prez.out)
 \@outlinefile=\write5
 \openout5 = `jrh_proposal_prez.out'.
@@ -1078,27 +1081,27 @@ Package caption Info: End \AtBeginDocument code.
 Package todonotes Warning: The length marginparwidth is less than 2cm and will 
 most likely cause issues with the appearance of inserted todonotes. The issue c
 an be solved by adding a line like \setlength {\marginparwidth }{2cm} prior to 
-loading the todonotes package. on input line 68.
+loading the todonotes package. on input line 73.
 
 (jrh_proposal_prez.nav)
-<cu-denver.pdf, id=44, 501.875pt x 81.30376pt>
+<cu-denver.pdf, id=104, 501.875pt x 81.30376pt>
 File: cu-denver.pdf Graphic file (type pdf)
 <use cu-denver.pdf>
-Package pdftex.def Info: cu-denver.pdf  used on input line 68.
+Package pdftex.def Info: cu-denver.pdf  used on input line 73.
 (pdftex.def)             Requested size: 92.5927pt x 15.0pt.
-LaTeX Font Info:    Try loading font information for U+msa on input line 68.
+LaTeX Font Info:    Try loading font information for U+msa on input line 73.
 
 ("C:\Users\Owner\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 68.
+LaTeX Font Info:    Try loading font information for U+msb on input line 73.
 ("C:\Users\Owner\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<mathStatSci_horiz_4c_rv.pdf, id=49, 457.71pt x 101.37875pt>
+<mathStatSci_horiz_4c_rv.pdf, id=109, 457.71pt x 101.37875pt>
 File: mathStatSci_horiz_4c_rv.pdf Graphic file (type pdf)
 <use mathStatSci_horiz_4c_rv.pdf>
-Package pdftex.def Info: mathStatSci_horiz_4c_rv.pdf  used on input line 72.
+Package pdftex.def Info: mathStatSci_horiz_4c_rv.pdf  used on input line 79.
 (pdftex.def)             Requested size: 123.32494pt x 27.31631pt.
 [1
 
@@ -1106,54 +1109,442 @@ Package pdftex.def Info: mathStatSci_horiz_4c_rv.pdf  used on input line 72.
 ci_horiz_4c_rv.pdf>] (jrh_proposal_prez.toc)
 File: cu-denver.pdf Graphic file (type pdf)
 <use cu-denver.pdf>
-Package pdftex.def Info: cu-denver.pdf  used on input line 78.
+Package pdftex.def Info: cu-denver.pdf  used on input line 87.
 (pdftex.def)             Requested size: 92.5927pt x 15.0pt.
  [2
 
  <./cu-denver.pdf>]
-LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 100.
 File: cu-denver.pdf Graphic file (type pdf)
 <use cu-denver.pdf>
-Package pdftex.def Info: cu-denver.pdf  used on input line 100.
+Package pdftex.def Info: cu-denver.pdf  used on input line 121.
 (pdftex.def)             Requested size: 92.5927pt x 15.0pt.
  [3
 
 ]
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10.95> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 146.
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <9> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 146.
 File: cu-denver.pdf Graphic file (type pdf)
 <use cu-denver.pdf>
-Package pdftex.def Info: cu-denver.pdf  used on input line 118.
+Package pdftex.def Info: cu-denver.pdf  used on input line 146.
 (pdftex.def)             Requested size: 92.5927pt x 15.0pt.
 
 [4
 
 ]
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 175.
 File: cu-denver.pdf Graphic file (type pdf)
 <use cu-denver.pdf>
-Package pdftex.def Info: cu-denver.pdf  used on input line 132.
+Package pdftex.def Info: cu-denver.pdf  used on input line 175.
 (pdftex.def)             Requested size: 92.5927pt x 15.0pt.
  [5
 
 ]
 File: cu-denver.pdf Graphic file (type pdf)
 <use cu-denver.pdf>
-Package pdftex.def Info: cu-denver.pdf  used on input line 140.
+Package pdftex.def Info: cu-denver.pdf  used on input line 206.
 (pdftex.def)             Requested size: 92.5927pt x 15.0pt.
  [6
 
 ]
 File: cu-denver.pdf Graphic file (type pdf)
 <use cu-denver.pdf>
-Package pdftex.def Info: cu-denver.pdf  used on input line 149.
+Package pdftex.def Info: cu-denver.pdf  used on input line 231.
 (pdftex.def)             Requested size: 92.5927pt x 15.0pt.
  [7
 
 ]
 File: cu-denver.pdf Graphic file (type pdf)
 <use cu-denver.pdf>
-Package pdftex.def Info: cu-denver.pdf  used on input line 158.
+Package pdftex.def Info: cu-denver.pdf  used on input line 267.
 (pdftex.def)             Requested size: 92.5927pt x 15.0pt.
  [8
+
+]
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 301.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+ [9
+
+]
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 326.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+ [10
+
+]
+Overfull \vbox (2.01671pt too high) detected at line 357
+ []
+
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 357.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+[11
+
+]
+<images/param.png, id=254, 2038.014pt x 1458.04726pt>
+File: images/param.png Graphic file (type png)
+<use images/param.png>
+Package pdftex.def Info: images/param.png  used on input line 367.
+(pdftex.def)             Requested size: 254.75113pt x 182.25546pt.
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 367.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+ [12
+
+ <./images/param.png>]
+<images/data.png, id=264, 2023.56pt x 1458.04726pt>
+File: images/data.png Graphic file (type png)
+<use images/data.png>
+Package pdftex.def Info: images/data.png  used on input line 378.
+(pdftex.def)             Requested size: 252.94438pt x 182.25546pt.
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 378.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+ [13
+
+ <./images/data.png>]
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 410.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+ [14
+
+]
+<images/Regularization-all-in-one.pdf, id=281, 1450.65915pt x 808.09508pt>
+File: images/Regularization-all-in-one.pdf Graphic file (type pdf)
+<use images/Regularization-all-in-one.pdf>
+Package pdftex.def Info: images/Regularization-all-in-one.pdf  used on input li
+ne 423.
+(pdftex.def)             Requested size: 290.1267pt x 161.61615pt.
+
+Overfull \vbox (1.67268pt too high) detected at line 423
+ []
+
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 423.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+[15
+
+ <./images/Regularization-all-in-one.pdf>]
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 453.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+ [16
+
+]
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 483.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+ [17
+
+]
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 509.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+ [18
+
+]
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <12> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 541.
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 541.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+ [19
+
+]pdfTeX warning (ext4): destination with the same identifier (name{eq:4}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.576 \end{frame}
+                 
+Overfull \vbox (2.25117pt too high) detected at line 576
+ []
+
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 576.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+[20
+
+]
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 600.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+ [21
+
+]
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 633.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+ [22
+
+]
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <10.95> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 664.
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 664.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+ [23
+
+]
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 704.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+ [24
+
+]
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 721.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+ [25
+
+]
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 756.
+
+
+("C:\Users\Owner\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\t1cmtt.fd"
+File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 756.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+
+[26
+
+]
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 767.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 767.
+
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 803.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+[27
+
+]
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 832.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+ [28
+
+]
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 858.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+ [29
+
+]
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 898.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+ [30
+
+]
+<torus_coord.png, id=418, 316.674pt x 323.901pt>
+File: torus_coord.png Graphic file (type png)
+<use torus_coord.png>
+Package pdftex.def Info: torus_coord.png  used on input line 958.
+(pdftex.def)             Requested size: 137.94534pt x 141.0894pt.
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 958.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+ [31
+
+ <./torus_coord.png>]
+<banana_orbit.png, id=426, 552.537pt x 315.36pt>
+File: banana_orbit.png Graphic file (type png)
+<use banana_orbit.png>
+Package pdftex.def Info: banana_orbit.png  used on input line 981.
+(pdftex.def)             Requested size: 192.29817pt x 109.75209pt.
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 981.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+ [32
+
+ <./banana_orbit.png>]
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 1006.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+ [33
+
+]
+<xgca_calibrate.png, id=441, 543.996pt x 298.278pt>
+File: xgca_calibrate.png Graphic file (type png)
+<use xgca_calibrate.png>
+Package pdftex.def Info: xgca_calibrate.png  used on input line 1018.
+(pdftex.def)             Requested size: 257.32169pt x 141.0894pt.
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 1018.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+
+[34
+
+ <./xgca_calibrate.png>]
+Overfull \vbox (2.82445pt too high) detected at line 1057
+ []
+
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 1057.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+[35
+
+]
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 1079.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+ [36
+
+]
+<images/eigs.png, id=461, 457.71pt x 452.69125pt>
+File: images/eigs.png Graphic file (type png)
+<use images/eigs.png>
+Package pdftex.def Info: images/eigs.png  used on input line 1094.
+(pdftex.def)             Requested size: 137.31406pt x 135.80841pt.
+<images/surr.png, id=462, 469.755pt x 442.65375pt>
+File: images/surr.png Graphic file (type png)
+<use images/surr.png>
+Package pdftex.def Info: images/surr.png  used on input line 1094.
+(pdftex.def)             Requested size: 140.92758pt x 132.79713pt.
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 1094.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+ [37
+
+ <./images/eigs.png> <./images/surr.png>]
+<images/DFO_eigs.png, id=473, 457.71pt x 452.69125pt>
+File: images/DFO_eigs.png Graphic file (type png)
+<use images/DFO_eigs.png>
+Package pdftex.def Info: images/DFO_eigs.png  used on input line 1109.
+(pdftex.def)             Requested size: 137.31406pt x 135.80841pt.
+<images/DFO_suffsum.png, id=474, 457.71pt x 438.63875pt>
+File: images/DFO_suffsum.png Graphic file (type png)
+<use images/DFO_suffsum.png>
+Package pdftex.def Info: images/DFO_suffsum.png  used on input line 1109.
+(pdftex.def)             Requested size: 137.31406pt x 131.59264pt.
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 1109.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+ [38
+
+ <./images/DFO_eigs.png> <./images/DFO_suffsum.png>]
+<images/stars.png, id=484, 383.4325pt x 263.98625pt>
+File: images/stars.png Graphic file (type png)
+<use images/stars.png>
+Package pdftex.def Info: images/stars.png  used on input line 1141.
+(pdftex.def)             Requested size: 153.37029pt x 105.59262pt.
+<images/minvec2.png, id=485, 401.5pt x 263.98625pt>
+File: images/minvec2.png Graphic file (type png)
+<use images/minvec2.png>
+Package pdftex.def Info: images/minvec2.png  used on input line 1141.
+(pdftex.def)             Requested size: 120.45091pt x 79.19647pt.
+<images/minvec4.png, id=486, 382.42876pt x 263.98625pt>
+File: images/minvec4.png Graphic file (type png)
+<use images/minvec4.png>
+Package pdftex.def Info: images/minvec4.png  used on input line 1141.
+(pdftex.def)             Requested size: 114.7295pt x 79.19647pt.
+
+Overfull \vbox (6.87883pt too high) detected at line 1141
+ []
+
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 1141.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+[39
+
+ <./images/stars.png> <./images/minvec2.png> <./images/minvec4.png>]
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 1144.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 1144.
+
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 1163.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+[40
+
+]
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 1191.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+ [41
+
+]
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 1220.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+ [42
+
+]
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 1245.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+ [43
+
+]
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 1281.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+ [44
+
+]
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 1349.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+ [45
+
+ <C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/tex/latex/beamer/beamericona
+rticle.pdf>]
+File: cu-denver.pdf Graphic file (type pdf)
+<use cu-denver.pdf>
+Package pdftex.def Info: cu-denver.pdf  used on input line 1349.
+(pdftex.def)             Requested size: 92.5927pt x 15.0pt.
+ [46
+
 
 ]
 \tf@nav=\write6
@@ -1165,33 +1556,53 @@ Package pdftex.def Info: cu-denver.pdf  used on input line 158.
 \tf@snm=\write8
 \openout8 = `jrh_proposal_prez.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 166.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 166.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1357.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1357.
  (jrh_proposal_prez.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 166.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 166.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1357.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1357.
+
 Package rerunfilecheck Info: File `jrh_proposal_prez.out' has not changed.
-(rerunfilecheck)             Checksum: CAEA1365313DD9ECD24CC727ADAC94E6;359.
+(rerunfilecheck)             Checksum: 004FDEA30CE3D4B71698DE2B754ADD15;1700.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
  ) 
 Here is how much of TeX's memory you used:
- 22587 strings out of 492970
- 451981 string characters out of 3126594
- 521556 words of memory out of 3000000
- 25932 multiletter control sequences out of 15000+200000
- 38109 words of font info for 53 fonts, out of 3000000 for 9000
+ 23156 strings out of 492970
+ 462377 string characters out of 3126594
+ 532580 words of memory out of 3000000
+ 26348 multiletter control sequences out of 15000+200000
+ 66817 words of font info for 89 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 58i,21n,64p,786b,1008s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc
-}<C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/
-cm/cmmi10.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pub
-lic/amsfonts/cm/cmr10.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fon
-ts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Owner/AppData/Local/Programs/M
-iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/Owner/AppData/Loca
-l/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/Owner/AppDa
-ta/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on jrh_proposal_prez.pdf (8 pages, 86753 bytes).
+ 58i,27n,64p,786b,1029s stack positions out of 5000i,500n,10000p,200000b,50000s
+ <C:\Users\Owner\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\
+ectt1095.pk>{C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/b
+ase/8r.enc}<C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public
+/amsfonts/cm/cmex10.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts
+/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Owner/AppData/Local/Programs/MiK
+TeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/Owner/AppData/Local
+/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/Owner/A
+ppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/U
+sers/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmm
+i8.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/ams
+fonts/cm/cmr10.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type
+1/public/amsfonts/cm/cmr12.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.
+9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/Owner/AppData/Local/Program
+s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/Owner/AppData/Lo
+cal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/Owner
+/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C
+:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
+cmsy7.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/
+amsfonts/cm/cmsy8.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX 2.9/fonts/t
+ype1/public/amsfonts/symbols/msbm10.pfb><C:/Users/Owner/AppData/Local/Programs/
+MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/Owner/AppData/Local/Pr
+ograms/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/Owner/AppData/L
+ocal/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvro8a.pfb>
+Output written on jrh_proposal_prez.pdf (46 pages, 1183060 bytes).
 PDF statistics:
- 147 PDF objects out of 1000 (max. 8388607)
- 23 named destinations out of 1000 (max. 500000)
- 165 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 663 PDF objects out of 1000 (max. 8388607)
+ 141 named destinations out of 1000 (max. 500000)
+ 374 words of extra memory for PDF output out of 10000 (max. 10000000)
 

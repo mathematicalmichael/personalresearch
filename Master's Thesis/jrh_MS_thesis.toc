@@ -1,0 +1,16 @@
+\contentsline {section}{Introduction}{2}
+\contentsline {subsection}{Derivative-Free Optimization}{2}
+\contentsline {subsection}{Dimension Reduction}{3}
+\contentsline {section}{Methods}{5}
+\contentsline {subsection}{Learning and Sampling}{5}
+\contentsline {subsubsection}{Learning the Active Subspace}{5}
+\contentsline {subsubsection}{Lipschitz Constant Learning}{5}
+\contentsline {subsection}{Using the Active Subspace}{5}
+\contentsline {subsubsection}{DFO in the Active Variables Only}{5}
+\contentsline {subsubsection}{Representations and Surrogate Modeling}{6}
+\contentsline {section}{Results}{6}
+\contentsline {subsection}{Learning and Sampling}{6}
+\contentsline {subsection}{Using the Active Subspace}{8}
+\contentsline {subsection}{From model problems to fusion applications}{9}
+\contentsline {subsection}{Software Dissemination}{10}
+\contentsline {section}{Conclusion and Discussion}{10}
