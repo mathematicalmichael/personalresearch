@@ -1,0 +1,144 @@
+\headcommand {\slideentry {0}{0}{1}{1/1}{}{0}}
+\headcommand {\beamer@framepages {1}{1}}
+\headcommand {\slideentry {0}{0}{2}{2/2}{}{0}}
+\headcommand {\beamer@framepages {2}{2}}
+\headcommand {\beamer@sectionpages {1}{2}}
+\headcommand {\beamer@subsectionpages {1}{2}}
+\headcommand {\sectionentry {1}{Literature Review and Framework}{3}{Literature Review and Framework}{0}}
+\headcommand {\slideentry {1}{0}{1}{3/3}{}{0}}
+\headcommand {\beamer@framepages {3}{3}}
+\headcommand {\beamer@subsectionpages {3}{3}}
+\headcommand {\beamer@subsectionentry {0}{1}{1}{4}{Data-Consistent Inversion (DCI)}}
+\headcommand {\slideentry {1}{1}{1}{4/4}{Data-Consistent Inversion (DCI)}{0}}
+\headcommand {\beamer@framepages {4}{4}}
+\headcommand {\slideentry {1}{1}{2}{5/5}{Data-Consistent Inversion (DCI)}{0}}
+\headcommand {\beamer@framepages {5}{5}}
+\headcommand {\slideentry {1}{1}{3}{6/6}{Data-Consistent Inversion (DCI)}{0}}
+\headcommand {\beamer@framepages {6}{6}}
+\headcommand {\beamer@subsectionpages {4}{6}}
+\headcommand {\beamer@subsectionentry {0}{1}{2}{7}{Optimization Methods for Solving Inverse Problems}}
+\headcommand {\slideentry {1}{2}{1}{7/7}{Optimization Methods for Solving Inverse Problems}{0}}
+\headcommand {\beamer@framepages {7}{7}}
+\headcommand {\slideentry {1}{2}{2}{8/8}{Optimization Methods for Solving Inverse Problems}{0}}
+\headcommand {\beamer@framepages {8}{8}}
+\headcommand {\slideentry {1}{2}{3}{9/9}{Optimization Methods for Solving Inverse Problems}{0}}
+\headcommand {\beamer@framepages {9}{9}}
+\headcommand {\slideentry {1}{2}{4}{10/10}{Optimization Methods for Solving Inverse Problems}{0}}
+\headcommand {\beamer@framepages {10}{10}}
+\headcommand {\slideentry {1}{2}{5}{11/11}{Optimization Methods for Solving Inverse Problems}{0}}
+\headcommand {\beamer@framepages {11}{11}}
+\headcommand {\slideentry {1}{2}{6}{12/12}{Optimization Methods for Solving Inverse Problems}{0}}
+\headcommand {\beamer@framepages {12}{12}}
+\headcommand {\slideentry {1}{2}{7}{13/13}{Optimization Methods for Solving Inverse Problems}{0}}
+\headcommand {\beamer@framepages {13}{13}}
+\headcommand {\slideentry {1}{2}{8}{14/14}{Optimization Methods for Solving Inverse Problems}{0}}
+\headcommand {\beamer@framepages {14}{14}}
+\headcommand {\slideentry {1}{2}{9}{15/15}{Optimization Methods for Solving Inverse Problems}{0}}
+\headcommand {\beamer@framepages {15}{15}}
+\headcommand {\beamer@subsectionpages {7}{15}}
+\headcommand {\beamer@subsectionentry {0}{1}{3}{16}{Dimension Reduction}}
+\headcommand {\slideentry {1}{3}{1}{16/16}{Dimension Reduction}{0}}
+\headcommand {\beamer@framepages {16}{16}}
+\headcommand {\slideentry {1}{3}{2}{17/17}{Dimension Reduction}{0}}
+\headcommand {\beamer@framepages {17}{17}}
+\headcommand {\slideentry {1}{3}{3}{18/18}{Dimension Reduction}{0}}
+\headcommand {\beamer@framepages {18}{18}}
+\headcommand {\slideentry {1}{3}{4}{19/19}{Dimension Reduction}{0}}
+\headcommand {\beamer@framepages {19}{19}}
+\headcommand {\slideentry {1}{3}{5}{20/20}{Dimension Reduction}{0}}
+\headcommand {\beamer@framepages {20}{20}}
+\headcommand {\slideentry {1}{3}{6}{21/21}{Dimension Reduction}{0}}
+\headcommand {\beamer@framepages {21}{21}}
+\headcommand {\beamer@subsectionpages {16}{21}}
+\headcommand {\beamer@subsectionentry {0}{1}{4}{22}{Derivative-Free Optimization (DFO)}}
+\headcommand {\slideentry {1}{4}{1}{22/22}{Derivative-Free Optimization (DFO)}{0}}
+\headcommand {\beamer@framepages {22}{22}}
+\headcommand {\slideentry {1}{4}{2}{23/23}{Derivative-Free Optimization (DFO)}{0}}
+\headcommand {\beamer@framepages {23}{23}}
+\headcommand {\slideentry {1}{4}{3}{24/24}{Derivative-Free Optimization (DFO)}{0}}
+\headcommand {\beamer@framepages {24}{24}}
+\headcommand {\slideentry {1}{4}{4}{25/25}{Derivative-Free Optimization (DFO)}{0}}
+\headcommand {\beamer@framepages {25}{25}}
+\headcommand {\slideentry {1}{4}{5}{26/26}{Derivative-Free Optimization (DFO)}{0}}
+\headcommand {\beamer@framepages {26}{26}}
+\headcommand {\beamer@sectionpages {3}{26}}
+\headcommand {\beamer@subsectionpages {22}{26}}
+\headcommand {\sectionentry {2}{Research Questions}{27}{Research Questions}{0}}
+\headcommand {\beamer@subsectionpages {27}{26}}
+\headcommand {\beamer@subsectionentry {0}{2}{1}{27}{Data-Consistent Deregularization for Nonlinear $f$}}
+\headcommand {\slideentry {2}{1}{1}{27/27}{Data-Consistent Deregularization for Nonlinear $f$}{0}}
+\headcommand {\beamer@framepages {27}{27}}
+\headcommand {\beamer@subsectionpages {27}{27}}
+\headcommand {\beamer@subsectionentry {0}{2}{2}{28}{Impact of Noise on MAP Point and Updated Prior}}
+\headcommand {\slideentry {2}{2}{1}{28/28}{Impact of Noise on MAP Point and Updated Prior}{0}}
+\headcommand {\beamer@framepages {28}{28}}
+\headcommand {\beamer@subsectionpages {28}{28}}
+\headcommand {\beamer@subsectionentry {0}{2}{3}{29}{Learning from Sampling}}
+\headcommand {\slideentry {2}{3}{1}{29/29}{Learning from Sampling}{0}}
+\headcommand {\beamer@framepages {29}{29}}
+\headcommand {\beamer@subsectionpages {29}{29}}
+\headcommand {\beamer@subsectionentry {0}{2}{4}{30}{Using the Active Subspace}}
+\headcommand {\slideentry {2}{4}{1}{30/30}{Using the Active Subspace}{0}}
+\headcommand {\beamer@framepages {30}{30}}
+\headcommand {\beamer@subsectionpages {30}{30}}
+\headcommand {\beamer@subsectionentry {0}{2}{5}{31}{Application: Callibrated Anomolous Diffusion in Tokamak Plasmas}}
+\headcommand {\slideentry {2}{5}{1}{31/31}{Application: Callibrated Anomolous Diffusion in Tokamak Plasmas}{0}}
+\headcommand {\beamer@framepages {31}{31}}
+\headcommand {\slideentry {2}{5}{2}{32/32}{Application: Callibrated Anomolous Diffusion in Tokamak Plasmas}{0}}
+\headcommand {\beamer@framepages {32}{32}}
+\headcommand {\slideentry {2}{5}{3}{33/33}{Application: Callibrated Anomolous Diffusion in Tokamak Plasmas}{0}}
+\headcommand {\beamer@framepages {33}{33}}
+\headcommand {\slideentry {2}{5}{4}{34/34}{Application: Callibrated Anomolous Diffusion in Tokamak Plasmas}{0}}
+\headcommand {\beamer@framepages {34}{34}}
+\headcommand {\beamer@subsectionpages {31}{34}}
+\headcommand {\beamer@subsectionentry {0}{2}{6}{35}{Application: Magnetic Equilibria in Tokamaks}}
+\headcommand {\slideentry {2}{6}{1}{35/35}{Application: Magnetic Equilibria in Tokamaks}{0}}
+\headcommand {\beamer@framepages {35}{35}}
+\headcommand {\beamer@sectionpages {27}{35}}
+\headcommand {\beamer@subsectionpages {35}{35}}
+\headcommand {\sectionentry {3}{Preliminary Results and Research Plan}{36}{Preliminary Results and Research Plan}{0}}
+\headcommand {\beamer@subsectionpages {36}{35}}
+\headcommand {\beamer@subsectionentry {0}{3}{1}{36}{Learning from Sampling}}
+\headcommand {\slideentry {3}{1}{1}{36/36}{Learning from Sampling}{0}}
+\headcommand {\beamer@framepages {36}{36}}
+\headcommand {\slideentry {3}{1}{2}{37/37}{Learning from Sampling}{0}}
+\headcommand {\beamer@framepages {37}{37}}
+\headcommand {\slideentry {3}{1}{3}{38/38}{Learning from Sampling}{0}}
+\headcommand {\beamer@framepages {38}{38}}
+\headcommand {\beamer@subsectionpages {36}{38}}
+\headcommand {\beamer@subsectionentry {0}{3}{2}{39}{Using the Active Subspace}}
+\headcommand {\slideentry {3}{2}{1}{39/39}{Using the Active Subspace}{0}}
+\headcommand {\beamer@framepages {39}{39}}
+\headcommand {\beamer@subsectionpages {39}{39}}
+\headcommand {\beamer@subsectionentry {0}{3}{3}{40}{Data-Consistent Deregularization for Nonlinear $f$}}
+\headcommand {\slideentry {3}{3}{1}{40/40}{Data-Consistent Deregularization for Nonlinear $f$}{0}}
+\headcommand {\beamer@framepages {40}{40}}
+\headcommand {\beamer@subsectionpages {40}{40}}
+\headcommand {\beamer@subsectionentry {0}{3}{4}{41}{Impact of Noise on MAP Point and Updated Prior}}
+\headcommand {\slideentry {3}{4}{1}{41/41}{Impact of Noise on MAP Point and Updated Prior}{0}}
+\headcommand {\beamer@framepages {41}{41}}
+\headcommand {\beamer@subsectionpages {41}{41}}
+\headcommand {\beamer@subsectionentry {0}{3}{5}{42}{From Model Problems to Fusion Applications}}
+\headcommand {\slideentry {3}{5}{1}{42/42}{From Model Problems to Fusion Applications}{0}}
+\headcommand {\beamer@framepages {42}{42}}
+\headcommand {\beamer@subsectionpages {42}{42}}
+\headcommand {\beamer@subsectionentry {0}{3}{6}{43}{Software Dissemination}}
+\headcommand {\slideentry {3}{6}{1}{43/43}{Software Dissemination}{0}}
+\headcommand {\beamer@framepages {43}{43}}
+\headcommand {\beamer@sectionpages {36}{43}}
+\headcommand {\beamer@subsectionpages {43}{43}}
+\headcommand {\sectionentry {4}{Timeline}{44}{Timeline}{0}}
+\headcommand {\slideentry {4}{0}{1}{44/44}{}{0}}
+\headcommand {\beamer@framepages {44}{44}}
+\headcommand {\beamer@sectionpages {44}{44}}
+\headcommand {\beamer@subsectionpages {44}{44}}
+\headcommand {\sectionentry {5}{References}{45}{References}{0}}
+\headcommand {\slideentry {5}{0}{1}{45/45}{}{0}}
+\headcommand {\beamer@framepages {45}{45}}
+\headcommand {\slideentry {5}{0}{1}{45/46}{}{0}}
+\headcommand {\beamer@framepages {45}{46}}
+\headcommand {\beamer@partpages {1}{46}}
+\headcommand {\beamer@subsectionpages {45}{46}}
+\headcommand {\beamer@sectionpages {45}{46}}
+\headcommand {\beamer@documentpages {46}}
+\headcommand {\gdef \inserttotalframenumber {46}}

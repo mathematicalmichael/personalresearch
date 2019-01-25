@@ -1,0 +1,4 @@
+\beamer@sectionintoc {1}{Dimension Reduction and the Active Subspace}{3}{0}{1}
+\beamer@sectionintoc {2}{Active Subspaces via Monte Carlo}{7}{0}{2}
+\beamer@subsectionintoc {2}{1}{Quick Example!}{9}{0}{2}
+\beamer@sectionintoc {3}{References}{12}{0}{3}
