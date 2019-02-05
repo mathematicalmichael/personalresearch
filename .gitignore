@@ -1,4 +1,8 @@
-*.ipynb
 *.aux
-*.o
-*.pyc
+*.bbl
+*.bcf
+*.blg
+*.log
+*.run.xml
+*.synctex.gz
+*.toc
