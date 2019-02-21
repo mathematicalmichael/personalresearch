@@ -429,18 +429,19 @@ where $\sigma_a^2$ is the variance of the additive noise.
 
 \begin{enumerate}[1:]
 
-\item Define: $\left(\texttt{maxit}; \lambda^{(0)}; f_0:=f(\lambda^{(0)}); \mu^*; h\right)$. Set $\texttt{i=1}$.
+\item Define: $\texttt{maxit}; \lambda^{(0)}; f_0:=f(\lambda^{(0)}); \mu^*; h
+$. Set $\texttt{i=1}$.
 
 
-\item Draw a random $N \times 1$ vector $r^i$, where $r^i_j \sim N(0,1)$ for $j=1,\ldots,N$ and draw $\epsilon_i$.
+\item Draw a random $N \times 1$ vector $r^{(i)}$, where $r^{(i)}_j \sim N(0,1)$ for $j=1,\ldots,N$.
 
-\item Evaluate $g_i:=f(\lambda_{i-1}+\mu^*u_i)$.
+\item Evaluate $g_i:=f(\lambda^{(i-1)}+\mu^*r^{(i)})$.
 
-\item Set $\ds d_i:=\frac{g_i-f_{i-1}}{\mu^*}u_i$.
+\item Set $\ds d^{(i)}:=\frac{g_i-f_{i-1}}{\mu^*}r^{(i)}$.
 
-\item Set $\lambda_i=\lambda_{i-1}-h\cdot d_i$.
+\item Set $\lambda^{(i)}=\lambda^{(i-1)}-h\cdot d^{(i)}$.
 
-\item Evaluate $f_i:=f(\lambda_i)$; set \texttt{i=i+1}; return to 2.
+\item Evaluate $f_i:=f(\lambda^{(i)})$; set \texttt{i=i+1}; return to 2.
 
 \item Terminate when \texttt{i=maxit}.
 
