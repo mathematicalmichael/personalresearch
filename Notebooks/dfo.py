@@ -21,7 +21,7 @@ def STARS(x_init,F,mu_star,h,active=None):
         act_dim=active.shape[0]
         lam = np.random.normal(0,1,act_dim)
         u = np.dot(lam,active)
-        print(u) #debug
+        #print(u) #debug
     
     # Form vector y, which is a random walk away from x_init
     y = x_init + (mu_star)*u
