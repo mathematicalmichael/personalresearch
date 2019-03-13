@@ -107,7 +107,7 @@ Dimension reduction can be performed with access to samples  and does require ap
 \section{Introduction}
 
 
-We begin our discussion by defining a parameter space $\Lambda$ of dimension $P$, a map or ``model" $f$, and a data space $\mathcal{D}:=f(\Lambda)$. We assume that $\mathcal{D}$ has dimension $D$, typically with $D<< P$. Points in $\mathcal{D}$ may be known values of $f(\lambda), \lambda\in \Lambda$; as such, we may write $d=f(\lambda)$ to denote the particular datum corresponding to the evaluation of a point $\lambda \in \Lambda$ under $f$. Points in $\mathcal{D}$ may also be \textit{observed} data, denoted $d_{\text{obs}}$, where the corresponding $\lambda\in \Lambda$ may be unknown. We assume realizations of $f$ are  noisy. We model observations of $f$ with $d_{\text{obs}}=\hat{f}(\lambda;\xi)=f(\lambda)+\epsilon(\xi)$, which is an additive noise structure, or $d_{\text{obs}}=\hat{f}(\lambda,\xi)=f(\lambda)(1+\epsilon(\xi))$, which is a multiplicative noise structure. In both cases $\epsilon(\cdot)$ denotes a random variable specified by realizations or draws $\epsilon(\xi)$. We assume $\epsilon(\cdot)$ has bounded variance $\sigma^2<\infty$.
+We begin our discussion by defining a parameter space $\Lambda$ of dimension $P$, a map or ``model" $f$, and a data space $\mathcal{D}:=f(\Lambda)$. We assume that $\mathcal{D}$ has dimension $D$, typically with $D<< P$. Points in $\mathcal{D}$ may be known values of $f(\lambda), \lambda\in \Lambda$; as such, we may write $d=f(\lambda)$ to denote the particular datum corresponding to the evaluation of a point $\lambda \in \Lambda$ under $f$. Points in $\mathcal{D}$ may also be \textit{observed} data, denoted $d_{\text{obs}}$, where the corresponding $\lambda\in \Lambda$ may be unknown. We assume realizations of $f$ are  noisy. We model observations of $f$ with $d_{\text{obs}}=\hat{f}(\lambda;\xi)=f(\lambda)+\epsilon(\xi)$, which is an additive noise structure, or $d_{\text{obs}}=\hat{f}(\lambda;\xi)=f(\lambda)(1+\epsilon(\xi))$, which is a multiplicative noise structure. In both cases $\epsilon(\cdot)$ denotes a random variable specified by realizations or draws $\epsilon(\xi)$. We assume $\epsilon(\cdot)$ has bounded variance $\sigma^2<\infty$.
 
 
 Many objective functions formed in Uncertainty Quantification (UQ) applications generally fall into the category of maps $f$ described above. For example, one may solve a \textit{Stochastic Inverse Problem} (\textit{SIP}) by posing an equivalent deterministic optimization problem, with the heavy assumptions that $f$ is a linear map and the \textit{prior distribution} in $\Lambda$ and \textit{observed distribution} in $\mathcal{D}$ are Gaussian. Optimizing $f$ in the setting described above is a problem of \textit{Optimization Under Uncertainty} (\textit{OUU}).
@@ -264,36 +264,49 @@ We first present STARS suited for additive OUU as in \eqref{eq:1} in the  pseudo
 
 \SetAlgoLined
 
-	\KwIn{\texttt{maxit}$=:M$; $\lambda^{(0)}$; $f_0:=f(\lambda^{(0)})$; $	\mu^*$; $h$; $i=1$}
+	\KwIn{\texttt{maxit}$=:M$; $\lambda^{(0)}$; $f_0:=f(\lambda^{(0)})$; $h$; $k=1$}
  
-    \While{$i\leq M$}{
-  Draw $u^{(i)}$, where $u^{(i)}_p \sim N(0,1)$ for $p=1,\ldots,P$\;
+    \While{$k\leq M$}{
+    
+  Form smoothing factor $\mu^*_k$
+    
+  Draw $u^{(k)}$, where $u^{(k)}_p \sim N(0,1)$ for $p=1,\ldots,P$\;
   
-  Evaluate $g_i:=f(\lambda^{(i-1)}+\mu^*u^{(i)})$\;
+  Evaluate $g_k:=f(\lambda^{(k-1)}+\mu^*_ku^{(k)})$\;
   
-  Set $ d^{(i)}:=\frac{g_i-f_{i-1}}{\mu^*}u^{(i)}$\;
+  Set $ d^{(k)}:=\frac{g_k-f_{k-1}}{\mu^*_k}u^{(k)}$\;
   
-  Set $\lambda^{(i)}=\lambda^{(i-1)}-h\cdot d^{(i)}$\;
+  Set $\lambda^{(k)}=\lambda^{(k-1)}-h\cdot d^{(k)}$\;
   
-  Evaluate $f_i:=f(\lambda^{(i)})$\; 
+  Evaluate $f_k:=f(\lambda^{(k)})$\; 
   
-  Set $i=i+1$\;}
+  Set $k=k+1$\;}
 
     \KwOut{($\lambda^{(M)}$, $f_M$)}
 
-	\caption{STARS for Additive OUU}
+	\caption{STARS for Additive or Multiplicative OUU}
 
 \end{algorithm}
 
 \vspace{.25cm}
 
-\noindent Observe that the initialization of STARS requires hyperparameters $\mu^*$ and $h$, which are the algorithm's smoothing factor and step size, respectively. The optimal values for $\mu^*$ and $h$ are 
+\noindent Observe that STARS requires defining hyperparameters $\mu^*_k$ and $h$, which are the algorithm's smoothing factor and step size, respectively. The step length $h$ will remain constant for all iterations regardless of whether we consider Additive or Multiplicative OUU. In the case of Additive OUU, $\mu^*_k$ will also be constant, i.e., $\mu^*_k=\mu^*$, a fixed value for all iterations $k=1, \ldots, M$. However in the case of Multiplicative OUU, the smoothing factor $\mu^*_k$ will need to be adjusted for every iteration $k$.  
+
+For the additive noise OUU problem \eqref{eq:1}, the values for $\mu^*$ and $h$ are 
 
 \begin{eqnarray} \label{eq:9}
 \mu^*:=\left( \frac{8\sigma^2 P}{L_1^2(P+6)^3}\right)^{1/4} \quad \quad h:=(4L_1(P+4))^{-1},
 \end{eqnarray} 
 
-\noindent which are proven as optimal values for the algorithm's convergence in \cite{CW} for the additive noise OUU problem \eqref{eq:1}. 
+\noindent which are proven as optimal values for the algorithm's convergence in \cite{CW}. 
+
+In the multiplicative noise OUU problem \eqref{eq:2}, the step length $h$ remains the same, exactly as in \eqref{eq:9} above, held constant for each iteration. However the smoothing factor must be updated for each iteration $k=1,\ldots, M.$ As shown in \cite{CW}, the optimal smoothing factor for a given iterate $k$ is given by
+
+\begin{eqnarray} \label{eq:10}
+\mu^*_k:=\left( \frac{16 \sigma^2 f(\lambda^{(k)};\xi_k)^2 P}{L_1^2(1+3\sigma^2)(P+6)^3}\right)^{1/4}.
+\end{eqnarray} 
+
+\noindent 
 
 
 \subsection{Hyperparameter Learning}
@@ -301,24 +314,24 @@ We first present STARS suited for additive OUU as in \eqref{eq:1} in the  pseudo
 
 \subsection{Active Subspace Learning}
 
-In the following, we consider ways in which we may use the information given by an active subspace $\A(f;D_S)$.
-
-In practice, finding an active subspace of $f$ will require forming an approximation to $W$ in a Monte Carlo fashion; see \cite{ConstantineMC}. We choose to present a Monte Carlo approach that is simple to implement, as in \cite{Russi}. In short, for a random draw $\lambda_i \in \Lambda$, we will find its evaluation under the approximate or analytic gradient (depending on whether we have $\nabla f$ analytically), and store the row vector $\nabla f(\lambda_i)^\top$ in a matrix with an SVD corresponding to \eqref{eq:6}, up to scaling.
+In the following, we present a method for computing an active subspace $\A$ in our setting. In practice, finding an active subspace of $f$ will require forming an approximation to $W$ in \eqref{eq:4} in a Monte Carlo fashion \cite{ConstantineMC}. We choose to present a Monte Carlo approach that is simple to implement, found in \cite{Russi}. In short, for a random draw $\lambda^i \in \Lambda$, we will find its evaluation under and approximate gradient formed with a surrogate and store the row vector $\nabla f(\lambda^i)^\top$ in a matrix $\tilde{W}$. In fact, $\tilde{W}$ will have a SVD corresponding to \eqref{eq:5}, up to scaling.
 
 In the following, we assume that we lack an analytic form of $\nabla f$; if the analytic gradient is available, the proceeding Monte Carlo method remains valid, and all notations corresponding to approximating $\nabla f$ may be dropped.
 
 
-One initializes the method by performing $S$ random draws of $\lambda_i \in \Lambda$. We then compute $f(\lambda_i)$ for all $i=1,\ldots,S$ samples, which we note will require, at the very least, $S$ evaluations of $f$; in a realistic setting, this would require $S$ solves of a model such as a PDE-constrained system. We define $D_S=\{(\lambda_i,f(\lambda_i))\}_{i=1}^S$, a set of $S$ pairs of samples $\lambda_i$ and their function values. Next, we need $\nabla_\Lambda f$ evaluated at $\lambda_i$ for all $i=1,\ldots,S$, which we assume that we do not have in closed analytic form. Hence, we generally need some gradient approximation method \cite{Smith}, and typically a locally linear approximation to the gradient is a fair balance between reasonably estimating the gradient and not pushing computational expenses to an unreasonable regime. With this approximation formed, we denote each estimation to $\nabla f(\lambda_i)$ with $\reallywidehat{\nabla f}(\lambda_i)$ and we define the $N \times S$ matrix $\tilde{W}$ (which is presented below as $\tilde{W}^\top$)
+One initializes the method by performing $S$ random draws of $\lambda^i \in \Lambda$. We then compute $f(\lambda^i)$ for all $i=1,\ldots,S$ samples, which we note will require, at the very least, $S$ evaluations of $f$; in a realistic setting, this would require $S$ solves of a model such as a PDE-constrained system. We define $D_S:=\{(\lambda^i,f(\lambda^i))\}_{i=1}^S$, a set of $S$ pairs of samples $\lambda^i$ and their function values. 
+
+Next, we need $\nabla_\Lambda f$ -- which we assume that we do not have in closed analytic form -- evaluated at $\lambda^i$ for all $i=1,\ldots,S$. Hence, we generally need a gradient approximation method \cite{Constantine2015, Smith}. Most often, one forms a local linear, global linear, or global quadratic surrogate to $f$ using $D_S$. One may approximate $\nabla f$ using the gradient of the closed-form surrogate. With this approximation formed, we denote each estimation to $\nabla f(\lambda^i)$ with $\hat{\nabla f}(\lambda^i)$ and we define the $P \times S$ matrix $\tilde{W}$ (which is presented below as $\tilde{W}^\top$)
 
 \begin{equation} \label{eq:10}
 \tilde{W}^\top:=\begin{bmatrix}
-\reallywidehat{\nabla f}(\lambda_1)
+\reallywidehat{\nabla f}(\lambda^1)
 \cdot \cdot \cdot
-\reallywidehat{\nabla f}(\lambda_S)\\
+\reallywidehat{\nabla f}(\lambda^S)\\
 \end{bmatrix}.
 \end{equation}  
 
-Forming the SVD of $\tilde{W}$, $\tilde{W}=\tilde{U}\tilde{\Sigma}\tilde{V}^*$, we search for a drop off in the magnitude of the singular values $\{\tilde{\sigma}_i\}_{i=1}^S$. Assuming such a drop off occurs for an index $j:1<j<S$, we have the $j$ corresponding left singular vectors,$ \tilde{u},\ldots,\tilde{u}_{j}$.  We let $\A\left(f; D_S \right):=\text{span}\{\tilde{u},\ldots,\tilde{u}_{j}\}$ denote the active subspace of $f$ with respect to the samples $D_S$. We choose to use a notation with $D_S$ included to emphasize the dependence of the active subspace on the random draws made in $\Lambda$, which led to our particular $D_S$ set of samples.
+Forming the SVD of $\tilde{W}$, $\tilde{W}=\tilde{U}\tilde{\Sigma}\tilde{V}^*$, we search for a drop off in the magnitude of the singular values $\{\tilde{\sigma}_i\}_{i=1}^S$. Assuming such a drop off occurs for an index $j:1<j<S$, we have the $j$ corresponding right singular vectors,$ \tilde{v}_1,\ldots,\tilde{v}_{j}$.  We let $\A\left(f; D_S \right):=\text{span}\{\tilde{v}_1,\ldots,\tilde{v}_{j}\}$ denote the active subspace of $f$ with respect to the samples $D_S$. We choose to use a notation with $D_S$ included to emphasize the dependence of the active subspace on the random draws made in $\Lambda$, which led to our particular $D_S$ set of samples.
 
 In practice, we can check the extent to which the active subspace accounts for functions values $f(\lambda)$ 
 by checking for resolution in a \emph{sufficient summary plot} \cite{Constantine2015}, where we plot active variables against function values. In these plots, we hope to see a pattern between the active variables versus their function values. For example, if $f$ is quadratic in its active variables, then we expect to see quadratic-resolved sufficient summary plots.
