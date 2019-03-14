@@ -242,15 +242,15 @@ The property above gives the ability to save computational expense for a number 
 
 With the literature review and introduced notation provided above, the remaining sections focus on methodology, results, and conclusions. 
 
-In the proceeding Methods section, we thoroughly discuss the details of the STARS algorithm, algorithmic hyperparameter learning, and Monte Carlo-style AS, which are the key ingredients needed for fully-automated STARS performed only in active directions. We then discuss the techniques used to create the fully-automoted \textit{active STARS} algorithm.
+In the proceeding Methods section, we thoroughly discuss the details of the STARS algorithm, algorithmic hyperparameter learning, and Monte Carlo-style AS, which are the key ingredients needed for fully-automated STARS performed only in active directions. We then discuss the techniques used to create the fully-automoted \textit{Active STARS} algorithm.
 
-In the Results section, we consider 2 example problems with maps that mimic the behavior of the noisy black boxes we consider. We compare learned hyperparameters to their true values, which are specified by the example functions we choose. We also compare the performance of STARS in full variables to active STARS.
+In the Results section, we consider 2 example problems with maps that mimic the behavior of the noisy black boxes we consider. We compare learned hyperparameters to their true values, which are specified by the example functions we choose. We also compare the performance of STARS in full variables to automated Active STARS.
 
 Finally, in the Conclusion and Discussion section, we review the extent to which active STARS is effective in our setting. Limitations are discussed and future research questions are posed. 
 
 \section{Methods}
 
-In the following, we begin by detailing STARS, learning STARS hyperparameters, and learning the active subspace of $f$. Then, we propose a modification to STARS so that hyperparameters and the active subspace is learned using information from iterates
+In the following, we begin by detailing STARS, learning STARS hyperparameters, and learning the active subspace of $f$. Then, we propose a modification to STARS so that steps are taken in active directions only. Finally, we combine ingredients, proposing a fully automated Active STARS where hyperparameters and the active subspace are learned online, using information from iterates.
 
 
 \subsection{STARS}
@@ -346,35 +346,32 @@ by checking for resolution in a \emph{sufficient summary plot} \cite{Constantine
 
 
 
-\subsection{STARS in the Active Variables Only} Given some $f$ and its corresponding active subspace $\A(f;D_S)$ found by the Monte Carlo method discussed in the preceding section, we are interested in investigating the effectiveness of only optimizing $f$ in its active variables. There are several approaches one may consider, and handful of those approaches and their corresponding results are discussed in the proceeding section. The most compelling approach we have observed is to modify the DFO algorithm discussed above to only take random walks in directions lying in $\A$. That is, at iteration $k$, standard DFO algorithms \cite{CW} use random walks given by drawing a random vector $v^{(k)}$ of dimension $N$ in which every component $v_i^{(k)},i=1,\ldots,N$ of $v$ is  drawn from a specified normal distribution. Instead, given the first $j$ singular unit vectors $u_1,\ldots,u_j$ corresponding to the SVD of $\hat{W}$, one may take $j$ draws from a specified normal distribution, which we denote with $s_i\sim N(\mu,\sigma^2)$, and form the random vector $v$ for the $k$-th step in a DFO algorithm as $v^{(k)}=\sum_{i=1}^js_iu_i$, which is just a linear combination of the active variables of $f$ with coefficients given by random draws; we see that such a vector could be interpreted as a random walk in $\A$.
+\subsection{STARS in the Active Variables Only} Given some $f$ and its corresponding active subspace $\A(f;D_S)$ found by the Monte Carlo method discussed above, we are interested in investigating the effectiveness of optimizing $f$ in its active variables. There are several approaches one may consider, and a handful of those approaches and their corresponding results are discussed in the remainder of the paper. 
 
-Relevant research directions include: considering other ways to embed the information from $\A$ within a DFO scheme; analyzing the difference between minimizing $f$ in all its variables versus only in its active subspace; considering ways in which the problem may be solved with the mentioned techniques in tandem, such as using a ``burn-in" phase in which $f$ is minimized over all of $\Lambda$ followed by an active variables minimization.
+One approach we have tested is modifying STARS to only take random walks in directions lying in $\A$. In detail, at iteration $k$, STARS uses random walks given by drawing a random vector $u^{(k)}$ of dimension $P$ in which every component $u_i^{(k)},i=1,\ldots,P$ of $u^{(k)}$ is  drawn from a specified normal distribution. Instead, given the first $j$ singular unit vectors $\tilde{v}_1,\ldots,\tilde{v}_j$ corresponding to the SVD of $\hat{W}$, one may take $j$ draws from a specified normal distribution, which we denote $s_i\sim N(0,\sigma_i^2)$, $i=1,\ldots,j$, defining the random vector $u_\A^{(k)}$ for the $k$-th random \textit{active direction} as 
+
+\begin{eqnarray}
+u_\A^{(k)}=\sum_{i=1}^j s_i\tilde{v_i}, \quad \quad s_i\sim N(0,\sigma_i^2), \quad i=1,\ldots,j
+\end{eqnarray}
+
+
+\noindent which is a randomly weighted linear combination of the active variables of $f$ learned via Monte Carlo with coefficients given by random draws; we see that such a vector could be interpreted as a random walk in $\A$.
 
 
 
 \section{Results}
 
-In this section, we re-visit the questions from the previous section to discuss preliminary results, if any, and present a plan to begin investigating questions that are unanswered. We present a guiding example which is discussed in below sections in the context of relevant research questions and results.
+In this section, we present results of using Active STARS in several examples with a noisy, high-dimensional objective function.
 
 \vspace{.125cm}
 
-\noindent \textbf{Example 3.} \textit{Let $\Lambda=[-1,1]^{11}$ and define $$f(\lambda)=\sum_{i=0}^{10} 2^{(-1)^i i}\lambda_i^2+\epsilon(\lambda),$$ where $\epsilon(\lambda)$ is a draw of additive noise corresponding to the input $\lambda$; here, we take draws of $\epsilon$ of order $10^{-4}$. We see that $\mathcal{D}=[0,2^{10}]$ and $N=11$, $M=1$. Note that the minimimum of $f$ is given by $0 \in \Lambda$. Here, as $i$ increases, terms in $f$ become either more important or less important, depending on whether $i$ is even or odd.}
+\noindent \textbf{Example 1.} \textit{Let $\Lambda=[-1,1]^{11}$ and define $$f(\lambda)=\sum_{i=0}^{10} 2^{(-1)^i i}\lambda_i^2+\epsilon(\lambda),$$ where $\epsilon(\lambda)$ is a draw of additive noise corresponding to the input $\lambda$; here, we take draws of $\epsilon$ of order $10^{-4}$. We see that $\mathcal{D}=[0,2^{10}]$ and $N=11$, $M=1$. Note that the minimimum of $f$ is given by $0 \in \Lambda$. Here, as $i$ increases, terms in $f$ become either more important or less important, depending on whether $i$ is even or odd.}
 
 
 
 
 
 
-\subsection{From model problems to fusion applications}
-
-We propose to investigate the approximate solution of data-consistent inverse problems via optimization approaches.  For derivative free optimization, we plan to transition from our noisy
-functions to the data consistent inversion of a subgrid LES model for isotropic turbulent flow.  
-While this would certainly be a publishable result, the hope is to investigate approximate DCI
-when applied to anomalous diffusion in the axisymmetric gyrokinetic code XGCa.
-
-In the case of models where $\lambda$-gradients are available and not of suspect quality, we will
-transition from an approximate DCI for a model elliptic problem with a parameterized forcing function, with parameter gradients obtained via adjoint methods.  Success here will allow us to extend the
-method to the determination of data-consistent MHD equilibria (via the Grad-Shafranov equation).  
 
 
 
@@ -382,10 +379,14 @@ method to the determination of data-consistent MHD equilibria (via the Grad-Shaf
 
 \subsection{Software Dissemination}
 
-Currently, only some of the software used to produce results in this paper are publicly available on GitHub.com. Some of the algorithms used here and other algorithms that are of interest are within open-source packages available online including those of Constantine and Butler et al. Other schemes considered in this paper make modifications to given algorithms and remain under development. A major goal of this thesis proposal will be developing well-documented, open-source software complete with python Jupyter Notebooks and illustrative, replicable examples.
+Software used to produce results in this paper are publicly available on \texttt{https://github.com/jordanrhall/personalresearch}. Some of the algorithms used here and other algorithms that are of interest are within open-source packages available online including those of Constantine and Butler et al. Other schemes considered in this paper make modifications to given algorithms and remain under development. A major goal of this thesis proposal will be developing well-documented, open-source software complete with python Jupyter Notebooks and illustrative, replicable examples.
 
 
 \section{Conclusion and Discussion}
+
+In the following, we leave the reader with concluding remarks and discussion. The preceding Methods section presented combinations and modifications made to well-documented algorithms including STARS \cite{CW}, Monte Carlo AS learning \cite{ConstantineMC}, noise variance learning [ECNoise], and Lipschitz constant learning \cite{Calliess} to produce the fully-automated Active STARS algorithm. In the Results section above, we presented example problems that were used for testing Active STARS.
+
+Of course, there is never any guarantee that the maps $f$ considered in this paper permit dimension reduction via AS. This could be the case for many reasons, including (nearly) equal importance of modeled parameters, a $\nabla f$ that is not possible to approximate via surrogates, or a noise level on the same (or greater) order of magnitude as the outputs of $f$. Regardless, in the case that no active subspace is clearly defined, Active STARS will simply reduce back to STARS in full variables. STARS in full variables may struggle to converge or fail to converge if $f$ possesses the behaviors described above.
 
 
 %%%%%%%%%%%%%% References %%%%%%%%%%%%%%%%%%%%%%%%%
