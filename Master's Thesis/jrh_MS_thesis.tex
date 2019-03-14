@@ -364,6 +364,11 @@ u_\A^{(k)}=\sum_{i=1}^j s_i\tilde{v_i}, \quad \quad s_i\sim N(0,\sigma_i^2), \qu
 
 \noindent which is a randomly weighted linear combination of the active variables of $f$ learned via Monte Carlo with coefficients given by random draws; we see that such a vector could be interpreted as a random walk in $\A$.
 
+\subsection{Combining Ingredients: Fully-Automated Active STARS} We now have all the necessary components for creating a fully-automated Active STARS algorithm, in the sense that the user need to specify anything beyond an initial iterate $\lambda^{(0)}$ and the black-box objective function $f$. The fully-automated Active STARS algorithm learns $\sigma^2$, $L_1$, and $\A$ from its own iterations with little computational expense from upfront learning.
+
+
+
+
 
 
 \section{Results}
