@@ -312,6 +312,13 @@ In the multiplicative noise OUU problem \eqref{eq:2}, the step length $h$ remain
 \subsection{Hyperparameter Learning}
 
 
+$$\Delta^{h,0} f =f \quad \quad \Delta^{h,k+1} f=\Delta^{h,k} f(\lambda+h)- \Delta^{h,k} f(\lambda), \quad 1>>h>0, \quad k \geq 0$$
+
+
+
+$$\textit{$k$-th level estimate to $\sigma,$}\quad \hat{\sigma_k}^2:=C\sum_{i=1}^{S-k}\left(\Delta^{h,k}f(\lambda_i)\right)^2$$
+
+
 \subsection{Active Subspace Learning}
 
 In the following, we present a method for computing an active subspace $\A$ in our setting. In practice, finding an active subspace of $f$ will require forming an approximation to $W$ in \eqref{eq:4} in a Monte Carlo fashion \cite{ConstantineMC}. We choose to present a Monte Carlo approach that is simple to implement, found in \cite{Russi}. In short, for a random draw $\lambda^i \in \Lambda$, we will find its evaluation under and approximate gradient formed with a surrogate and store the row vector $\nabla f(\lambda^i)^\top$ in a matrix $\tilde{W}$. In fact, $\tilde{W}$ will have a SVD corresponding to \eqref{eq:5}, up to scaling.
@@ -363,9 +370,10 @@ u_\A^{(k)}=\sum_{i=1}^j s_i\tilde{v_i}, \quad \quad s_i\sim N(0,\sigma_i^2), \qu
 
 In this section, we present results of using Active STARS in several examples with a noisy, high-dimensional objective function.
 
-\vspace{.125cm}
+$$f: \mathbb{R}^{40} \to \mathbb{R} \quad \quad  f(\lambda; \xi):=\lambda_{20}^2 + \epsilon(\xi) \quad \quad \epsilon(\cdot) \sim U[-k,k], \quad k=1 \times 10^{-3}.$$
 
-\noindent \textbf{Example 1.} \textit{Let $\Lambda=[-1,1]^{11}$ and define $$f(\lambda)=\sum_{i=0}^{10} 2^{(-1)^i i}\lambda_i^2+\epsilon(\lambda),$$ where $\epsilon(\lambda)$ is a draw of additive noise corresponding to the input $\lambda$; here, we take draws of $\epsilon$ of order $10^{-4}$. We see that $\mathcal{D}=[0,2^{10}]$ and $N=11$, $M=1$. Note that the minimimum of $f$ is given by $0 \in \Lambda$. Here, as $i$ increases, terms in $f$ become either more important or less important, depending on whether $i$ is even or odd.}
+\noindent \textbf{Example 2.} \textit{Let $\Lambda=[-1,1]^{11}$ and define $$f(\lambda)=\sum_{i=0}^{10} 2^{(-1)^i i}\lambda_i^2+\epsilon(\lambda),$$ where $\epsilon(\lambda)$ is a draw of additive noise corresponding to the input $\lambda$; here, we take draws of $\epsilon$ of order $10^{-4}$. We see that $\mathcal{D}=[0,2^{10}]$ and $N=11$, $M=1$. Note that the minimimum of $f$ is given by $0 \in \Lambda$. Here, as $i$ increases, terms in $f$ become either more important or less important, depending on whether $i$ is even or odd.}
+
 
 
 
@@ -427,54 +435,16 @@ Of course, there is never any guarantee that the maps $f$ considered in this pap
 \end{thebibliography}
 
 
-\newpage
 
 
 
-$$D_S:=\{(\lambda^i,f(\lambda^i))\}_{i=1}^S$$
-
-\vspace{2cm}
-
-$$\textit{Active subspace} \quad A(f;D_S):=\text{span}\{\Tilde{v}_i\}_{i=1}^j$$
-
-\vspace{2cm}
-
-$$u:=\sum_{i=1}^N\omega_i \Tilde{u}_i \quad \text{or} \quad u_j^{(i)} \sim N(0,\omega_i)$$
-
-\vspace{2cm}
-
-$$f: \mathbb{R}^{40} \to \mathbb{R} \quad \quad  f(\lambda; \xi):=\lambda_{20}^2 + \epsilon(\xi) \quad \quad \epsilon(\cdot) \sim U[-k,k], \quad k=1 \times 10^{-3}.$$
-
-\newpage
-
-$$\Delta^{h,0} f =f \quad \quad \Delta^{h,k+1} f=\Delta^{h,k} f(\lambda+h)- \Delta^{h,k} f(\lambda), \quad 1>>h>0, \quad k \geq 0$$
-
-\vspace{.95cm}
-
-$$\textit{$k$-th level estimate to $\sigma,$}\quad \hat{\sigma_k}^2:=C\sum_{i=1}^{S-k}\left(\Delta^{h,k}f(\lambda_i)\right)^2$$
 
 
-\vspace{3cm}
 
 
-$$\reallywidehat{L_1}:= \max_{i \neq j} \frac{\left|\left|\reallywidehat{\nabla f}(\lambda^{(i)})-\reallywidehat{\nabla f}(\lambda^{(j)})\right|\right|-2\epsilon^*}{||\lambda^{(i)}-\lambda^{(j)}||}, \quad \epsilon^*\approx 3\sigma, \quad i,j=1,\ldots, S.$$
 
-\vspace{1cm}
 
-$$
-\tilde{W}:=\begin{bmatrix}
-\reallywidehat{\nabla f}(\lambda_1)
-\cdot \cdot \cdot
-\reallywidehat{\nabla f}(\lambda_S)\\
-\end{bmatrix}^\top\quad \quad \tilde{W}=\tilde{U}\tilde{\Sigma}\tilde{V}^*$$
 
-\vspace{.5cm}
-
-$$\tilde{\Sigma}_{j,j}^2>>\tilde{\Sigma}_{j+1,j+1}^2, \quad 1\leq j <P$$
-
-\vspace{2cm}
-
-$$\tilde{\Sigma}_{j}^2>>\tilde{\Sigma}_{j+1}^2, \quad 1\leq j <P$$
 
 
 
