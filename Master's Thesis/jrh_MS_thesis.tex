@@ -4,7 +4,12 @@
 \usepackage{amsthm}
 \usepackage{xargs}
 \usepackage{scalerel}
+\usepackage[ ]{algorithm2e}
+\usepackage[dvipsnames]{xcolor}
 
+\makeatletter
+\renewcommand{\@algocf@capt@plain}{above}% formerly {bottom}
+\makeatother
 
 
 \newcommand{\D}{\mathcal{D}}
@@ -14,11 +19,14 @@
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\K}{\mathbb{K}}
 \newcommand{\C}{\mathbb{C}}
+\newcommand{\mustar}{\mu^*}
 \newcommand{\ds}{\displaystyle}
 \newcommand{\op}[1]{\left(#1\right)}
 \newcommand{\cp}[1]{\left[#1\right]}
 \newcommand{\av}[1]{\left| #1\right|}
 \newcommand{\st}[1]{\left\{#1\right\}}
+
+
 
 
 \usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
@@ -49,12 +57,12 @@
 
 \setcounter{secnumdepth}{0}
 \usepackage{titlesec}
-\titleformat{\section}{\center\large\bfseries}
-\titleformat{\subsection}{\center}
+\titleformat{\section}{\Large\bfseries}
+\titleformat{\subsection}{}
 
 
-% TOC
-\setcounter{tocdepth}{1}
+
+
 
 
 \begin{document}
@@ -66,7 +74,11 @@
 \begin{abstract}
 
   
-We consider a noisy map $f$ from a high-dimensional $\Lambda$ to $\mathcal{D}$ of specified dimension, where the gradient of $f$ exists, but may be inaccessible. We apply Derivative-Free Optimization (DFO) schemes as in \cite{CW}. The effectiveness of the optimization algorithm may be enhanced by performing dimension reduction in $\Lambda$ as in \cite{Constantine2015, Russi} and using machine learning to identify needed parameters. 
+We consider maps $f$ with additive or multiplicative noise from a high-dimensional parameter space $\Lambda$ to a data space $\mathcal{D}$ of lower dimension, where $\nabla f$ exists, but may be inaccessible. Many problems in Uncertainty Quantification require minimizing such an $f$. We investigate Derivative-Free Optimization (DFO) in this setting. The considered DFO algorithm's hyperparameters depend on two generally unknown parameters -- the $L_1$ Lipschitz constant of $f$ and the bounded variance in the noise of $f$, $\sigma^2$. We firstly explore efficiently learning $L_1$ and $\sigma^2$ from samples. To learn $L_1$, approximations to $\nabla^2 f$ are needed. 
+Secondly, we examine methods of enhancing the DFO algorithm by performing dimension reduction in $\Lambda$.  
+The DFO hyperparmeters are inversely proportional to the known dimension $P$ of $\Lambda$, resulting in heavy smoothing and small step sizes for large $P$.
+By learning a lower-dimensional \textit{active subspace} $\mathcal{A}$ of $f$ which defines directions causing the majority of the variance of $f$, iterates in a DFO algorithm may be updated with steps only taken in $\mathcal{A}$, reducing the value of $f$ more efficiently than updating iterates in the full variables, $\Lambda$. 
+Dimension reduction can be performed with access to samples  and does require approximations to $\nabla f$. In addition to computational savings made by stepping only in active directions when an active subspace exists, computational costs may be reduced further by learning hyperparameters and the active subspace from DFO iterates whenever possible, reducing map evaluations.
 
  
 
@@ -80,22 +92,30 @@ We consider a noisy map $f$ from a high-dimensional $\Lambda$ to $\mathcal{D}$ o
 \maketitle
 
 
-
+% TOC
+\setcounter{tocdepth}{1} 
 \tableofcontents
 
-\setcounter{tocdepth}{0}
+
 
 
 
 
 \newpage
 
+
 \section{Introduction}
 
-In this section we provide a literature review of inverse problem theory, derivative-free (DF) optimization, and dimension reduction. 
-In the process, we will build a theoretical framework upon which we will pose research questions, state initial results, and form a research plan. 
 
-We begin our discussion by defining a parameter space $\Lambda$ of dimension $N$, a map or ``model" $f$, and a data space $\mathcal{D}$. We assume that $\mathcal{D}$ has dimension $M$, typically with $M\leq N$. Points in $\mathcal{D}$ may be known values of $f(\lambda), \lambda\in \Lambda$; as such, we may write $d=f(\lambda)$ to denote the particular datum corresponding to the evaluation of a point $\lambda \in \Lambda$ under $f$. Points in $\mathcal{D}$ may also be \textit{observed} data, denoted $d_{\text{obs}}$, where the corresponding $\lambda\in \Lambda$ may be unknown. We allow for realizations of $f$ to be  noisy. Hence, we may model draws of $f$ with $\hat{f}(\lambda)=f(\lambda)+\epsilon$, which is an additive noise structure, or $\hat{f}(\lambda)=f(\lambda)(1+\epsilon)$, which is a multiplicative noise structure.
+We begin our discussion by defining a parameter space $\Lambda$ of dimension $P$, a map or ``model" $f$, and a data space $\mathcal{D}:=f(\Lambda)$. We assume that $\mathcal{D}$ has dimension $D$, typically with $D<< P$. Points in $\mathcal{D}$ may be known values of $f(\lambda), \lambda\in \Lambda$; as such, we may write $d=f(\lambda)$ to denote the particular datum corresponding to the evaluation of a point $\lambda \in \Lambda$ under $f$. Points in $\mathcal{D}$ may also be \textit{observed} data, denoted $d_{\text{obs}}$, where the corresponding $\lambda\in \Lambda$ may be unknown. We assume realizations of $f$ are  noisy. We model observations of $f$ with $d_{\text{obs}}=\hat{f}(\lambda;\xi)=f(\lambda)+\epsilon(\xi)$, which is an additive noise structure, or $d_{\text{obs}}=\hat{f}(\lambda;\xi)=f(\lambda)(1+\epsilon(\xi))$, which is a multiplicative noise structure. In both cases $\epsilon(\cdot)$ denotes a random variable specified by realizations or draws $\epsilon(\xi)$. We assume $\epsilon(\cdot)$ has bounded variance $\sigma^2<\infty$.
+
+
+Many objective functions formed in Uncertainty Quantification (UQ) applications generally fall into the category of maps $f$ described above. For example, one may solve a \textit{Stochastic Inverse Problem} (\textit{SIP}) by posing an equivalent deterministic optimization problem, with the heavy assumptions that $f$ is a linear map and the \textit{prior distribution} in $\Lambda$ and \textit{observed distribution} in $\mathcal{D}$ are Gaussian. Optimizing $f$ in the setting described above is a problem of \textit{Optimization Under Uncertainty} (\textit{OUU}).
+
+In this section we provide a brief literature review and discussion of Derivative-Free Optimization (DFO), hyperparameter learning, and dimension reduction. We introduce a theoretical framework to unify results in the literature so that we may propose methods and state results in the proceeding sections.
+
+
+
 
 \subsection{Derivative-Free Optimization}
 
@@ -104,97 +124,221 @@ to observable map $f(u(x,\lambda))$ may be modeled as a stochastic process, or a
 In this setting, the efficient extraction of accurate gradients of $f$ in parameter space is a challenging undertaking, as popular techniques based on
 linearization, including adjoint methods, are inaccurate \cite{lea2000, Qiqi2014}.  
 The finite-difference approximations to $\nabla f_\Lambda$ 
-involve $N=\text{dim}\Lambda$ 
+involve $P=\text{dim}(\Lambda)$ 
 additional, usually nonlinear model solves for the physical system state $u(x,\lambda_i + \delta \lambda_i)$, and is greatly polluted by the noise in $f$.
 
-As a consequence of these difficulties, the approximate data-consistent solution of a SIP in this setting by optimization techniques will need algorithms
-that do not require gradient information from $f$.  
-We consider derivative-free optimization (DFO) algorithms suited for additive and multiplicative noise as in \cite{CW}. This technique requires nothing more than evaluations of the noisy model and random draws from a normal distribution. Briefly, this method finds a new iterate by randomly perturbing the previous iterate in $\Lambda$; iterates are not allowed to stray much, though, due to relatively small smoothing factors and step sizes. The smoothing factor and step size in the DF algorithms are of great importance to their convergence and termination. As in \cite{CW}, both the smoothing factor and step size will depend on a scale factor of the $L_1$ Lipschitz constant of $f$. As such, it will be of interest to obtain estimates of $L_1$, which is not straightforward in a gradient-free setting. We refer to \cite{Calliess, KS} for Lipschitz constant learning in this setting, and discuss this problem more in the proceeding sections.
+As a consequence of these difficulties, optimization in this setting will need to be performed by algorithms which
+do not require approximating gradient information from samples while online; otherwise, we expect to surpass a reasonable computational budget since even one gradient approximation will be $\mathcal{O}(P)$ (using, for instance, finite differencing.)
+We consider \textit{Derivative-Free Optimization} (DFO) algorithms suited for additive and multiplicative noise. DFO algorithms require nothing more than the ability to evaluate the noisy model $f$ and randomly draw from a normal distribution; $\nabla f$ is unneeded once inputs and algorithm hyperparameters have been prescribed.
 
+Many DFO algorithms find subsequent iterates $\lambda^{(k)}$ by random walks or \textit{ball walks} in $\Lambda$ specified by draws from Gaussian distributions in every coordinate of $\lambda^{(k)}$; iterates are not allowed to stray much, though, due to prescribed smoothing factors and step sizes. The smoothing factor and step size in DFO algorithms are of great importance to their convergence. Both the smoothing factor and step size depend on the $L_1$ Lipschitz constant of $f$. As such, it will be of interest to obtain estimates of $L_1$, which is not straightforward in a gradient-free setting. We refer to \cite{Calliess, KS} for Lipschitz constant learning in this setting, and discuss this problem more in the proceeding subsection.
 
-%\question{The reference here is Nesterov? No - I have two papers here; one paper by Kvasov/Sergeyev and another by Callies}
+As in \cite{CW}, we consider the additive noise OUU problem
 
-
-In detail, as in \cite{CW}, we consider the problem
-
-\begin{eqnarray} \label{eq:9}
-\min_{\lambda \in \R^N} \quad \mathbb{E}\left[f(\lambda)+\nu (\lambda; \epsilon)\right],
+\begin{eqnarray} \label{eq:1}
+\min_{\lambda \in \Lambda} \quad \mathbb{E}\left[f(\lambda)+\epsilon(\xi)\right],
 \end{eqnarray} 
 
-\noindent where the authors assume that:
+\noindent and the multiplicative noise OUU problem
+
+\begin{eqnarray} \label{eq:2}
+\min_{\lambda \in \Lambda} \quad \mathbb{E}\left[f(\lambda)(1+\epsilon(\xi))\right],
+\end{eqnarray} 
+
+\noindent where the authors assume:
 
 \begin{enumerate}[(i.)]
 
-\item $f: \R^N \to \R$ is convex;
+\item $f: \Lambda=\R^P \to \R$ is convex;
 
-\item $\epsilon$ is a random variable with probability density $P(\epsilon)$;
+\item $\epsilon(\cdot)$ is a random variable with probability density $\pi_{\epsilon}(\epsilon(\xi))$;
 
-\item for all $\lambda$ the additive noise model $\nu$ is independent and identically distributed, has bounded variance $\sigma_a^2$, and is unbiased; i.e., $\mathbb{E}_\epsilon (\nu(\lambda;\epsilon))=0$.
+\item for all $\lambda$ the noise $\epsilon(\cdot)$ is independent and identically distributed, has bounded variance $\sigma^2$, and is unbiased; i.e., $\mathbb{E}_\xi (\epsilon(\xi))=0$.
 
 
 
 \end{enumerate}
 
-The use of the $\mathbb{E}(\cdot)$ expected value notation is a mathematically precise way of expressing the fact that the authors view function evaluations as a random draw, in the sense that true function values $f(\lambda)$ are perturbed by a random vector in an additive or multiplicative fashion. 
 
-Chen and Wild propose the \textit{STARS (STep-size Approximation in Randomized Search)} algorithm, which: uses small perturbations in the domain $\Lambda=\R^N$ given by the addition of a random vector with components drawn from a normal distribution; computes the function value at the randomly perturbed point with additive or multiplicative noise drawn from a specified distribution; and updates iterates using a Gaussian-smoothed finite-difference scheme for approximate gradient information in a gradient descent scheme. We will examine the STARS algorithm in closer detail in the following sections. For now, we point out that the algorithm requires the ability to evaluate the model, and needs access to random draws from a normal distribution and the distribution from which noise is drawn. All in all, the algorithm can be implemented in about 10 lines of code in \texttt{python}.
+In \cite{CW} the \textit{STARS (STep-size Approximation in Randomized Search)} DFO algorithm is used to solve the additive and multiplicative OUU problems with assumptions (i.)-(iii.) above. Briefly, STARS uses small perturbations of iterates in $\Lambda$ by the addition of a random vector with components drawn from a normal distribution, computes the noisy function value at the randomly perturbed point, and updates iterates using a Gaussian-smoothed finite-difference for approximate gradient information in a gradient-descent-type scheme. STARS only  requires the ability to evaluate $f$ and access to random draws from a normal distribution. All in all, the algorithm can be implemented in about 10 lines of code in any standard computing language; we used Python 3 for the STARS results presented in this paper. 
+
+We witness best performance in STARS when the two hyperparameters the algorithm depends on are close to their close values. We now discuss learning these important hyperparameters algorithmically.
+
+
+\subsection{Learning Hyperparameters} 
+STARS, like many DFO algorithms, exhibits optimal convergence if and only if its hyperparameters -- namely the smoothing factor and step size -- are properly tuned. The smoothing factor and step size for STARS will be precisely defined in the proceeding section; for now, it is enough to state that the hyperparameters depend on the bounded variance in the noise $\sigma^2$ and the $L_1$ Lipschitz constant of the objective function $f$ 
+\footnote{i.e., the value $L_1> 0: ||\nabla f(\lambda^1)-\nabla f(\lambda^2)|| \leq L_1 ||\lambda^1 -\lambda^2||$ $\forall \lambda^1, \lambda^2 \in \Lambda$, where $||\cdot||$ denotes a norm on $\Lambda$ (which is a \textit{normed linear space}).}
+which are both generally unknown, as well as $\dim \Lambda=P$, which is assumed to be known. 
+
+Tuning the hyperparameters in STARS is a matter of learning $\sigma^2$ and $L_1$. In this paper, we propose algorithmic methods of learning STARS hyperparameters so that one need not specify the hyperparameters at all, fully automating the process of solving optimization problems \eqref{eq:1} and \eqref{eq:2}. Since we are considering $f$ to be a a black-box, it is unrealistic to assume that a user would know $\sigma^2$, much less $L_1$, which would require at least some type of gradient information.
+
+To learn the variance in the noise, we rely on the EC-Noise algorithm [CITE], which even for $P$ large requires few evaluations of $f$ -- often 6 to 10 evaluations will suffice. Briefly, EC-Noise uses a series of nearby samples $s^i:=(\lambda^i,f(\lambda^i))$ of points $\lambda^i$ along line in $\Lambda$. Forming a classical difference table of iterative residuals, the authors show that estimators $\hat{\sigma^2}$ to $\sigma^2$ are formed. Learning $\sigma^2$ is performed prior to STARS, and may be viewed as a computational expense we must pay up front to ensure convergence of the algorithm.
+
+Learning $L_1$ in this setting is a challenge, mainly since we assume that we lack access to $\nabla f$. Given $S$ pointwise estimates to the gradient, which we denote with $\hat{\nabla}f(\lambda^i)$, $i=1,\ldots, S$, we could consider an estimator such as
+
+
+
+\begin{equation} \label{eq:3}
+\reallywidehat{L_1}:= \max_{i \neq j} \frac{\left|\left|\reallywidehat{\nabla f}(\lambda^{i})-\reallywidehat{\nabla f}(\lambda^{j})\right|\right|-2\epsilon^*}{||\lambda^{i}-\lambda^{j}||}, \quad \epsilon^*=\sup_\xi |\epsilon(\xi)|, \quad i,j=1,\ldots, S,
+\end{equation} 
+
+\noindent which is a ``bad idea" given in \cite{Calliess}. There are several problems with such an approach. Mainly, forming $\hat{\nabla} f$ is expensive, requiring at least $P+1$ evaluations of $f$ for each approximation. Even if one uses only 3 samples $s_i$, $i=1,2,3$, forming $\hat{L_1}$ requires $3(P+1)$ $f$ evaluations, which will often exceed the number of function evaluations needed for STARS to converge, assuming its hyperparameters are reasonably tuned.
+
+Another challenge involves specifying $\epsilon^*$ in \eqref{eq:3}, which is subtracted from the estimator's numerator to control for noise in $f$. To save computational expense, we propose forming an initial estimate to $L_1$ by recycling function values from EC-Noise in a finite-difference fashion. Then, once STARS is initiated, $L_1$ can be updated using information from iterates (and their corresponding function values). In fact, the iterates (and intermediate iterates) formed during STARS lend themselves to second-order finite differencing to estimate an upper bound on $||\nabla ^2 f||,$ which is a bound for $L_1$.
+
+Both hyperparmeters must be adjusted if dimension reduction is performed because both of the values depend on $P$. We note that both parameters have an inverse proportionality with $P$. Hence, if $\Lambda$ permits dimension reduction to $k$ \textit{active directions} where, say, $k<<P$, both hyperparemeters will be larger using $k$ for $\dim \Lambda$ instead of $P.$ We now turn to introducing dimension reduction in our setting.
 
 
 
 
 
 \subsection{Dimension Reduction}
-We consider functions from a high-dimensional space $\Lambda$ to a data space of smaller dimension. Many functions of interest %in this paper 
-actually represent postprocessed quantities from the solution of complex physical models. %involving quire function evaluations, which are generally expensive due to the many parameters. 
-It is not often the case that every parameter has an equal impact on function values; usually some parameters matter more than others. If it is possible to mimic the response of $f$ by processing fewer parameters, we can expect computational savings in many of the problems (i.e., minimization and forward problems) considered here.
+We consider functions from a high-dimensional space $\Lambda$ to a data space $\D$ of smaller dimension; i.e., $\dim \D << \dim \Lambda$. Many functions of interest
+actually represent postprocessed quantities from the solution of complex physical models. 
+It is not often the case that every parameter has an equal impact on function values; usually some parameters matter more than others. If it is possible to mimic the response of $f$ by processing fewer parameters, we can expect computational savings.
 
-In our setting, it may be advantageous to perform dimension reduction on $f$. In particular, we shall consider Active Subspace methods described by Paul Constantine in \cite{Constantine2015} and an equivalent method by T.M. Russi in \cite{Russi}. These techniques seek to explain outputs $f(\Lambda)$ in a subspace $\A \subset \Lambda$ for which the $\dim (\A) <N$. Here we discuss the theoretical formulation of $\A$, but also how it may be found in practice.
+We consider Active Subspace (AS) methods described by Paul Constantine in \cite{Constantine2015} and an equivalent method by T.M. Russi in \cite{Russi}. These techniques seek to explain outputs $f(\Lambda)$ in a subspace $\A \subset \Lambda$ for which the $\dim (\A) <P$ or perhaps $\dim(\A)<<P$. Here we discuss the theoretical formulation of $\A$. The details of finding $\A$ algorithmically is discussed in the proceeding section.
 
-We begin by noting $\nabla f(\lambda)\in \Lambda$ is a column vector of the same dimension as inputs $\lambda$ with rows containing the $N$ partial derivatives of $f$, which for this discussion we assume exist, and are square integrable in $\Lambda$ equipped with some probability density that is positive everywhere in $\Lambda$ and 0 otherwise; for instance, we could consider $\pi_\Lambda^\text{prior}(\lambda)$, the density describing our prior state of knowledge, which we choose to abbreviate as $\pi_\Lambda$. %for this discussion. 
-In classical active subspace analysis, one transforms inputs $\lambda$ to the origin with some fixed variance, typically so that $\lambda\in [-1,1]^N$. Then, as in \cite{ConstantineMC}, we may write
+We note that AS requires, at the very least, approximations to $\nabla f$. For the discussion in this section, we continue with the understanding that $\nabla f$ will require approximation in some fashion, the details of which will be discussed in the proceeding Methods section. Here $\nabla f(\lambda)$ is $P\times 1$ containing the $P$ partial derivatives of $f$, which for this discussion we assume exist, and are square integrable in $\Lambda$ equipped with some probability density $\pi_\Lambda(\lambda)$ that is positive everywhere in $\Lambda$ and 0 otherwise.
+ 
+AS -- and many other dimension reduction techniques \cite{Russi} -- one transforms inputs $\lambda$ to the origin with some fixed variance, typically so that $\lambda\in [-1,1]^P$. Then, as in \cite{ConstantineMC}, we write the \textit{sensitivity matrix}
 
-\begin{equation} \label{eq:5}
+\begin{equation} \label{eq:4}
 W=\int_\Lambda \nabla f(\lambda) \nabla f(\lambda)^\top  \pi_\Lambda(\lambda) d\lambda,
 \end{equation} 
 
-\noindent which is an $N\times N$ symmetric positive semi-definite matrix which defines a certain covariance structure of $\nabla f$ over $\Lambda$. This interpretation of \eqref{eq:5} leads one to the idea of computing the Singular Value Decomposition of $W$,
+\noindent which is a $P\times P$ symmetric positive semi-definite matrix defining a certain covariance of $\nabla f$ in $\Lambda$. This interpretation of \eqref{eq:4} leads one to the idea of computing the Singular Value Decomposition (SVD) of $W$,
 
-\begin{equation} \label{eq:6}
+\begin{equation} \label{eq:5}
 W=U\Sigma V^*,
 \end{equation} 
 
-\noindent where $U$ is $N \times N$ unitary, $\Sigma$ is $N \times N$ diagonal with the singular values of $W$ along its diagonal, and $V^*$ is $N \times N$ unitary. With the singular values of $W$ in hand, we search for a drop-off in the spectrum of $W$. In detail, we plot the singular values, $\{\sigma_i\}_{i=1}^n$ and seek a drop-off in magnitude between some pair of singular values, $\sigma_{j}$ and $\sigma_{j+1}$. The active subspace is the span of $u_1,\ldots,u_{j}$, which are the first $j$ columns of $U$, the left singular vectors of $W$. 
+\noindent where $U$ is $P \times P$ unitary, $\Sigma$ is $P \times P$ diagonal with the singular values of $W$ along its diagonal, and $V^*$ is $P \times P$ unitary. With the singular values of $W$ in hand from its SVD, we search for a drop-off in the spectrum of $W$. In detail, one may plot the singular values, $\{\sigma_i\}_{i=1}^P$ and seek a drop-off in magnitude between some pair of singular values, $\sigma_{j}$ and $\sigma_{j+1}$, $1\leq j \leq j+1 \leq P$, where $\sigma_{j}>>\sigma_{j+1}$. The active subspace is the span of $v_1,\ldots,v_{j}$, which are the first $j$ columns of $V$, the right singular vectors of $W$. We let
 
-The fact that $u_1,\ldots,u_{j}$ correspond to the nontrivial singular values is exactly why they account for the most amount of variance in function values. In fact, one can view active subspace analysis as an artful choice of principal components after a \textit{full} Principal Component Analysis (PCA) is performed in the gradient space $W$; for more details on this viewpoint, we refer the interested reader to Section 6.4 in \cite{Russi}.
+\begin{equation} \label{eq:6}
+\A(f)=\text{span}\{v_1,\ldots,v_j\}
+\end{equation}
+
+\noindent denote the \textit{active subspace} of $f$.
+
+
+The fact that $v_1,\ldots,v_{j}$ correspond to the nontrivial singular values is exactly why they account for the most amount of variance in function values. In fact, one can view AS as an artful choice of principal components after a \textit{full} Principal Component Analysis (PCA) is performed in the gradient space $W$; for more details on this viewpoint, we refer the reader to Section 6.4 in \cite{Russi}.
 
 For a point $\lambda \in \Lambda$, we define
 
 \begin{equation} \label{eq:7}
-  \mathcal{P}_\A(\lambda)=\sum_{i=1}^{j}\left( u_i^T \lambda\right)u_i \in \A, 
+  \mathcal{P}_\A(\lambda)=\sum_{i=1}^{j}\left( v_i^T \lambda\right)v_i \in \A, 
 \end{equation}
 
-\noindent which is a projection of the point $\lambda$ in the active directions of $f$. We call this projection an \textit{active variable}, which is a point in the active subspace $\A$. We have arrived at the property that 
+\noindent which is a projection of the point $\lambda$ in the active subspace of $f$. We call this projection an \textit{active variable}, which is a point in the active subspace $\A$. We have arrived at the property that 
 
 \begin{equation} \label{eq:8}
 f\left(\mathcal{P}_\A(\lambda)\right) \approx f(\lambda).
 \end{equation}
 
-In practice, finding an active subspace of $f$ will require forming an approximation to $W$ in a Monte Carlo fashion; see \cite{ConstantineMC}. We choose to present a Monte Carlo approach that is simple to implement, as in \cite{Russi}. In short, for a random draw $\lambda_i \in \Lambda$, we will find its evaluation under the approximate or analytic gradient (depending on whether we have $\nabla f$ analytically), and store the row vector $\nabla f(\lambda_i)^\top$ in a matrix with an SVD corresponding to \eqref{eq:6}, up to scaling.
+The property above gives the ability to save computational expense for a number of problems in Uncertainty Quantification, including optimization, representation and solving inverse problems. 
+
+\vspace{1cm}
+
+With the literature review and introduced notation provided above, the remaining sections focus on methodology, results, and conclusions. 
+
+In the proceeding Methods section, we thoroughly discuss the details of the STARS algorithm, algorithmic hyperparameter learning, and Monte Carlo-style AS, which are the key ingredients needed for fully-automated STARS performed only in active directions. We then discuss the techniques used to create the fully-automoted \textit{Active STARS} algorithm.
+
+In the Results section, we consider 2 example problems with maps that mimic the behavior of the noisy black boxes we consider. We compare learned hyperparameters to their true values, which are specified by the example functions we choose. We also compare the performance of STARS in full variables to automated Active STARS.
+
+Finally, in the Conclusion and Discussion section, we review the extent to which active STARS is effective in our setting. Limitations are discussed and future research questions are posed. 
+
+\section{Methods}
+
+In the following, we begin by detailing STARS, learning STARS hyperparameters, and learning the active subspace of $f$. Then, we propose a modification to STARS so that steps are taken in active directions only. Finally, we combine ingredients, proposing a fully automated Active STARS where hyperparameters and the active subspace are learned online, using information from iterates.
+
+
+\subsection{STARS}
+
+We first present STARS suited for additive OUU as in \eqref{eq:1} in the  pseudocode below.
+
+\vspace{.25cm}
+
+
+\begin{algorithm}[H]
+
+\SetAlgoLined
+
+	\KwIn{\texttt{maxit}$=:M$; $\lambda^{(0)}$; $f_0:=f(\lambda^{(0)})$; $h$; $k=1$}
+ 
+    \While{$k\leq M$}{
+    
+  Form smoothing factor $\mu^*_k$
+    
+  Draw $u^{(k)}$, where $u^{(k)}_p \sim N(0,1)$ for $p=1,\ldots,P$\;
+  
+  Evaluate $g_k:=f(\lambda^{(k-1)}+\mu^*_ku^{(k)})$\;
+  
+  Set $ d^{(k)}:=\frac{g_k-f_{k-1}}{\mu^*_k}u^{(k)}$\;
+  
+  Set $\lambda^{(k)}=\lambda^{(k-1)}-h\cdot d^{(k)}$\;
+  
+  Evaluate $f_k:=f(\lambda^{(k)})$\; 
+  
+  Set $k=k+1$\;}
+
+    \KwOut{($\lambda^{(M)}$, $f_M$)}
+
+	\caption{STARS for Additive or Multiplicative OUU}
+
+\end{algorithm}
+
+\vspace{.25cm}
+
+\noindent Observe that STARS requires defining hyperparameters $\mu^*_k$ and $h$, which are the algorithm's smoothing factor and step size, respectively. The step length $h$ will remain constant for all iterations regardless of whether we consider Additive or Multiplicative OUU. In the case of Additive OUU, $\mu^*_k$ will also be constant, i.e., $\mu^*_k=\mu^*$, a fixed value for all iterations $k=1, \ldots, M$. However in the case of Multiplicative OUU, the smoothing factor $\mu^*_k$ will need to be adjusted for every iteration $k$.  
+
+For the additive noise OUU problem \eqref{eq:1}, the values for $\mu^*$ and $h$ are 
+
+\begin{eqnarray} \label{eq:9}
+\mu^*:=\left( \frac{8\sigma^2 P}{L_1^2(P+6)^3}\right)^{1/4} \quad \quad h:=(4L_1(P+4))^{-1},
+\end{eqnarray} 
+
+\noindent which are proven as optimal values for the algorithm's convergence in \cite{CW}. 
+
+In the multiplicative noise OUU problem \eqref{eq:2}, the step length $h$ remains the same, exactly as in \eqref{eq:9} above, held constant for each iteration. However the smoothing factor must be updated for each iteration $k=1,\ldots, M.$ As shown in \cite{CW}, the optimal smoothing factor for a given iterate $k$ is given by
+
+\begin{eqnarray} \label{eq:10}
+\mu^*_k:=\left( \frac{16 \sigma^2 f(\lambda^{(k)};\xi_k)^2 P}{L_1^2(1+3\sigma^2)(P+6)^3}\right)^{1/4}.
+\end{eqnarray} 
+
+\noindent 
+
+
+\subsection{Hyperparameter Learning}
+
+
+$$\Delta^{h,0} f =f \quad \quad \Delta^{h,k+1} f=\Delta^{h,k} f(\lambda+h)- \Delta^{h,k} f(\lambda), \quad 1>>h>0, \quad k \geq 0$$
+
+
+
+$$\textit{$k$-th level estimate to $\sigma,$}\quad \hat{\sigma_k}^2:=C\sum_{i=1}^{S-k}\left(\Delta^{h,k}f(\lambda_i)\right)^2$$
+
+
+\subsection{Active Subspace Learning}
+
+In the following, we present a method for computing an active subspace $\A$ in our setting. In practice, finding an active subspace of $f$ will require forming an approximation to $W$ in \eqref{eq:4} in a Monte Carlo fashion \cite{ConstantineMC}. We choose to present a Monte Carlo approach that is simple to implement, found in \cite{Russi}. In short, for a random draw $\lambda^i \in \Lambda$, we will find its evaluation under and approximate gradient formed with a surrogate and store the row vector $\nabla f(\lambda^i)^\top$ in a matrix $\tilde{W}$. In fact, $\tilde{W}$ will have a SVD corresponding to \eqref{eq:5}, up to scaling.
 
 In the following, we assume that we lack an analytic form of $\nabla f$; if the analytic gradient is available, the proceeding Monte Carlo method remains valid, and all notations corresponding to approximating $\nabla f$ may be dropped.
 
 
-One initializes the method by performing $S$ random draws of $\lambda_i \in \Lambda$. We then compute $f(\lambda_i)$ for all $i=1,\ldots,S$ samples, which we note will require, at the very least, $S$ evaluations of $f$; in a realistic setting, this would require $S$ solves of a model such as a PDE-constrained system. We define $D_S=\{(\lambda_i,f(\lambda_i))\}_{i=1}^S$, a set of $S$ pairs of samples $\lambda_i$ and their function values. Next, we need $\nabla_\Lambda f$ evaluated at $\lambda_i$ for all $i=1,\ldots,S$, which we assume that we do not have in closed analytic form. Hence, we generally need some gradient approximation method \cite{Smith}, and typically a locally linear approximation to the gradient is a fair balance between reasonably estimating the gradient and not pushing computational expenses to an unreasonable regime. With this approximation formed, we denote each estimation to $\nabla f(\lambda_i)$ with $\reallywidehat{\nabla f}(\lambda_i)$ and we define the $N \times S$ matrix $\tilde{W}$ (which is presented below as $\tilde{W}^\top$)
+One initializes the method by performing $S$ random draws of $\lambda^i \in \Lambda$. We then compute $f(\lambda^i)$ for all $i=1,\ldots,S$ samples, which we note will require, at the very least, $S$ evaluations of $f$; in a realistic setting, this would require $S$ solves of a model such as a PDE-constrained system. We define $D_S:=\{(\lambda^i,f(\lambda^i))\}_{i=1}^S$, a set of $S$ pairs of samples $\lambda^i$ and their function values. 
 
-\begin{equation} \label{eq:9}
+Next, we need $\nabla_\Lambda f$ -- which we assume that we do not have in closed analytic form -- evaluated at $\lambda^i$ for all $i=1,\ldots,S$. Hence, we generally need a gradient approximation method \cite{Constantine2015, Smith}. Most often, one forms a local linear, global linear, or global quadratic surrogate to $f$ using $D_S$. One may approximate $\nabla f$ using the gradient of the closed-form surrogate. With this approximation formed, we denote each estimation to $\nabla f(\lambda^i)$ with $\hat{\nabla f}(\lambda^i)$ and we define the $P \times S$ matrix $\tilde{W}$ (which is presented below as $\tilde{W}^\top$)
+
+\begin{equation} \label{eq:10}
 \tilde{W}^\top:=\begin{bmatrix}
-\reallywidehat{\nabla f}(\lambda_1)
+\reallywidehat{\nabla f}(\lambda^1)
 \cdot \cdot \cdot
-\reallywidehat{\nabla f}(\lambda_S)\\
+\reallywidehat{\nabla f}(\lambda^S)\\
 \end{bmatrix}.
 \end{equation}  
 
-Forming the SVD of $\tilde{W}$, $\tilde{W}=\tilde{U}\tilde{\Sigma}\tilde{V}^*$, we search for a drop off in the magnitude of the singular values $\{\tilde{\sigma}_i\}_{i=1}^S$. Assuming such a drop off occurs for an index $j:1<j<S$, we have the $j$ corresponding left singular vectors,$ \tilde{u},\ldots,\tilde{u}_{j}$.  We let $\A\left(f; D_S \right):=\text{span}\{\tilde{u},\ldots,\tilde{u}_{j}\}$ denote the active subspace of $f$ with respect to the samples $D_S$. We choose to use a notation with $D_S$ included to emphasize the dependence of the active subspace on the random draws made in $\Lambda$, which led to our particular $D_S$ set of samples.
+Forming the SVD of $\tilde{W}$, $\tilde{W}=\tilde{U}\tilde{\Sigma}\tilde{V}^*$, we search for a drop off in the magnitude of the singular values $\{\tilde{\sigma}_i\}_{i=1}^S$. Assuming such a drop off occurs for an index $j:1<j<S$, we have the $j$ corresponding right singular vectors,$ \tilde{v}_1,\ldots,\tilde{v}_{j}$.  We let $\A\left(f; D_S \right):=\text{span}\{\tilde{v}_1,\ldots,\tilde{v}_{j}\}$ denote the active subspace of $f$ with respect to the samples $D_S$. We choose to use a notation with $D_S$ included to emphasize the dependence of the active subspace on the random draws made in $\Lambda$, which led to our particular $D_S$ set of samples.
 
 In practice, we can check the extent to which the active subspace accounts for functions values $f(\lambda)$ 
 by checking for resolution in a \emph{sufficient summary plot} \cite{Constantine2015}, where we plot active variables against function values. In these plots, we hope to see a pattern between the active variables versus their function values. For example, if $f$ is quadratic in its active variables, then we expect to see quadratic-resolved sufficient summary plots.
@@ -207,111 +351,40 @@ by checking for resolution in a \emph{sufficient summary plot} \cite{Constantine
 
 
 
-\section{Methods}
 
 
+\subsection{STARS in the Active Variables Only} Given some $f$ and its corresponding active subspace $\A(f;D_S)$ found by the Monte Carlo method discussed above, we are interested in investigating the effectiveness of optimizing $f$ in its active variables. There are several approaches one may consider, and a handful of those approaches and their corresponding results are discussed in the remainder of the paper. 
 
-\subsection{Learning and Sampling} With the viewpoint that evaluations of the model are costly, we want to compute $f(\lambda)$ as little as possible with learning as much as possible about the function. We are interested in several problems that involve sampling $\Lambda$ and evaluating $f$ including solving the forward problem, finding an active subspace via Monte Carlo, and performing DFO. We also investigate the possibility of learning the $L_1$ Lipschitz constant of $f$ from random sampling.
+One approach we have tested is modifying STARS to only take random walks in directions lying in $\A$. In detail, at iteration $k$, STARS uses random walks given by drawing a random vector $u^{(k)}$ of dimension $P$ in which every component $u_i^{(k)},i=1,\ldots,P$ of $u^{(k)}$ is  drawn from a specified normal distribution. Instead, given the first $j$ singular unit vectors $\tilde{v}_1,\ldots,\tilde{v}_j$ corresponding to the SVD of $\hat{W}$, one may take $j$ draws from a specified normal distribution, which we denote $s_i\sim N(0,\sigma_i^2)$, $i=1,\ldots,j$, defining the random vector $u_\A^{(k)}$ for the $k$-th random \textit{active direction} as 
 
-\subsubsection{Learning the Active Subspace} We are interested in several research questions regrading the active subspace learned from different sets of samples in $\Lambda$. Generally, for fixed $f$, we are interested in comparing active subspaces obtained from sampling $f$ with few samples, or with samples generated from some other process, such as a DFO algorithm.
-
-A challenge in learning the active subspace is exploring $\Lambda$ thoroughly enough to resolve $f$ in fewer variables. The samples (i.e., iterates) formed in a DFO algorithm are only allowed to stray from previous samples by a value proportional to the $L_1$ Lipschitz constant of $f$; hence, iterates may explore the space in $\Lambda$ near the initial iterate in a DFO scheme very thoroughly while missing other global phenomenon. If we only wish to find an active subspace of $f$ in some neighborhood of a point $\lambda \in \Lambda$, such samples may suffice; if we hope to achieve a global understanding of $A$, we may need to consider supplementing the samples with other, more explorative draws in $\Lambda$.
-
-\subsubsection{Lipschitz Constant Learning} We explore ways in which one may approximate the $L_1$ Lipschitz constant of $f$ using sampling. Since many DFO algorithms use parameters for step sizes and smoothing that depend on $L_1$, the literature \cite{Calliess, KS} contains attempts to learn Lipschitz constants from sampling alone. We are most interested in methods that require few evaluations of $f$.
-
-\subsection{Using the Active Subspace} Generally, if an active subspace $A$ exists for a model $f$, dimension reduction may be performed by, for instance, projecting inputs $\lambda$ into $\A$ then evaluating $f$ for the projection; i.e., form $f\left(\mathcal{P}_\A(\lambda)\right)$. Computational expense may be saved by projecting points $\lambda$ into their active variables, since such projections are of lower dimension than $\lambda$. This property gives the ability to save computational expense for a number of problems in Uncertainty Quantification, including optimization, representation and solving inverse problems. In the following, we consider ways in which we may use the information given by an active subspace $\A(f;D_S)$.
-
-\subsubsection{DFO in the Active Variables Only} Given some $f$ and its corresponding active subspace $\A(f;D_S)$ found by the Monte Carlo method discussed in the preceding section, we are interested in investigating the effectiveness of only optimizing $f$ in its active variables. There are several approaches one may consider, and handful of those approaches and their corresponding results are discussed in the proceeding section. The most compelling approach we have observed is to modify the DFO algorithm discussed above to only take random walks in directions lying in $\A$. That is, at iteration $k$, standard DFO algorithms \cite{CW} use random walks given by drawing a random vector $v^{(k)}$ of dimension $N$ in which every component $v_i^{(k)},i=1,\ldots,N$ of $v$ is  drawn from a specified normal distribution. Instead, given the first $j$ singular unit vectors $u_1,\ldots,u_j$ corresponding to the SVD of $\hat{W}$, one may take $j$ draws from a specified normal distribution, which we denote with $s_i\sim N(\mu,\sigma^2)$, and form the random vector $v$ for the $k$-th step in a DFO algorithm as $v^{(k)}=\sum_{i=1}^js_iu_i$, which is just a linear combination of the active variables of $f$ with coefficients given by random draws; we see that such a vector could be interpreted as a random walk in $\A$.
-
-Relevant research directions include: considering other ways to embed the information from $\A$ within a DFO scheme; analyzing the difference between minimizing $f$ in all its variables versus only in its active subspace; considering ways in which the problem may be solved with the mentioned techniques in tandem, such as using a ``burn-in" phase in which $f$ is minimized over all of $\Lambda$ followed by an active variables minimization.
+\begin{eqnarray}
+u_\A^{(k)}=\sum_{i=1}^j s_i\tilde{v_i}, \quad \quad s_i\sim N(0,\sigma_i^2), \quad i=1,\ldots,j
+\end{eqnarray}
 
 
-\subsubsection{Representations and Surrogate Modeling} We are generally interested in the representation and surrogates one may form with an active subspace. If $f$ is truly a black box, then it lacks an analytic form we can access. By performing dimension reduction, it is possible to test the resolution of function values $f$ versus active variables by forming a sufficient summary plot or \emph{response surface} \cite{Constantine2015}. Depending on the quality and form of the resolution, one may (or may not) be able to discern the relation between $f$ and its active variables visually, by fitting a surrogate through the response surface and testing the fit, or both. Representing $f$ with a lower-dimensional surrogate may help with solving other problems of interest. In particular, we may be able to solve a forward problem at lower cost, or pose the convex optimization for solving an inverse problem with such a representation used to form the misfit functions considered in the preceding section.
+\noindent which is a randomly weighted linear combination of the active variables of $f$ learned via Monte Carlo with coefficients given by random draws; we see that such a vector could be interpreted as a random walk in $\A$.
+
+\subsection{Combining Ingredients: Fully-Automated Active STARS} We now have all the necessary components for creating a fully-automated Active STARS algorithm, in the sense that the user need to specify anything beyond an initial iterate $\lambda^{(0)}$ and the black-box objective function $f$. The fully-automated Active STARS algorithm learns $\sigma^2$, $L_1$, and $\A$ from its own iterations with little computational expense from upfront learning.
+
+
 
 
 
 
 \section{Results}
 
-In this section, we re-visit the questions from the previous section to discuss preliminary results, if any, and present a plan to begin investigating questions that are unanswered. We present a guiding example which is discussed in below sections in the context of relevant research questions and results.
+In this section, we present results of using Active STARS in several examples with a noisy, high-dimensional objective function.
 
-\vspace{.125cm}
+$$f: \mathbb{R}^{40} \to \mathbb{R} \quad \quad  f(\lambda; \xi):=\lambda_{20}^2 + \epsilon(\xi) \quad \quad \epsilon(\cdot) \sim U[-k,k], \quad k=1 \times 10^{-3}.$$
 
-\noindent \textbf{Example 3.} \textit{Let $\Lambda=[-1,1]^{11}$ and define $$f(\lambda)=\sum_{i=0}^{10} 2^{(-1)^i i}\lambda_i^2+\epsilon(\lambda),$$ where $\epsilon(\lambda)$ is a draw of additive noise corresponding to the input $\lambda$; here, we take draws of $\epsilon$ of order $10^{-4}$. We see that $\mathcal{D}=[0,2^{10}]$ and $N=11$, $M=1$. Note that the minimimum of $f$ is given by $0 \in \Lambda$. Here, as $i$ increases, terms in $f$ become either more important or less important, depending on whether $i$ is even or odd.}
-
-
+\noindent \textbf{Example 2.} \textit{Let $\Lambda=[-1,1]^{11}$ and define $$f(\lambda)=\sum_{i=0}^{10} 2^{(-1)^i i}\lambda_i^2+\epsilon(\lambda),$$ where $\epsilon(\lambda)$ is a draw of additive noise corresponding to the input $\lambda$; here, we take draws of $\epsilon$ of order $10^{-4}$. We see that $\mathcal{D}=[0,2^{10}]$ and $N=11$, $M=1$. Note that the minimimum of $f$ is given by $0 \in \Lambda$. Here, as $i$ increases, terms in $f$ become either more important or less important, depending on whether $i$ is even or odd.}
 
 
 
-\subsection{Learning and Sampling}
-
-\begin{figure} 
-\includegraphics[scale=0.3]{eigs.png} \includegraphics[scale=0.3]{surr.png}
-
-\textbf{Figure 2:} Left: A plot of the eigenvalues of the matrix $\hat{W}$ formed from 1000 Monte Carlo samples in $\Lambda$. We see one dominant eigenvalue on the order of $10^6$. Right: A sufficient summary plot where all 1000 samples are projected into $\A$ and plotted against their function values.
-\end{figure} 
-
-We are particularly interested in the quantitative and qualitative difference between active subspaces learned from random sampling versus active subspaces learned from deterministic draws that come from another algorithm such as DFO.
-
-
-We revisit Example 3, and present two different active subspaces of $f$ -- one active subspace was formed in a Monte Carlo fashion with 1000 random draws in $\Lambda$; the other subspace was formed with only 100 random sample of $f$ where sample points are in fact iterates from a DFO scheme. To consider a realistic scenario, we form the active subspace in both cases by making global quadratic approximations to $\nabla f$, which will work well in our regime since $f$ is quadratic in $\Lambda$.
-
-In Figure 2, we show the results from the first active subspace of $f$, which was obtained from 1000 iid uniform random samples in $[-1,1]^{11}$; i.e., for any sample $\lambda_i$, we have $\lambda_i \sim U[-1,1]^{11}$. The plot on the left-hand side of Figure 2 shows the resulting eigenvalues (the squares of the singular values) from taking the SVD of $\hat{W}$, which we recall is simply a matrix (in this case $1000 \times 10$) where row $i$ is the transpose of approximated gradient of $f$ evaluated at a sample $\lambda_i$, $i=1,\ldots,1000$. Notice that there is one dominating eigenvalue, which is on the order of $10^6$; this matches intuition since the final term in $f(\lambda)$, given by $2^{10}\lambda_{10}^2$, will be, at most, on the order of $10^3$ (and again, eigenvalues are the squares of singular values). This eigenvalue corresponds to $\lambda_{10}$, meaning that the value of $\lambda_{10}$ has the most impact out of all other parameters on the function values $f(\lambda)$. Notice that the eigenvalue near $10^6$ does not dominate the other eigenvalues by much; indeed, another eigenvalue appears around the order $10^5$. Since the second-to-last term in $f$ is small (with coefficient $2^{-9}$), this order $10^5$ eigenvalue must correspond to $2^8\lambda_8^2$.
-
-The active subspace implementation used here \cite{Constantine2015} detects the $10^6$ order eigenvalue as dominating enough to determine that $\A$ is one-dimensional, spanned by the singular vector corresponding to the direction $(0,\ldots,0,1)$, which is a unit vector in the axis of $\lambda_{10}$, orthogonal to all other axes in $\Lambda$.
-
-The plot on the right-hand side of Figure 2 shows the sufficient summary plot, where the 1000 samples are projected into $\A$ using \eqref{eq:7} and their values are plotted along the horizontal axis against their original function values on the vertical axis. The sufficient summary plot can be thought of as a visualization of $f$ along the axes for which $f$ is active; thus, we are seeing a quadratic response in $f$ versus points projected onto the $\lambda_{10}$ axis. We use the mentioned software tools to fit the response with a polynomial surrogate, which is a fit where $R^2\approx 0.9$. Indeed, points do not fall perfectly along the surrogate since there are other parameters which contribute to the value of $f$.
-
-Now we investigate the effectiveness of learning $\A$ with different samples. Since we want to avoid evaluating $f$ heavily and we want to perform several analyses of $f$, it will be advantageous to ``recycle" function values whenever possible. 
 
 
 
-To experiment, we consider trying to learn $\A$ from 100 iterates and their function values generated from performing the DFO algorithm STARS \cite{CW} on $f$.  The iterates generated from a DFO algorithm may make large jumps (limited by a step size and smoothing parameter) through regions of $\Lambda$ space early in the routine, but will begin to take smaller and smaller steps as the routine hones in on a local minimum. We note that typically for a fair comparison between sampling methods, one would use the same number of samples; however, we choose to use much less samples in the DFO case for the exact reason that the samples will cease to explore parameter space in an informative manner once the iterates begin to converge to a local minimum. In Figure 3, we present the sufficient plot obtained from learning $\A$ from 100 DFO samples. The eigenvalue plot obtained from the analysis was virtually identical to that in Figure 2, but the sufficient summary plot here in Figure 3 looks very different than the plot in Figure 2 since the sampled points were not random, but deterministic. Notice that the large function value occurs in the top-left corner of the sufficient summary plot in Figure 3; this value corresponds to the initial iterate $\lambda^{(0)}$, which had a function value of approximately 460. Iterates drive down the value of $f$, and we see that the large majority of the iterates (samples) occur in the bottom-right corner of the plot, where the DFO algorithm is converging to a local minimum.
 
-
-\begin{figure} 
-\includegraphics[scale=0.3]{suffsum.png}
-
-\textbf{Figure 3:} A sufficient summary plot where all 100 samples are iterates from a DFO algorithm. 
-\end{figure} 
-
-We find that in our case the samples generated from the DFO algorithm explored $\Lambda$ enough to give an active subspace with negligible differences to that obtained in the case of 1000 Monte Carlo draws.
-
-We are interested in exploring the extent to which $\A$ can be learned for more general functions $f$, particularly those arising in certain applications. We are also interested in learning the $L_1$ Lipschitz constant of $f$ in this setting. For the example analyzed here, the step size and smoothing parameters, which are functions of the value of $L_1$, were formed heuristically. A more careful analysis is left to be desired, especially in the case that $\nabla f$ is inaccessible so that $L_1$ must be estimated. Techniques in the literature need to be considered and tested. 
-
-
-
-\subsection{Using the Active Subspace} We are generally interested in using the active subspace of a function whenever it may reduce %cheapen
-computational expense while maintaining a representations that does not deviate too far from the true action of $f$. Here we consider the effectiveness of DFO performed on $f$ from Example 3 in a standard way \cite{CW} using 500 iterations versus a scheme that blends STARS and active subspace analysis using only 150 iterations. 
-
-
-
-We find that after 500 iterations of the standard DFO implementation the routine closes in on the minimum value of $f$, finding that $f\left(\lambda^{(500)}\right) \approx 0.84$. In Figure 4, the left-hand plot shows a \textit{log-log} plot of the logarithm of the iteration on the horizontal axis against the logarithm of the function evaluated at that iterate. We begin to see convergence to a minimum in 500 iterations.
-We modified the DFO algorithm to find a similar result with only 150 iterations. 
-
-To make a modified DFO routine, we begin with a ``burn in" of 50 iterations of standard DFO, which actually gives 100 samples of the function at different points in $\Lambda$, as one step of the DFO routine has two calls of $f$. From the 100 samples denoted with $D$, we form $\A(f,D)$. The results of this analysis were discussed above; recall, we obtain a one-dimensional $\A$ spanned in the direction of $\lambda_{10}$. Though $\A$ is one-dimensional, there are still other important parameters in the model, including $\lambda_8$ and $\lambda_6$, which make order $10^2$ and $10^1$ contributions to $f$ respectively. After the standard DFO burn-in, which was used to both minimize $f$ and explore $\Lambda$ to obtain an approximate $\A$, we begin to use DFO only in the directions of the active and some inactive variables. Since we have only a single direction to minimize along in the active subspace, we modify the DFO algorithm to take random steps in the direction of the $\lambda_{10}$ axis only. We do so by taking draws from a $ d \sim N(0,1)$ and forming the randomly scaled vector $du_1$, where $u_1$ is the singular vector corresponding to the active direction in $\lambda_{10}$. Now, each iterate will only be perturbed in its last component in the DFO scheme. We find that in this example, the STARS burn-in phase reduces the 10th component of iterates so that $\lambda^{(50)}_{10} \approx -0.01$ and $f(\lambda^{(50)})\approx 38.02$. Performing DFO in the $\lambda_{10}$ axis with 25 iterations gives $\lambda^{(75)}_{10}$ on the order of $10^{-4}$, but $f(\lambda^{(75)}) \approx 37.74$, which is only a small drop in the function value. Next, 25 iterations of DFO was performed along the $\lambda_8$ axis -- this time, we see a significant drop in the value of $f$, where $f^{(100)} \approx 29.34$. Despite the fact that the $\lambda_8$ direction is not considered active, we do see the value of $f$ decrease as $f$ is minimized along its axis. Another 25 iterations of DFO was performed along the direction corresponding to the third singular vector, dropping the value of $f$ by about 6. Finally, 25 iterations of DFO was performed along the axis corresponding to the fourth singular vector, which minimizes $f$ to an order similar to the results from 500 iterations of standard DFO. Indeed, $f(\lambda^{(150)})\approx 1.38$.
-
-\begin{figure} 
-\includegraphics[scale=0.3]{stars.png} \includegraphics[scale=0.3]{minvec2.png} \includegraphics[scale=0.3]{minvec4.png}
-
-\textbf{Figure 4:} 3 log-log plots from (left to right): 500 iterations of standard DFO; 25 iterations of minimizing $f$ with DFO along the $\lambda_8$ axis; 25 iterations of minimizing $f$ with DFO along the $\lambda_6$ axis.
-\end{figure} 
-
-In the middle plot of Figure 4, we show the log-log plot obtained from using 25 steps of DFO in the $\lambda_8$ direction; the right-hand log-log plot shows the results of 25 steps of DFO in the $\lambda_6$ direction.
-
-
-We note that we have presented just one of several algorithms that have in some way blended the active subspace of $f$ with a DFO scheme. We are interested in investigating the best way to use the information of $\A$ in DFO. Likewise, we are interested in representing $f$ with surrogates based on $\A$ and investigating whether $\A$ can lessen the computational expense in the forward problem.
-
-\subsection{From model problems to fusion applications}
-
-We propose to investigate the approximate solution of data-consistent inverse problems via optimization approaches.  For derivative free optimization, we plan to transition from our noisy
-functions to the data consistent inversion of a subgrid LES model for isotropic turbulent flow.  
-While this would certainly be a publishable result, the hope is to investigate approximate DCI
-when applied to anomalous diffusion in the axisymmetric gyrokinetic code XGCa.
-
-In the case of models where $\lambda$-gradients are available and not of suspect quality, we will
-transition from an approximate DCI for a model elliptic problem with a parameterized forcing function, with parameter gradients obtained via adjoint methods.  Success here will allow us to extend the
-method to the determination of data-consistent MHD equilibria (via the Grad-Shafranov equation).  
 
 
 
@@ -319,10 +392,14 @@ method to the determination of data-consistent MHD equilibria (via the Grad-Shaf
 
 \subsection{Software Dissemination}
 
-Currently, only some of the software used to produce results in this paper are publicly available on GitHub.com. Some of the algorithms used here and other algorithms that are of interest are within open-source packages available online including those of Constantine and Butler et al. Other schemes considered in this paper make modifications to given algorithms and remain under development. A major goal of this thesis proposal will be developing well-documented, open-source software complete with python Jupyter Notebooks and illustrative, replicable examples.
+Software used to produce results in this paper are publicly available on \texttt{https://github.com/jordanrhall/personalresearch}. Some of the algorithms used here and other algorithms that are of interest are within open-source packages available online including those of Constantine and Butler et al. Other schemes considered in this paper make modifications to given algorithms and remain under development. A major goal of this thesis proposal will be developing well-documented, open-source software complete with python Jupyter Notebooks and illustrative, replicable examples.
 
 
 \section{Conclusion and Discussion}
+
+In the following, we leave the reader with concluding remarks and discussion. The preceding Methods section presented combinations and modifications made to well-documented algorithms including STARS \cite{CW}, Monte Carlo AS learning \cite{ConstantineMC}, noise variance learning [ECNoise], and Lipschitz constant learning \cite{Calliess} to produce the fully-automated Active STARS algorithm. In the Results section above, we presented example problems that were used for testing Active STARS.
+
+Of course, there is never any guarantee that the maps $f$ considered in this paper permit dimension reduction via AS. This could be the case for many reasons, including (nearly) equal importance of modeled parameters, a $\nabla f$ that is not possible to approximate via surrogates, or a noise level on the same (or greater) order of magnitude as the outputs of $f$. Regardless, in the case that no active subspace is clearly defined, Active STARS will simply reduce back to STARS in full variables. STARS in full variables may struggle to converge or fail to converge if $f$ possesses the behaviors described above.
 
 
 %%%%%%%%%%%%%% References %%%%%%%%%%%%%%%%%%%%%%%%%
@@ -343,8 +420,10 @@ Currently, only some of the software used to produce results in this paper are p
 
 \bibitem{KS} Kvasov and Sergeyev. ``Lipschitz gradients for global optimization in a one-point-based partitioning scheme." Journal of Computational and Applied Mathematics. Volume 236, Issue 16, pp. 4042-4054. 2012.
 
+\bibitem{lea2000} Lea, Daniel J. and Allen, Myles R. and Haine, Thomas W. N. ``Sensitivity analysis of the climate of a chaotic system." Tellus A, Volume 52, No. 5, pp. 523-532. 2000.
 
 
+\bibitem{Qiqi2014} Qiqi Wang and Rui Hu and Patrick Blonigan. ``Least Squares Shadowing sensitivity analysis of chaotic limit cycle oscillations." Journal of Computational Physics, Volume 267, pp. 210-224. 2014.
 
 \bibitem{Russi} Russi, Trent M. ``Uncertainty Quantification with Experimental Data and Complex System Models." Dissertation, University of California Berkeley. 2010.
 
@@ -359,6 +438,17 @@ Currently, only some of the software used to produce results in this paper are p
 
 
 \end{thebibliography}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
