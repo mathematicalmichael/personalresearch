@@ -213,21 +213,21 @@ W=\int_\Lambda \nabla f(\lambda) \nabla f(\lambda)^\top  \pi_\Lambda(\lambda) d\
 W=U\Sigma V^*,
 \end{equation} 
 
-\noindent where $U$ is $P \times P$ unitary, $\Sigma$ is $P \times P$ diagonal with the singular values of $W$ along its diagonal, and $V^*$ is $P \times P$ unitary. With the singular values of $W$ in hand from its SVD, we search for a drop-off in the spectrum of $W$. In detail, one may plot the singular values, $\{\sigma_i\}_{i=1}^P$ and seek a drop-off in magnitude between some pair of singular values, $\sigma_{j}$ and $\sigma_{j+1}$, $1\leq j \leq j+1 \leq P$, where $\sigma_{j}>>\sigma_{j+1}$. The active subspace is the span of $v_1,\ldots,v_{j}$, which are the first $j$ columns of $V$, the right singular vectors of $W$. We let
+\noindent where $U$ is $P \times P$ unitary, $\Sigma$ is $P \times P$ diagonal with the singular values of $W$ along its diagonal, and $V^*$ is $P \times P$ unitary. With the singular values of $W$ in hand from its SVD, we search for a drop-off in the spectrum of $W$. In detail, one may plot the singular values, $\{\sigma_i\}_{i=1}^P$ and seek a drop-off in magnitude between some pair of singular values, $\sigma_{j}$ and $\sigma_{j+1}$, $1\leq j \leq j+1 \leq P$, where $\sigma_{j}>>\sigma_{j+1}$. The active subspace is the span of $v^1,\ldots,v^{j}$, which are the first $j$ columns of $V$, the right singular vectors of $W$. We let
 
 \begin{equation} \label{eq:6}
-\A(f)=\text{span}\{v_1,\ldots,v_j\}
+\A(f)=\text{span}\{v^1,\ldots,v^j\}
 \end{equation}
 
 \noindent denote the \textit{active subspace} of $f$.
 
 
-The fact that $v_1,\ldots,v_{j}$ correspond to the nontrivial singular values is exactly why they account for the most amount of variance in function values. In fact, one can view AS as an artful choice of principal components after a \textit{full} Principal Component Analysis (PCA) is performed in the gradient space $W$; for more details on this viewpoint, we refer the reader to Section 6.4 in \cite{Russi}.
+The fact that $v^1,\ldots,v^{j}$ correspond to the nontrivial singular values is exactly why they account for the most amount of variance in function values. In fact, one can view AS as an artful choice of principal components after a \textit{full} Principal Component Analysis (PCA) is performed in the gradient space $W$; for more details on this viewpoint, we refer the reader to Section 6.4 in \cite{Russi}.
 
 For a point $\lambda \in \Lambda$, we define
 
 \begin{equation} \label{eq:7}
-  \mathcal{P}_\A(\lambda)=\sum_{i=1}^{j}\left( v_i^T \lambda\right)v_i \in \A, 
+  \mathcal{P}_\A(\lambda)=\sum_{i=1}^{j}\left( ({v^i})^T \lambda\right)v^i \in \A, 
 \end{equation}
 
 \noindent which is a projection of the point $\lambda$ in the active subspace of $f$. We call this projection an \textit{active variable}, which is a point in the active subspace $\A$. We have arrived at the property that 
@@ -255,7 +255,7 @@ In the following, we begin by detailing STARS, learning STARS hyperparameters, a
 
 \subsection{STARS}
 
-We first present STARS suited for additive OUU as in \eqref{eq:1} in the  pseudocode below.
+We first present STARS suited for additive or multiplicative OUU as in \eqref{eq:1} and \eqref{eq:2} in the  pseudocode below.
 
 \vspace{.25cm}
 
@@ -338,7 +338,7 @@ Next, we need $\nabla_\Lambda f$ -- which we assume that we do not have in close
 \end{bmatrix}.
 \end{equation}  
 
-Forming the SVD of $\tilde{W}$, $\tilde{W}=\tilde{U}\tilde{\Sigma}\tilde{V}^*$, we search for a drop off in the magnitude of the singular values $\{\tilde{\sigma}_i\}_{i=1}^S$. Assuming such a drop off occurs for an index $j:1<j<S$, we have the $j$ corresponding right singular vectors,$ \tilde{v}_1,\ldots,\tilde{v}_{j}$.  We let $\A\left(f; D_S \right):=\text{span}\{\tilde{v}_1,\ldots,\tilde{v}_{j}\}$ denote the active subspace of $f$ with respect to the samples $D_S$. We choose to use a notation with $D_S$ included to emphasize the dependence of the active subspace on the random draws made in $\Lambda$, which led to our particular $D_S$ set of samples.
+Forming the SVD of $\tilde{W}$, $\tilde{W}=\tilde{U}\tilde{\Sigma}\tilde{V}^*$, we search for a drop off in the magnitude of the singular values $\{\tilde{\sigma}_i\}_{i=1}^S$. Assuming such a drop off occurs for an index $j:1<j<S$, we have the $j$ corresponding right singular vectors,$ \tilde{v}^1,\ldots,\tilde{v}^{j}$.  We let $\A\left(f; D_S \right):=\text{span}\{\tilde{v}^1,\ldots,\tilde{v}^{j}\}$ denote the active subspace of $f$ with respect to the samples $D_S$. We choose to use a notation with $D_S$ included to emphasize the dependence of the active subspace on the random draws made in $\Lambda$, which led to our particular $D_S$ set of samples.
 
 In practice, we can check the extent to which the active subspace accounts for functions values $f(\lambda)$ 
 by checking for resolution in a \emph{sufficient summary plot} \cite{Constantine2015}, where we plot active variables against function values. In these plots, we hope to see a pattern between the active variables versus their function values. For example, if $f$ is quadratic in its active variables, then we expect to see quadratic-resolved sufficient summary plots.
@@ -355,10 +355,10 @@ by checking for resolution in a \emph{sufficient summary plot} \cite{Constantine
 
 \subsection{STARS in the Active Variables Only} Given some $f$ and its corresponding active subspace $\A(f;D_S)$ found by the Monte Carlo method discussed above, we are interested in investigating the effectiveness of optimizing $f$ in its active variables. There are several approaches one may consider, and a handful of those approaches and their corresponding results are discussed in the remainder of the paper. 
 
-One approach we have tested is modifying STARS to only take random walks in directions lying in $\A$. In detail, at iteration $k$, STARS uses random walks given by drawing a random vector $u^{(k)}$ of dimension $P$ in which every component $u_i^{(k)},i=1,\ldots,P$ of $u^{(k)}$ is  drawn from a specified normal distribution. Instead, given the first $j$ singular unit vectors $\tilde{v}_1,\ldots,\tilde{v}_j$ corresponding to the SVD of $\hat{W}$, one may take $j$ draws from a specified normal distribution, which we denote $s_i\sim N(0,\sigma_i^2)$, $i=1,\ldots,j$, defining the random vector $u_\A^{(k)}$ for the $k$-th random \textit{active direction} as 
+One approach we have tested is modifying STARS to only take random walks in directions lying in $\A$. In detail, at iteration $k$, STARS uses random walks given by drawing a random vector $u^{(k)}$ of dimension $P$ in which every component $u_i^{(k)},i=1,\ldots,P$ of $u^{(k)}$ is  drawn from a specified normal distribution. Instead, given the first $j$ singular unit vectors $\tilde{v}^1,\ldots,\tilde{v}^j$ corresponding to the SVD of $\hat{W}$, one may take $j$ draws from a specified normal distribution, which we denote $s_i\sim N(0,\sigma_i^2)$, $i=1,\ldots,j$, defining the random vector $u_\A^{(k)}$ for the $k$-th random \textit{active direction} as 
 
 \begin{eqnarray}
-u_\A^{(k)}=\sum_{i=1}^j s_i\tilde{v_i}, \quad \quad s_i\sim N(0,\sigma_i^2), \quad i=1,\ldots,j
+u_\A^{(k)}=\sum_{i=1}^j s_i\tilde{v}^i, \quad \quad s_i\sim N(0,\sigma_i^2), \quad i=1,\ldots,j
 \end{eqnarray}
 
 
@@ -375,9 +375,13 @@ u_\A^{(k)}=\sum_{i=1}^j s_i\tilde{v_i}, \quad \quad s_i\sim N(0,\sigma_i^2), \qu
 
 In this section, we present results of using Active STARS in several examples with a noisy, high-dimensional objective function.
 
-$$f: \mathbb{R}^{40} \to \mathbb{R} \quad \quad  f(\lambda; \xi):=\lambda_{20}^2 + \epsilon(\xi) \quad \quad \epsilon(\cdot) \sim U[-k,k], \quad k=1 \times 10^{-3}.$$
+\noindent \textbf{Example 1.} \textit{Let} $f: \Lambda=[-1,1]^{10} \to \D \subset \mathbb{R},$ 
 
-\noindent \textbf{Example 2.} \textit{Let $\Lambda=[-1,1]^{11}$ and define $$f(\lambda)=\sum_{i=0}^{10} 2^{(-1)^i i}\lambda_i^2+\epsilon(\lambda),$$ where $\epsilon(\lambda)$ is a draw of additive noise corresponding to the input $\lambda$; here, we take draws of $\epsilon$ of order $10^{-4}$. We see that $\mathcal{D}=[0,2^{10}]$ and $N=11$, $M=1$. Note that the minimimum of $f$ is given by $0 \in \Lambda$. Here, as $i$ increases, terms in $f$ become either more important or less important, depending on whether $i$ is even or odd.}
+$$f(\lambda; \xi):=a_1\lambda_{1}^2+a_2\lambda_{2}^2+a_3\lambda_{3}^2 + \epsilon(\xi), \quad a_1,a_2,a_3 \in \R, \quad \epsilon(\cdot) \sim N(0,k^2), \quad k=1 \times 10^{-2}.$$
+
+\noindent \textbf{Example 2.} \textit{Let} $f: \Lambda=[-1,1]^{11} \to \D \subset \R,$  
+
+$$f(\lambda; \xi)=\sum_{i=0}^{10} 2^{(-1)^i i}\lambda_i^2+\epsilon(\xi), \quad \epsilon(\xi) \sim U[-k,k], \quad k=1 \times 10^{-2}.$$ \textit{We see that $\mathcal{D}=[0,2^{10}]$ and $N=11$, $M=1$. Note that the minimimum of $f$ is given by $0 \in \Lambda$. Here, as $i$ increases, terms in $f$ become either more important or less important, depending on whether $i$ is even or odd.}
 
 
 
