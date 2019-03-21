@@ -52,7 +52,7 @@
 }
 
 \setlength{\textwidth}{\paperwidth}
-\addtolength{\textwidth}{-2.75in}
+\addtolength{\textwidth}{-3in}
 \calclayout
 
 \setcounter{secnumdepth}{0}
@@ -131,7 +131,7 @@ As a consequence of these difficulties, optimization in this setting will need t
 do not require approximating gradient information from samples while online; otherwise, we expect to surpass a reasonable computational budget since even one gradient approximation will be $\mathcal{O}(P)$ (using, for instance, finite differencing.)
 We consider \textit{Derivative-Free Optimization} (DFO) algorithms suited for additive and multiplicative noise. DFO algorithms require nothing more than the ability to evaluate the noisy model $f$ and randomly draw from a normal distribution; $\nabla f$ is unneeded once inputs and algorithm hyperparameters have been prescribed.
 
-Many DFO algorithms find subsequent iterates $\lambda^{(k)}$ by random walks or \textit{ball walks} in $\Lambda$ specified by draws from Gaussian distributions in every coordinate of $\lambda^{(k)}$; iterates are not allowed to stray much, though, due to prescribed smoothing factors and step sizes. The smoothing factor and step size in DFO algorithms are of great importance to their convergence. Both the smoothing factor and step size depend on the $L_1$ Lipschitz constant of $f$. As such, it will be of interest to obtain estimates of $L_1$, which is not straightforward in a gradient-free setting. We refer to \cite{Calliess, KS} for Lipschitz constant learning in this setting, and discuss this problem more in the proceeding subsection.
+Many DFO algorithms find subsequent iterates $\lambda^{(k)}$ by random walks or \textit{ball walks} in $\Lambda$ specified by draws from Gaussian distributions in every coordinate of $\lambda^{(k)}$; iterates are not allowed to stray much, though, due to prescribed smoothing factors and step sizes. The smoothing factor and step size in DFO algorithms are of great importance to their convergence. Both the smoothing factor and step size depend on the $L_1$ Lipschitz constant of $f$. As such, it will be of interest to obtain estimates of $L_1$, which is not straightforward in a gradient-free setting. We refer to \cite{Calliess} for Lipschitz constant learning in this setting, and discuss this problem more in the proceeding subsection.
 
 As in \cite{CW}, we consider the additive noise OUU problem
 
@@ -149,15 +149,19 @@ As in \cite{CW}, we consider the additive noise OUU problem
 
 \begin{enumerate}[(i.)]
 
-\item $f: \Lambda=\R^P \to \R$ is convex;
+\item $f: \Lambda=\R^P \to \R-\D$ is continuously differtiable, convex, and $\nabla f$ has Lipschitz constant $L_1$
 
 \item $\epsilon(\cdot)$ is a random variable with probability density $\pi_{\epsilon}(\epsilon(\xi))$;
 
-\item for all $\lambda$ the noise $\epsilon(\cdot)$ is independent and identically distributed, has bounded variance $\sigma^2$, and is unbiased; i.e., $\mathbb{E}_\xi (\epsilon(\xi))=0$.
+\item for all $\lambda$ the noise $\epsilon(\cdot)$ is independent and identically distributed, has bounded variance $\sigma^2$, and is unbiased; i.e., $\mathbb{E}_\xi (\epsilon(\xi))=0$;
+
+\item for multiplicative OUU, the additional assumptions that: the \textit{signal-to-noise} ratio is bounded -- i.e., $\mathbb{E}((1+\epsilon(xi))^{-1})<b$ -- and the support of $\epsilon(\xi)$ is bounded by $\pm a$, $a<1.$
 
 
 
 \end{enumerate}
+
+
 
 
 In \cite{CW} the \textit{STARS (STep-size Approximation in Randomized Search)} DFO algorithm is used to solve the additive and multiplicative OUU problems with assumptions (i.)-(iii.) above. Briefly, STARS uses small perturbations of iterates in $\Lambda$ by the addition of a random vector with components drawn from a normal distribution, computes the noisy function value at the randomly perturbed point, and updates iterates using a Gaussian-smoothed finite-difference for approximate gradient information in a gradient-descent-type scheme. STARS only  requires the ability to evaluate $f$ and access to random draws from a normal distribution. All in all, the algorithm can be implemented in about 10 lines of code in any standard computing language; we used Python 3 for the STARS results presented in this paper. 
@@ -172,7 +176,7 @@ which are both generally unknown, as well as $\dim \Lambda=P$, which is assumed 
 
 Tuning the hyperparameters in STARS is a matter of learning $\sigma^2$ and $L_1$. In this paper, we propose algorithmic methods of learning STARS hyperparameters so that one need not specify the hyperparameters at all, fully automating the process of solving optimization problems \eqref{eq:1} and \eqref{eq:2}. Since we are considering $f$ to be a a black-box, it is unrealistic to assume that a user would know $\sigma^2$, much less $L_1$, which would require at least some type of gradient information.
 
-To learn the variance in the noise, we rely on the EC-Noise algorithm [CITE], which even for $P$ large requires few evaluations of $f$ -- often 6 to 10 evaluations will suffice. Briefly, EC-Noise uses a series of nearby samples $s^i:=(\lambda^i,f(\lambda^i))$ of points $\lambda^i$ along line in $\Lambda$. Forming a classical difference table of iterative residuals, the authors show that estimators $\hat{\sigma^2}$ to $\sigma^2$ are formed. Learning $\sigma^2$ is performed prior to STARS, and may be viewed as a computational expense we must pay up front to ensure convergence of the algorithm.
+To learn the variance in the noise, we rely on the ECNoise algorithm \cite{MW} which even for $P$ large requires few evaluations of $f$ -- often 6 to 10 evaluations will suffice. Briefly, ECNoise uses a series of nearby samples $s^i:=(\lambda^i,f(\lambda^i))$ of points $\lambda^i$ along line in $\Lambda$. Forming a classical difference table of iterative residuals, the authors show that estimators $\hat{\sigma^2}$ to $\sigma^2$ are formed. Learning $\sigma^2$ is performed prior to STARS, and may be viewed as a computational expense we must pay up front to ensure convergence of the algorithm.
 
 Learning $L_1$ in this setting is a challenge, mainly since we assume that we lack access to $\nabla f$. Given $S$ pointwise estimates to the gradient, which we denote with $\hat{\nabla}f(\lambda^i)$, $i=1,\ldots, S$, we could consider an estimator such as
 
@@ -184,9 +188,9 @@ Learning $L_1$ in this setting is a challenge, mainly since we assume that we la
 
 \noindent which is a ``bad idea" given in \cite{Calliess}. There are several problems with such an approach. Mainly, forming $\hat{\nabla} f$ is expensive, requiring at least $P+1$ evaluations of $f$ for each approximation. Even if one uses only 3 samples $s_i$, $i=1,2,3$, forming $\hat{L_1}$ requires $3(P+1)$ $f$ evaluations, which will often exceed the number of function evaluations needed for STARS to converge, assuming its hyperparameters are reasonably tuned.
 
-Another challenge involves specifying $\epsilon^*$ in \eqref{eq:3}, which is subtracted from the estimator's numerator to control for noise in $f$. To save computational expense, we propose forming an initial estimate to $L_1$ by recycling function values from EC-Noise in a finite-difference fashion. Then, once STARS is initiated, $L_1$ can be updated using information from iterates (and their corresponding function values). In fact, the iterates (and intermediate iterates) formed during STARS lend themselves to second-order finite differencing to estimate an upper bound on $||\nabla ^2 f||,$ which is a bound for $L_1$.
+Another challenge involves specifying $\epsilon^*$ in \eqref{eq:3}, which is subtracted from the estimator's numerator to control for noise in $f$. To save computational expense, we propose forming an initial estimate to $L_1$ by recycling function values from ECNoise in a finite-difference fashion. Then, once STARS is initiated, $L_1$ can be updated using information from iterates (and their corresponding function values). In fact, the iterates (and intermediate iterates) formed during STARS lend themselves to finite differencing to estimate $L_1$.
 
-Both hyperparmeters must be adjusted if dimension reduction is performed because both of the values depend on $P$. We note that both parameters have an inverse proportionality with $P$. Hence, if $\Lambda$ permits dimension reduction to $k$ \textit{active directions} where, say, $k<<P$, both hyperparemeters will be larger using $k$ for $\dim \Lambda$ instead of $P.$ We now turn to introducing dimension reduction in our setting.
+Both hyperparmeters must be adjusted if dimension reduction is performed because both values depend on $P$. We note that both parameters in fact have an inverse proportionality with $P$. Hence, if $\Lambda$ permits dimension reduction to $k$ \textit{active directions} where, say, $k<<P$, both hyperparemeters will be larger using $k$ for $\dim \Lambda$ instead of $P.$ We now turn to introducing dimension reduction in our setting.
 
 
 
@@ -213,21 +217,21 @@ W=\int_\Lambda \nabla f(\lambda) \nabla f(\lambda)^\top  \pi_\Lambda(\lambda) d\
 W=U\Sigma V^*,
 \end{equation} 
 
-\noindent where $U$ is $P \times P$ unitary, $\Sigma$ is $P \times P$ diagonal with the singular values of $W$ along its diagonal, and $V^*$ is $P \times P$ unitary. With the singular values of $W$ in hand from its SVD, we search for a drop-off in the spectrum of $W$. In detail, one may plot the singular values, $\{\sigma_i\}_{i=1}^P$ and seek a drop-off in magnitude between some pair of singular values, $\sigma_{j}$ and $\sigma_{j+1}$, $1\leq j \leq j+1 \leq P$, where $\sigma_{j}>>\sigma_{j+1}$. The active subspace is the span of $v_1,\ldots,v_{j}$, which are the first $j$ columns of $V$, the right singular vectors of $W$. We let
+\noindent where $U$ is $P \times P$ unitary, $\Sigma$ is $P \times P$ diagonal with the singular values of $W$ along its diagonal, and $V^*$ is $P \times P$ unitary. With the singular values of $W$ in hand from its SVD, we search for a drop-off in the spectrum of $W$. In detail, one may plot the singular values, $\{\sigma_i\}_{i=1}^P$ and seek a drop-off in magnitude between some pair of singular values, $\sigma_{j}$ and $\sigma_{j+1}$, $1\leq j \leq j+1 \leq P$, where $\sigma_{j}>>\sigma_{j+1}$. The active subspace is the span of $v^1,\ldots,v^{j}$, which are the first $j$ columns of $V$, the right singular vectors of $W$. We let
 
 \begin{equation} \label{eq:6}
-\A(f)=\text{span}\{v_1,\ldots,v_j\}
+\A(f)=\text{span}\{v^1,\ldots,v^j\}
 \end{equation}
 
 \noindent denote the \textit{active subspace} of $f$.
 
 
-The fact that $v_1,\ldots,v_{j}$ correspond to the nontrivial singular values is exactly why they account for the most amount of variance in function values. In fact, one can view AS as an artful choice of principal components after a \textit{full} Principal Component Analysis (PCA) is performed in the gradient space $W$; for more details on this viewpoint, we refer the reader to Section 6.4 in \cite{Russi}.
+The fact that $v^1,\ldots,v^{j}$ correspond to the nontrivial singular values is exactly why they account for the most amount of variance in function values. In fact, one can view AS as an artful choice of principal components after a \textit{full} Principal Component Analysis (PCA) is performed in the gradient space $W$; for more details on this viewpoint, we refer the reader to Section 6.4 in \cite{Russi}.
 
 For a point $\lambda \in \Lambda$, we define
 
 \begin{equation} \label{eq:7}
-  \mathcal{P}_\A(\lambda)=\sum_{i=1}^{j}\left( v_i^T \lambda\right)v_i \in \A, 
+  \mathcal{P}_\A(\lambda)=\sum_{i=1}^{j}\left( ({v^i})^T \lambda\right)v^i \in \A, 
 \end{equation}
 
 \noindent which is a projection of the point $\lambda$ in the active subspace of $f$. We call this projection an \textit{active variable}, which is a point in the active subspace $\A$. We have arrived at the property that 
@@ -255,7 +259,7 @@ In the following, we begin by detailing STARS, learning STARS hyperparameters, a
 
 \subsection{STARS}
 
-We first present STARS suited for additive OUU as in \eqref{eq:1} in the  pseudocode below.
+We first present STARS suited for additive or multiplicative OUU as in \eqref{eq:1} and \eqref{eq:2} in the  pseudocode below.
 
 \vspace{.25cm}
 
@@ -300,23 +304,67 @@ For the additive noise OUU problem \eqref{eq:1}, the values for $\mu^*$ and $h$ 
 
 \noindent which are proven as optimal values for the algorithm's convergence in \cite{CW}. 
 
-In the multiplicative noise OUU problem \eqref{eq:2}, the step length $h$ remains the same, exactly as in \eqref{eq:9} above, held constant for each iteration. However the smoothing factor must be updated for each iteration $k=1,\ldots, M.$ As shown in \cite{CW}, the optimal smoothing factor for a given iterate $k$ is given by
+Assume $f$ and its additive noise $\epsilon(\cdot)$ obey assumptions (i.)-(iii.), and let $f_*:=f(\lambda^*)$ where $\lambda^*$ denotes the true minimizer of $f$ and $f_k:=f(\lambda^{(k)})$ where $\{\lambda^{(k)}\}$ denotes a sequence of iterates formed from STARS (Algorithm 1). Then for any maximum iteration count $M \geq 0$,
 
 \begin{eqnarray} \label{eq:10}
+\frac{1}{M+1} \sum_{k=0}^M (f_k-f_*) \leq \frac{4L_1(P+4)}{M+1}||\lambda^{(0)}-\lambda^*||^2 + \frac{3 \sqrt{2}}{5} \sigma (P+4),
+\end{eqnarray} 
+
+\noindent where $||\cdot||$ denotes the Euclidean norm in $\Lambda= \R^P$.
+
+In the multiplicative noise OUU problem \eqref{eq:2}, the step length $h$ remains the same, exactly as in \eqref{eq:9} above, held constant for each iteration. However the smoothing factor must be updated for each iteration $k=1,\ldots, M.$ As shown in \cite{CW}, the optimal smoothing factor for a given iterate $k$ is given by
+
+\begin{eqnarray} \label{eq:11}
 \mu^*_k:=\left( \frac{16 \sigma^2 f(\lambda^{(k)};\xi_k)^2 P}{L_1^2(1+3\sigma^2)(P+6)^3}\right)^{1/4}.
 \end{eqnarray} 
 
-\noindent 
+Assume $f$ and its additive noise $\epsilon(\cdot)$ obey assumptions (i.)-(iv.), and let $\{\lambda^{(k)}\}$ denote a sequence of iterates formed from STARS (Algorithm 1). Then for any maximum iteration count $M \geq 0$,
+
+\begin{eqnarray} \label{eq:12}
+\frac{1}{M+1} \sum_{k=0}^M (f_k-f_*) \leq \frac{4L_1(P+4)}{M+1}||\lambda^{(0)}-\lambda^*||^2 + 4L_1(P+4)(K_1B +K_2),
+\end{eqnarray} 
+
+
+\noindent where $B$ denotes an upper bound for the average of the absolute value of function evaluations $|f(\lambda^{(k)})|$, $k=1,\ldots,M$, and $K_1$ and $K_2$ are long-form constants; the interested reader may refer to \cite{CW}.
+
+STARS typically converges to a minimum when the hyperparameters $\mu_k^*$ and $h$ are within an order of magnitude of their true values. The closer the user-defined $\mu^*$ and $h$ values are to the truth, the faster STARS converges. If $\mu^*$ and $h$ are underestimated, STARS will take very small and heavily smoothed steps, converging slowly; however, if the values are overestimated, the algorithm may cause divergence, in the sense that function evaluations will grow with each iterate.
+
+It is then of high interest to tune the values $\mu$ and $h$ so that function evaluations are not wasted. In the proceeding subsection, we discuss learning the values $\mu$ and $h$ depend on -- namely $\sigma^2$ and $L_1$.
 
 
 \subsection{Hyperparameter Learning}
 
+Here we present the methods used for learning $\hat{\sigma}^2$, which denotes the estimated bounded variance in the noise of $f$, and $\hat{L_1}$, which is the gradient-Lipschitz constant of $f$. To learn the noise in $f$, we use ECNoise as in \cite{MW}, which will typically learn $\sigma^2$ within an order of magnitude using only 6-10 evaluations of $f$. In this paper, we use ECNoise prior to STARS or Active STARS. The evaluations of $f$ created by ECNoise allows one to form an estimate $L_1$ in a variety of ways, including via finite differencing, or via the expensive estimator in \eqref{eq:3}. The value of $L_1$ can be updated using iterations and the intermediate function evaluations in STARS using finite differencing and/or gradient information provided by peforming AS.
 
-$$\Delta^{h,0} f =f \quad \quad \Delta^{h,k+1} f=\Delta^{h,k} f(\lambda+h)- \Delta^{h,k} f(\lambda), \quad 1>>h>0, \quad k \geq 0$$
+We first discuss ECNoise. The following definitions provide one with classical $k$-level differences in $f$ with chosen discretization $h_1>0$ where
+
+\begin{equation} \label{eq:13}
+\Delta^{h_1,0} f :=f \quad \quad \Delta^{h_1,k+1} f:=\Delta^{h_1,k} f(\lambda+h_1)- \Delta^{h_1,k} f(\lambda), \quad 1>>h_1>0, \quad k \geq 0.
+\end{equation}  
+
+\noindent Let $S$ denote the maximum level of differences taken -- i.e., $k=1\ldots S$. Then ECNoise will draw $S$ samples $\lambda^1,\ldots,\lambda^S \in \Lambda$ where only a \textit{base point} $\lambda^1$ is specified, then $\lambda^{i+1}=\lambda^{i}+h_1$, $i=1,\ldots,S$. Then, the $k$-level differences are formed. For a given level $k< S$ we obtain $S-k$ differences. With sufficiently small $h_1$ and only a moderate choice of $k$ (usually $k=2,3,4$ sufficies), the differencing scheme in \eqref{eq:11} leaves one with residuals which estimate $\sigma$ up to a constant $C$ which is explicitly defined in \cite{MW}. The authors define the
 
 
 
-$$\textit{$k$-th level estimate to $\sigma,$}\quad \hat{\sigma_k}^2:=C\sum_{i=1}^{S-k}\left(\Delta^{h,k}f(\lambda_i)\right)^2$$
+\begin{equation} \label{eq:14}
+\textit{$k$-th level estimate to $\sigma^2,$}\quad \hat{\sigma_k}^2:=C\sum_{i=1}^{S-k}\left(\Delta^{h_1,k}f(\lambda_i)\right)^2.
+\end{equation}  
+
+The authors offer heuristics -- requiring further evalutions of $f$ -- to find the best estimation level $k$. Instead, in this paper, we define an estimator $\hat{\sigma}^2$ by averaging the values $\hat{\sigma_k}^2$ in \eqref{eq:12} above for $k=2,\ldots,S-1.$ Choosing $S\geq 3$ we define,
+
+\begin{equation} \label{eq:15}
+ \hat{\sigma}^2:=\sum_{i=2}^{S-1}\frac{\hat{\sigma_i}}{S-2}.
+\end{equation}  
+
+The estimator $\hat{\sigma}^2$ in \eqref{eq:13} will typically be close enough to $\sigma^2$ for STARS or Active STARS to converge. As such, we sacrifice searching for the best $\hat{\sigma_k}^2$ to save function evaluations that the heuristic-based methods require, using averaged information from the level $k$ estimators we have already formed.
+
+Given a direction $v \in \Lambda$, ECNoise provides samples of form $s_i=(\lambda^i, f(\lambda^i))$, $i=1,\ldots, S$, in which $\lambda_i-\lambda_{i-1}=h_1v$ for all $i=2,\ldots, S.$ Thus, we have the ability to form first-order and second-order finite difference approximations to $\nabla f$ and $\nabla^2 f$, respectively, which will be useful in forming various \textit{initial estimates} to $L_1$, denoted $L_1^\text{init}$. 
+
+In this paper, we use a second-order centered finite difference with ECNoise samples which approximates the norm of the Hessian of $f$, a value which may be used for $L_1^\text{init}$. In detail, we form ratios $\frac{|f(\lambda^{i+1}+h_1 v)-2f(\lambda^{i})+f(\lambda^{i-1}-h_1 v)|}{h_1^2}$; taking the maximum such ratio is one possible choice of $L_1^\text{init}$.
+
+One may also use forward finite differencing at $\lambda_i$ forming approximate directional derivatives $D_v$, where $v \in \Lambda$ denotes the direction of the derivative.  We have $||\hat{\nabla }f(\lambda_i)||\approx |D_v (\lambda^i)|\approx\frac{|f(\lambda^{i}+h_1 v)-f(\lambda^{i})|}{h_1}$ for $i=1,\ldots,S-1$ and a backward finite difference at $\lambda_S$ to form $||\hat{\nabla }f(\lambda_S)|| \approx |D_v(\lambda^S)|\approx\frac{|f(\lambda^{S})-f(\lambda^{S}-h_1 v)|}{h_1}$. Now, with $S$ approximated directional derivatives formed from ECNoise, one may use \eqref{eq:3} to form $L_1^\text{init}$.
+
+Iteartes in STARS also take the form $(\lambda^{(k)}, f(\lambda^{(k)}))$, and may be used as samples $s_k$. In addition, one will notice that there is an intermediate sample and corresponding function evaluation formed in every iteration of STARS which takes the form $(\lambda^{(k)}+\mu^*_k u^{(k)}, f(\lambda^{(k)}+\mu^*_k u^{(k)}))$ where $\mu^*_k$ is the smoothing at iteration $k$ and $u^{(k)}$ is the random vector at iteration $k$; these are also usable as samples $s_k$. With additional samples $s_i$ formed during STARS, one may update $L_1^\text{init}$ anytime we obtain an estimate $L_1^\text{update}$ for which $L_1^\text{init}<L_1^\text{update}$. Updates to $\hat{L_1}$ may be performed online (i.e., between iterations of STARS). The updated value $L_1^\text{update}$ may be formed using an un-centered second-order finite difference scheme, which is similar to how $L_1^\text{init}$ is formed. One must use care to adjust the finite difference formulas to account for iterates and intermediate function evaluations, which are generally un-centered. This approach is discussed in a forthcoming subsection.
 
 
 \subsection{Active Subspace Learning}
@@ -330,7 +378,7 @@ One initializes the method by performing $S$ random draws of $\lambda^i \in \Lam
 
 Next, we need $\nabla_\Lambda f$ -- which we assume that we do not have in closed analytic form -- evaluated at $\lambda^i$ for all $i=1,\ldots,S$. Hence, we generally need a gradient approximation method \cite{Constantine2015, Smith}. Most often, one forms a local linear, global linear, or global quadratic surrogate to $f$ using $D_S$. One may approximate $\nabla f$ using the gradient of the closed-form surrogate. With this approximation formed, we denote each estimation to $\nabla f(\lambda^i)$ with $\hat{\nabla f}(\lambda^i)$ and we define the $P \times S$ matrix $\tilde{W}$ (which is presented below as $\tilde{W}^\top$)
 
-\begin{equation} \label{eq:10}
+\begin{equation} \label{eq:16}
 \tilde{W}^\top:=\begin{bmatrix}
 \reallywidehat{\nabla f}(\lambda^1)
 \cdot \cdot \cdot
@@ -338,52 +386,220 @@ Next, we need $\nabla_\Lambda f$ -- which we assume that we do not have in close
 \end{bmatrix}.
 \end{equation}  
 
-Forming the SVD of $\tilde{W}$, $\tilde{W}=\tilde{U}\tilde{\Sigma}\tilde{V}^*$, we search for a drop off in the magnitude of the singular values $\{\tilde{\sigma}_i\}_{i=1}^S$. Assuming such a drop off occurs for an index $j:1<j<S$, we have the $j$ corresponding right singular vectors,$ \tilde{v}_1,\ldots,\tilde{v}_{j}$.  We let $\A\left(f; D_S \right):=\text{span}\{\tilde{v}_1,\ldots,\tilde{v}_{j}\}$ denote the active subspace of $f$ with respect to the samples $D_S$. We choose to use a notation with $D_S$ included to emphasize the dependence of the active subspace on the random draws made in $\Lambda$, which led to our particular $D_S$ set of samples.
+Forming the SVD of $\tilde{W}$, $\tilde{W}=\tilde{U}\tilde{\Sigma}\tilde{V}^*$, we search for a drop off in the magnitude of the singular values $\{\tilde{\sigma}_i\}_{i=1}^S$. Assuming such a drop off occurs for an index $j:1<j<S$, we have the $j$ corresponding right singular vectors,$ \tilde{v}^1,\ldots,\tilde{v}^{j}$.  We let $\A\left(f; D_S \right):=\text{span}\{\tilde{v}^1,\ldots,\tilde{v}^{j}\}$ denote the active subspace of $f$ with respect to the samples $D_S$. We choose to use a notation with $D_S$ included to emphasize the dependence of the active subspace on the random draws made in $\Lambda$, which led to our particular $D_S$ set of samples.
 
 In practice, we can check the extent to which the active subspace accounts for functions values $f(\lambda)$ 
 by checking for resolution in a \emph{sufficient summary plot} \cite{Constantine2015}, where we plot active variables against function values. In these plots, we hope to see a pattern between the active variables versus their function values. For example, if $f$ is quadratic in its active variables, then we expect to see quadratic-resolved sufficient summary plots.
 
 
 
+\subsection{STARS in the Active Variables Only} Given some $f$ and its corresponding active subspace $\A(f;D_S)$ found by the Monte Carlo method discussed above, we are interested in investigating the effectiveness of optimizing $f$ in its active variables. There are several approaches one may consider, and 2 of those approaches and their corresponding results are discussed in the remainder of the paper. 
 
+One approach we have tested is modifying STARS to only take random walks in directions lying in $\A$. In detail, at iteration $k$, STARS uses random walks given by drawing a random vector $u^{(k)}$ of dimension $P$ in which every component $u_i^{(k)},i=1,\ldots,P$ of $u^{(k)}$ is  drawn from a specified normal distribution. Instead, given the first $j$ singular unit vectors $\tilde{v}^1,\ldots,\tilde{v}^j$ corresponding to the SVD of $\hat{W}$, one may take $j$ draws from a specified normal distribution, which we denote $r_i\sim N(0,\omega_i^2)$, $i=1,\ldots,j$, defining the random vector $u_\A^{(k)}$ for the $k$-th random \textit{active direction} as 
 
-
-
-
-
-
-
-\subsection{STARS in the Active Variables Only} Given some $f$ and its corresponding active subspace $\A(f;D_S)$ found by the Monte Carlo method discussed above, we are interested in investigating the effectiveness of optimizing $f$ in its active variables. There are several approaches one may consider, and a handful of those approaches and their corresponding results are discussed in the remainder of the paper. 
-
-One approach we have tested is modifying STARS to only take random walks in directions lying in $\A$. In detail, at iteration $k$, STARS uses random walks given by drawing a random vector $u^{(k)}$ of dimension $P$ in which every component $u_i^{(k)},i=1,\ldots,P$ of $u^{(k)}$ is  drawn from a specified normal distribution. Instead, given the first $j$ singular unit vectors $\tilde{v}_1,\ldots,\tilde{v}_j$ corresponding to the SVD of $\hat{W}$, one may take $j$ draws from a specified normal distribution, which we denote $s_i\sim N(0,\sigma_i^2)$, $i=1,\ldots,j$, defining the random vector $u_\A^{(k)}$ for the $k$-th random \textit{active direction} as 
-
-\begin{eqnarray}
-u_\A^{(k)}=\sum_{i=1}^j s_i\tilde{v_i}, \quad \quad s_i\sim N(0,\sigma_i^2), \quad i=1,\ldots,j
+\begin{eqnarray}\label{eq:17}
+u_\A^{(k)}=\sum_{i=1}^j r_i\tilde{v}^i, \quad \quad r_i\sim N(0,\omega_i^2), \quad i=1,\ldots,j
 \end{eqnarray}
 
 
-\noindent which is a randomly weighted linear combination of the active variables of $f$ learned via Monte Carlo with coefficients given by random draws; we see that such a vector could be interpreted as a random walk in $\A$.
-
-\subsection{Combining Ingredients: Fully-Automated Active STARS} We now have all the necessary components for creating a fully-automated Active STARS algorithm, in the sense that the user need to specify anything beyond an initial iterate $\lambda^{(0)}$ and the black-box objective function $f$. The fully-automated Active STARS algorithm learns $\sigma^2$, $L_1$, and $\A$ from its own iterations with little computational expense from upfront learning.
+\noindent which is a randomly weighted linear combination of the active variables of $f$ learned via Monte Carlo with coefficients given by random draws; we see that such a vector could be interpreted as a weighted random walk in $\A$. We note that in Active STARS presented in Algorithm 2 below, we equally weight the $j$ active directions, in the sense that $\omega_i^2=1$ for $i=1,\ldots,j$. Other weighting schemes considered include taking $\omega_i=\tilde{\sigma_1}/\tilde{\sigma_i}$, $i=1,\ldots,j$, where $\tilde{\sigma_i}$ denotes the $i$-th singular value obtained from the SVD of $\tilde{W}$ which are indexed so that $\tilde{\sigma_1}\leq \cdots \leq \tilde{\sigma_j}$.
 
 
+In the case that an active subspace does not exist -- that is, there is not a large drop-off in the spectrum of $\tilde{W}$ -- then all $P$ directions are active, and we see Active STARS simply reduces to performing STARS (in all variables).
 
+Active STARS requires modifying the initialization and changing the second step of STARS (see Algorithm 1). In Algorithm 2 below, we present Active STARS.
+
+\vspace{.25cm}
+
+
+\begin{algorithm}[H]
+
+\SetAlgoLined
+
+	\KwIn{\texttt{maxit}$=:M$; $\lambda^{(0)}$; $f_0:=f(\lambda^{(0)})$; $h$; $\tilde{V}_\A:=\tilde{V}_{1:P,1:j}^\top$; $k=1$}
+ 
+    \While{$k\leq M$}{
+    
+  Form smoothing factor $(\mu^*_\A)_k$\;
+    
+  Draw $r^{(k)}$, where $r^{(k)}_p \sim N(0,1)$ for $p=1,\ldots,j$ and set $u^{(k)}_\A:={r^{(k)}}^\top \tilde{V}_\A$\;
+  
+  Evaluate $g_k:=f(\lambda^{(k-1)}+\mu^*_ku_\A^{(k)})$\;
+  
+  Set $ d^{(k)}:=\frac{g_k-f_{k-1}}{\mu^*_k}u_\A^{(k)}$\;
+  
+  Set $\lambda^{(k)}=\lambda^{(k-1)}-h_\A\cdot d^{(k)}$\;
+  
+  Evaluate $f_k:=f(\lambda^{(k)})$\; 
+  
+  Set $k=k+1$\;}
+
+    \KwOut{($\lambda^{(M)}$, $f_M$)}
+
+	\caption{Active STARS for Additive or Multiplicative OUU}
+
+\end{algorithm}
+
+\vspace{.25cm}
+
+Since Active STARS stepsin a $j$-dimensional space, its hyerparameters must be redefined. For the additive noise OUU problem \eqref{eq:1}, we define the \textit{active hyperparameters} $\mu_\A^*$ and $h_\A$
+
+\begin{eqnarray} \label{eq:18}
+\mu_\A^*:=\left( \frac{8\sigma^2 j}{L_1^2(j+6)^3}\right)^{1/4} \quad \quad h_\A:=(4L_1(j+4))^{-1},
+\end{eqnarray} 
+
+\noindent which will be optimal \cite{CW} for the algorithm's convergence in the $j$-dimensional space $\A.$ Note that just as in STARS for additive OUU, Active STARS for additive OUU requires only specifying the value $\mu_\A^*$ above and setting $(\mu^*_\A)_k=\mu_\A^*$ for $k=1,\ldots, M.$
+
+For the multiplicative noise OUU problem \eqref{eq:2}, the step length $h_\A$ remains the same, exactly as in \eqref{eq:18} above. However the smoothing factor must be updated for each iteration $k=1,\ldots, M.$ The optimal \textit{active smoothing factor} for a given iterate $k$ is given by
+
+\begin{eqnarray} \label{eq:19}
+(\mu_\A^*)_k:=\left( \frac{16 \sigma^2 f(\lambda^{(k)};\xi_k)^2 j}{L_1^2(1+3\sigma^2)(j+6)^3}\right)^{1/4}.
+\end{eqnarray} 
+
+An alternative approach for performing STARS in the active variables involves performing standard STARS (Algorithm 1) until enough samples have been collected to fit a surrogate model to $f$ using one of the surrogate methods discussed above. Usually the surrogate is formed only for the sake of computing $\Lambda$ gradients and sometimes for visualization purposes. However, one may also use the surrogate to complete the process of minimizing $f$. Indeed, one may pass a standard gradient-based minimization algorithm (e.g., Newton solver) the surrogate along with the final iterate from standard STARS. Depending on the structure of the surrogate, we may expect quick convergence; for instance, if the surrogate is a quadratic, Newton will converge in 1 iteration.
+
+A previous paper written for my final project in Math-6595 investigates the surrogate-based method described above in fuller detail. What one discovers is that the minimizer obtained via this method will only be as close to the true minimum $\lambda^*$ as the surrogate is to the true (noisy) signal $f$. In the Results section, we will compare standard STARS, (Fully-Automated) Active STARS (described below), and the surrogate-based method described above.
+
+
+
+
+\subsection{Combining Ingredients: Fully-Automated Active STARS} 
+In the proceeding, we introduce a fully-automated version of Active STARS (Algorithm 2), in the sense that the user need not specify anything beyond an initial iterate $\lambda^{(0)}$, its evaluation $f(\lambda^{(0)})$, and the black-box objective function $f$. We note that $f$ need not be in closed, analytic form; we only require that $f$ is a callable function, which we recall may actually represent a post-processed quantity from, for instance, a chaotic system. The fully-automated Active STARS algorithm learns $\sigma^2$, $L_1$, and $\A$ from its own iterations with little computational expense from upfront learning.
+
+The estimator $\hat{\sigma}^2$ will be formed immediately by using ECNoise on 10 sampled point in $\Lambda$. As discussed above, the samples $s_i$ created by ECNoise lend themselves to estimating $L_1^\text{prior}$ in some finite-difference scheme.
+
+Next, we will perform standard STARS (Algorithm 1) until we have obtained sufficient samples to perform AS analysis. We let $M_\A$ denote the number of iterations needed to find the AS from samples; we note that $M_\A$ will depend on the type of surrogate formed (e.g., using local linear versus global quadratic). At the end of each standard STARS iteration, we form a candidate for $L_1^\text{update}$, which is formed via a second-order, un-centered finite difference approximation to $||\nabla^2 f||.$ We reject the candidate update anytime $L_1^\text{update} \leq L_1^\text{prior}$, since we are always searching for the most pessimistic bound to $L_1$.
+
+The AS $\A$ is found using the Monte Carlo method described above using the samples/iterates $s_i$ collected from both ECNoise and $M_\A$ steps of standard STARS. With $\A$ in hand, we must first update the hyperparameters so that they depend on the value $j$ for the $\dim \A$ and not $P$, the $\dim \Lambda$. Then, picking up where standard STARS left off, we are ready to perform Active STARS for the remaining $M-M_\A$ iterations.
+
+We now have all the necessary components for creating a fully-automated Active STARS algorithm, which is presented in Algorithm 3 below.
+
+\vspace{.25cm}
+
+
+\begin{algorithm}[H]
+
+\SetAlgoLined
+
+	\KwIn{\texttt{maxit}$=:M$; $\lambda^{(0)}$; $f_0:=f(\lambda^{(0)})$; $h$; ; $k=0$}
+	
+	\While{$k=0$}{
+	
+	Run ECNoise using $\lambda^{(0)}$ as base point and obtain $\hat{\sigma}^2$ as well as samples $\{s_i\}_{i=0}^{10}$\;
+	
+	Use $\{s_i\}_{i=0}^{10}$ to form second-order FD approximation to $||\nabla^2 f||$ for $L_1^\text{init}$\;
+	
+	Form step length $h$ using $\hat{\sigma}^2$ and $L_1^\text{init}$\;
+	
+	}
+	
+	\While{$ 1\leq k \leq M_\A$}{
+    
+  Form smoothing factor $\mu^*_k$ using $\hat{\sigma}^2$ and $L_1^\text{init}$\;
+    
+  Draw $u^{(k)}$, where $u^{(k)}_p \sim N(0,1)$ for $p=1,\ldots,P$\;
+  
+  Evaluate $g_k:=f(\lambda^{(k-1)}+\mu^*_ku^{(k)})$\;
+  
+  Set $ d^{(k)}:=\frac{g_k-f_{k-1}}{\mu^*_k}u^{(k)}$\;
+  
+  Set $\lambda^{(k)}=\lambda^{(k-1)}-h\cdot d^{(k)}$\;
+  
+  Evaluate $f_k:=f(\lambda^{(k)})$\; 
+  
+  Form $(L_1^\text{update})_k:=\frac{2|f_{k-1}-2g_k +f_k|}{h^2+(\mu^*_k)^2}$\;
+  
+  If $(L_1^\text{update})_k>L_1^\text{prior}$, set $L_1^\text{prior}=(L_1^\text{update})_k$ and re-compute $h$\;
+  
+  Store $(\lambda^{(k-1)}+\mu^*_ku^{(k)},g_k)$ and $(\lambda^{(k)},f_k)$ as samples in $\{s_i\}$\; 
+  
+  Set $k=k+1$\;}
+	
+	Use $\{s_i\}$ to form $\tilde{W}$ for AS and apply SVD\;
+  
+    Set $\tilde{V}_\A:=\tilde{V}_{1:P,1:j}^\top$ and form $h_\A$ using $\hat{\sigma}^2$ and $L_1^\text{init}$\;
+ 
+    \While{$M_\A < k\leq M$}{
+    
+  Form smoothing factor $(\mu^*_\A)_k$ using $\hat{\sigma}^2$ and $L_1^\text{init}$\;
+    
+  Draw $r^{(k)}$, where $r^{(k)}_p \sim N(0,1)$ for $p=1,\ldots,j$ and set $u^{(k)}_\A:={r^{(k)}}^\top \tilde{V}_\A$\;
+  
+  Evaluate $g_k:=f(\lambda^{(k-1)}+\mu^*_ku_\A^{(k)})$\;
+  
+  Set $ d^{(k)}:=\frac{g_k-f_{k-1}}{\mu^*_k}u_\A^{(k)}$\;
+  
+  Set $\lambda^{(k)}=\lambda^{(k-1)}-h_\A\cdot d^{(k)}$\;
+  
+  Evaluate $f_k:=f(\lambda^{(k)})$\;
+  
+    Form $(L_1^\text{update})_k:=\frac{2|f_{k-1}-2g_k +f_k|}{h^2+(\mu^*_k)^2}$\;
+  
+  If $(L_1^\text{update})_k>L_1^\text{prior}$, set $L_1^\text{prior}=(L_1^\text{update})_k$ and re-compute $h$\;
+  
+  Set $k=k+1$\;}
+
+    \KwOut{($\lambda^{(M)}$, $f_M$)}
+
+	\caption{Fully-Automated Active STARS for Additive or Multiplicative OUU}
+
+\end{algorithm}
+
+\vspace{.25cm}
+
+We see that the Fully-Automated Active STARS has three major phases: an initial, relatively inexpensive, learning phase where we acquire the estimates $\hat{\sigma}^2$ and $L_1^\text{prior}$; a STARS in full variables phase, where we acquire enough samples to compute an AS using the Monte Carlo methods above; an Active STARS phase, where we use the learned AS. Note that in both of the latter phases, we will update our estimation to $L_1$, if and only if we obtain a more pessimistic (larger) $L_1$.
 
 
 
 \section{Results}
 
-In this section, we present results of using Active STARS in several examples with a noisy, high-dimensional objective function.
+In this section, we present results of using STARS, Fully-Automated Active STARS, and STARS followed by the surrogate-based method on several examples with a noisy, high-dimensional objective function.
 
-$$f: \mathbb{R}^{40} \to \mathbb{R} \quad \quad  f(\lambda; \xi):=\lambda_{20}^2 + \epsilon(\xi) \quad \quad \epsilon(\cdot) \sim U[-k,k], \quad k=1 \times 10^{-3}.$$
+\noindent \textbf{Example 1.} \textit{Let} $f: \R^{10} \to \R ,$ 
 
-\noindent \textbf{Example 2.} \textit{Let $\Lambda=[-1,1]^{11}$ and define $$f(\lambda)=\sum_{i=0}^{10} 2^{(-1)^i i}\lambda_i^2+\epsilon(\lambda),$$ where $\epsilon(\lambda)$ is a draw of additive noise corresponding to the input $\lambda$; here, we take draws of $\epsilon$ of order $10^{-4}$. We see that $\mathcal{D}=[0,2^{10}]$ and $N=11$, $M=1$. Note that the minimimum of $f$ is given by $0 \in \Lambda$. Here, as $i$ increases, terms in $f$ become either more important or less important, depending on whether $i$ is even or odd.}
+$$f(\lambda; \xi):=\lambda_{1}^2+\lambda_{2}^2+\lambda_{3}^2 + \epsilon(\xi),  \quad \epsilon(\cdot) \sim N(0,k^2), \quad k=1 \times 10^{-2}.$$ \textit{Note $P=10$, $D=1$. The minimum of $f$ is given by $0 \in \Lambda$. Here, we have 3 active variables (i.e., $j=3$) and 7 inactive variables. Also note that $f$ possesses additive  noise with variance $\sigma^2=k^2$. We take an initial iterate $\lambda^{(0)}=(100,0.1,u,u,\ldots,u)$, $u \sim U[-100,100]$. First, we obtain $\hat{\sigma}^2 \approx 3 \times 10^{-4}$ and $L_1^{prior} \approx 4.5$. We note though both values have more than 100\% relative error, both values are within an order of magnitude of their true values, as here we have $\sigma^2=k^2=1\times10^{-4}$ and $L_1=2.$ Using these learned hyperparameters, we performed STARS in full variables and 2 variants of Active STARS. The first variant is performing Active STARS using the exact active variables, which in this case equal the first 3 standard basis elements in $\R^{10}$. The second, more realistic variant is performing Active STARS using active variables learned from the first 100 iterations of STARS. We first show convergence plots for the three approaches.  We then show convergence plots for Active STARS performed after a certain number of STARS iterations, beginning with 50 and ranging to 450, including the convergence of Active STARS trained on 100 iterations. }
 
-
-
-
+\begin{center}
 
 
+\includegraphics[scale=.14]{ex_1_pic_2} 
+
+\textbf{Figure 1:} We present a semi-log plot showing the convergence of 500 iterations of STARS in full variables, 500 iterations of Active STARS with the exact or \textit{true} active variables, and STARS for 100 iterations followed by 400 iterations of Active STARS trained on the samples from 100 iterations of STARS.
+
+\vspace{.5cm}
+
+\includegraphics[scale=.14]{ex_1_pic_1}
+
+\textbf{Figure 2:} We present a semi-log plot showing the convergence of STARS followed by Active STARS where Active STARS begins after $50,100,150,\ldots,$ and $450$ iterations of STARS. Here, the active variables have been learned from however many STARS iterates occur before Active STARS begins, along with STARS in full variables for comparison.
+
+\end{center}
+
+\noindent \textbf{Example 2.} \textit{Let} $f: \R^{11} \to  \R,$  
+
+$$f(\lambda; \xi)=\sum_{i=0}^{10} 2^{(-1)^i i}\lambda_i^2+\epsilon(\xi), \quad \epsilon(\xi) \sim U[-k,k], \quad k=1 \times 10^{-2}.$$ \textit{We see $P=11$ and $D=1$. Note that the minimum of $f$ is given by $0 \in \Lambda$. Here, as $i$ increases, terms in $f$ become either more important or less important, depending on whether $i$ is even or odd. Also note that $f$ possesses additive noise with variance $\sigma^2=k^2/6.$ Here, we have 6 active variables (i.e., $j=6$) and 5 inactive variables.  We take an initial iterate $\lambda^{(0)}=(u,u,\ldots,u)$, $u \sim U[0,1]$. First, we obtain $\hat{\sigma}^2 \approx 0.02$ and $L_1^{prior} \approx 1786.5$. We note that here we have overestimated the noise by three orders of magnitude but have estimated $L_1$ to within its true order of magnitude, as here we have $\sigma^2=k^2/6\approx 1.67\times10^{-5}$ and $L_1=2\cdot 2^{10}=2048.$ Using these learned hyperparameters, we performed STARS in full variables and 2 variants of Active STARS. The first variant is performing Active STARS using the exact active variables, which in this case equal the standard basis elements in $\R^{11}$ with even indexes. The second, more realistic variant is performing Active STARS using active variables learned from the first 200 iterations of STARS. We first show convergence plots for the three approaches.  We then show convergence plots for Active STARS performed after a certain number of STARS iterations, beginning with 50 and ranging to 450, including the convergence of Active STARS trained on 200 iterations. }
+
+
+
+\begin{center}
+
+
+\includegraphics[scale=.14]{ex_2_pic_2} 
+
+\textbf{Figure 3:} We present a semi-log plot showing the convergence of 500 iterations of STARS in full variables, 500 iterations of Active STARS with the exact or \textit{true} active variables, and STARS for 200 iterations followed by 300 iterations of Active STARS trained on the samples from 200 iterations of STARS.
+
+\vspace{.5cm}
+
+\includegraphics[scale=.14]{ex_2_pic_1}
+
+\textbf{Figure 4:} We present a semi-log plot showing the convergence of STARS followed by Active STARS where Active STARS begins after $50,100,150,\ldots,$ and $450$ iterations of STARS. Here, the active variables have been learned from however many STARS iterates occur before Active STARS begins, along with STARS in full variables for comparison.
+
+\end{center}
+
+
+
+In both examples, we see the computational benefit in stepping in the active subspace instead of in the full variables. Recall that the hyperparameters in STARS are dimension-dependent, so anytime an active subspace resolves $f$ well -- which occurred in the above examples by obvious design -- we expect Active STARS in the exact active variables to converge more quickly than STARS in full variables.  
+
+We observe that Active STARS using learned active directions may actually fail to converge at all if too few training samples are used. This is displayed clearly in Figure 4, where we see that Active STARS trained from only 50 STARS evaluations will fail to converge. However, in Figure 2, we see that with 50 training iterations, we end up with convergence similar to, or slightly worse than, STARS in full variables.
 
 
 
@@ -392,21 +608,25 @@ $$f: \mathbb{R}^{40} \to \mathbb{R} \quad \quad  f(\lambda; \xi):=\lambda_{20}^2
 
 \subsection{Software Dissemination}
 
-Software used to produce results in this paper are publicly available on \texttt{https://github.com/jordanrhall/personalresearch}. Some of the algorithms used here and other algorithms that are of interest are within open-source packages available online including those of Constantine and Butler et al. Other schemes considered in this paper make modifications to given algorithms and remain under development. A major goal of this thesis proposal will be developing well-documented, open-source software complete with python Jupyter Notebooks and illustrative, replicable examples.
+Software used to produce results in this paper are publicly available on \texttt{https://github.com/jordanrhall/personalresearch}. Some of the algorithms used here and other algorithms that are of interest are within open-source packages available online including those of Constantine et al.
 
 
 \section{Conclusion and Discussion}
 
-In the following, we leave the reader with concluding remarks and discussion. The preceding Methods section presented combinations and modifications made to well-documented algorithms including STARS \cite{CW}, Monte Carlo AS learning \cite{ConstantineMC}, noise variance learning [ECNoise], and Lipschitz constant learning \cite{Calliess} to produce the fully-automated Active STARS algorithm. In the Results section above, we presented example problems that were used for testing Active STARS.
+In the following, we leave the reader with concluding remarks and discussion. The preceding Methods section presented combinations and modifications made to well-documented algorithms including STARS \cite{CW}, Monte Carlo AS learning \cite{ConstantineMC}, noise variance learning \cite{MW}, and Lipschitz constant learning \cite{Calliess} to produce the fully-automated Active STARS algorithm. In the Results section above, we presented example problems that were used for testing Active STARS.
 
-Of course, there is never any guarantee that the maps $f$ considered in this paper permit dimension reduction via AS. This could be the case for many reasons, including (nearly) equal importance of modeled parameters, a $\nabla f$ that is not possible to approximate via surrogates, or a noise level on the same (or greater) order of magnitude as the outputs of $f$. Regardless, in the case that no active subspace is clearly defined, Active STARS will simply reduce back to STARS in full variables. STARS in full variables may struggle to converge or fail to converge if $f$ possesses the behaviors described above.
+We observe in our Results that performing Active STARS can provide computational savings since its convergence outpaces STARS convergence on average. We note that at times, either algorithm may take a very \textit{lucky} step in $\Lambda$, causing quick convergence. We also observe that it is possible to learn the active subspace of the functions considered using recycled iterates from STARS, which greatly reduces the usual computational expense of an AS computation.
+
+Of course, there is never any guarantee that the maps $f$ considered in this paper permit dimension reduction via AS. This could be the case for many reasons, including (nearly) equal importance of modeled parameters, a $\nabla f$ that is not possible to approximate via surrogates, or a noise level on the same (or greater) order of magnitude as the outputs of $f$. Regardless, in the case that no active subspace is clearly defined, recall that Active STARS will simply reduce back to STARS in full variables. STARS in full variables may struggle to converge or fail to converge if $f$ possesses the behaviors described above.
+
+Anytime the signal-to-noise ratio approaches 1, we expect failure of all methods presented. The assumptions made during the introduction forbid noise of this order, and with good reason: anytime the noise is on the order of function evaluations, it becomes difficult (and eventually impossible) to distinguish the true signal from the effects of noise. Filtering methods must be used in this scenario, which is not a topic of this paper.
+
+
+
 
 
 %%%%%%%%%%%%%% References %%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{thebibliography}{65}
-
-
-
 
 
 \bibitem{Calliess} Jan-Peter Calliess. ``Lipschitz optimisation for Lipschitz interpolation." In 2017 American Control Conference (ACC 2017), Seattle, WA, USA, May 2017.
@@ -418,9 +638,9 @@ Of course, there is never any guarantee that the maps $f$ considered in this pap
 \bibitem{ConstantineMC} Constantine, Eftekhari, Wakin. ``Computing Active Subspaces Efficiently with Gradient Sketching." Conference paper, 2015 IEEE 6th International Workshop on Computational Advances in Multi-Sensor Adaptive Processing (CAMSAP).
 
 
-\bibitem{KS} Kvasov and Sergeyev. ``Lipschitz gradients for global optimization in a one-point-based partitioning scheme." Journal of Computational and Applied Mathematics. Volume 236, Issue 16, pp. 4042-4054. 2012.
-
 \bibitem{lea2000} Lea, Daniel J. and Allen, Myles R. and Haine, Thomas W. N. ``Sensitivity analysis of the climate of a chaotic system." Tellus A, Volume 52, No. 5, pp. 523-532. 2000.
+
+\bibitem{MW} J. More and S. Wild. ``Estimating Computational Noise." SIAM J. Scientific Computing, 33(3):1292-1314, 2011. DOI: 10.1137/100786125. Funded by the Department of Energy. 2015.
 
 
 \bibitem{Qiqi2014} Qiqi Wang and Rui Hu and Patrick Blonigan. ``Least Squares Shadowing sensitivity analysis of chaotic limit cycle oscillations." Journal of Computational Physics, Volume 267, pp. 210-224. 2014.
@@ -430,11 +650,6 @@ Of course, there is never any guarantee that the maps $f$ considered in this pap
 \bibitem{Smith}  Smith, Ralph.``Uncertainty Quantification: Theory, Implementation, and Applications.” SIAM, 2013.
 
 
-\bibitem{Tarantola} Tarantola, Albert. ``Inverse Problem Theory and Methods for Model Parameter Estimation." SIAM. 2005.
-
-
-
-\bibitem{wildeyprez} Wildey, T., Butler, T., Jakeman, J., Walsh, S. " A Consistent Bayesian Approach for Stochastic Inverse Problems Based on Push-forward Measures." SAND2017-3436PE. 2017.
 
 
 \end{thebibliography}

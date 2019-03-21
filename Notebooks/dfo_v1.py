@@ -46,8 +46,10 @@ def STARS(x_init,F,mu_star,h,active=None):
     f1=F(x)
     
     # Form upper bound for L_1
-    avg_step=.5*mu_star+.5*h
-    L_1_B=abs(g-2*f0+f1)/avg_step
+    d1=(f0-g)*(1/mu_star)
+    d2=(g-f1)*(1/h)
+    #avg_step=.5*mu_star**2+.5*h**2
+    L_1_B=abs(d2-d1)/(h+mu_star)
     
         
     return [x, f1, y, g, x_init, f0, L_1_B]
