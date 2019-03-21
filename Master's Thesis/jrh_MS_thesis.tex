@@ -52,7 +52,7 @@
 }
 
 \setlength{\textwidth}{\paperwidth}
-\addtolength{\textwidth}{-2.95in}
+\addtolength{\textwidth}{-3in}
 \calclayout
 
 \setcounter{secnumdepth}{0}
@@ -555,19 +555,51 @@ We see that the Fully-Automated Active STARS has three major phases: an initial,
 
 In this section, we present results of using STARS, Fully-Automated Active STARS, and STARS followed by the surrogate-based method on several examples with a noisy, high-dimensional objective function.
 
-\noindent \textbf{Example 1.} \textit{Let} $f: \Lambda=[-1,1]^{10} \to \D \subset \mathbb{R},$ 
+\noindent \textbf{Example 1.} \textit{Let} $f: \R^{10} \to \R ,$ 
 
-$$f(\lambda; \xi):=a_1\lambda_{1}^2+a_2\lambda_{2}^2+a_3\lambda_{3}^2 + \epsilon(\xi), \quad a_1,a_2,a_3 \in \R^+, \quad \epsilon(\cdot) \sim N(0,k^2), \quad k=1 \times 10^{-2}.$$ \textit{We see that $\mathcal{D}=[0,\max\{a_1,a_2,a_3\}]$ and $P=10$, $D=1$. Note that the minimum of $f$ is given by $0 \in \Lambda$. Here, we have 3 active variables and 7 inactive variables. Also note that $f$ possesses additive noise with variance $\sigma^2=k^2$.}
+$$f(\lambda; \xi):=\lambda_{1}^2+\lambda_{2}^2+\lambda_{3}^2 + \epsilon(\xi),  \quad \epsilon(\cdot) \sim N(0,k^2), \quad k=1 \times 10^{-2}.$$ \textit{Note $P=10$, $D=1$. The minimum of $f$ is given by $0 \in \Lambda$. Here, we have 3 active variables (i.e., $j=3$) and 7 inactive variables. Also note that $f$ possesses additive  noise with variance $\sigma^2=k^2$. We take an initial iterate $\lambda^{(0)}=(100,0.1,u,u,\ldots,u)$, $u \sim U[-100,100]$. First, we obtain $\hat{\sigma}^2 \approx 3 \times 10^{-4}$ and $L_1^{prior} \approx 4.5$. We note though both values have more than 100\% relative error, both values are within an order of magnitude of their true values, as here we have $\sigma^2=k^2=1\times10^{-4}$ and $L_1=2.$ Using these learned hyperparameters, we performed STARS in full variables and 2 variants of Active STARS. The first variant is performing Active STARS using the exact active variables, which in this case equal the first 3 standard basis elements in $\R^{10}$. The second, more realistic variant is performing Active STARS using active variables learned from the first 100 iterations of STARS. We first show convergence plots for the three approaches.  We then show convergence plots for Active STARS performed after a certain number of STARS iterations, beginning with 50 and ranging to 450, including the convergence of Active STARS trained on 100 iterations. }
 
-\noindent \textbf{Example 2.} \textit{Let} $f: \Lambda=[-1,1]^{11} \to \D \subset \R,$  
-
-$$f(\lambda; \xi)=\sum_{i=0}^{10} 2^{(-1)^i i}\lambda_i^2+\epsilon(\xi), \quad \epsilon(\xi) \sim U[-k,k], \quad k=1 \times 10^{-2}.$$ \textit{We see that $\mathcal{D}=[0,2^{10}]$ and $P=11$, $D=1$. Note that the minimimum of $f$ is given by $0 \in \Lambda$. Here, as $i$ increases, terms in $f$ become either more important or less important, depending on whether $i$ is even or odd. Also note that $f$ possesses additive noise with variance $\sigma^2=k^2/6.$}
+\begin{center}
 
 
+\includegraphics[scale=.14]{ex_1_pic_2} 
+
+\textbf{Figure 1:} We present a semi-log plot showing the convergence of 500 iterations of STARS in full variables, 500 iterations of Active STARS with the exact or \textit{true} active variables, and STARS for 100 iterations followed by 400 iterations of Active STARS trained on the samples from 100 iterations of STARS.
+
+\vspace{.5cm}
+
+\includegraphics[scale=.14]{ex_1_pic_1}
+
+\textbf{Figure 2:} We present a semi-log plot showing the convergence of STARS followed by Active STARS where Active STARS begins after $50,100,150,\ldots,$ and $450$ iterations of STARS. Here, the active variables have been learned from however many STARS iterates occur before Active STARS begins, along with STARS in full variables for comparison.
+
+\end{center}
+
+\noindent \textbf{Example 2.} \textit{Let} $f: \R^{11} \to  \R,$  
+
+$$f(\lambda; \xi)=\sum_{i=0}^{10} 2^{(-1)^i i}\lambda_i^2+\epsilon(\xi), \quad \epsilon(\xi) \sim U[-k,k], \quad k=1 \times 10^{-2}.$$ \textit{We see $P=11$ and $D=1$. Note that the minimum of $f$ is given by $0 \in \Lambda$. Here, as $i$ increases, terms in $f$ become either more important or less important, depending on whether $i$ is even or odd. Also note that $f$ possesses additive noise with variance $\sigma^2=k^2/6.$ Here, we have 6 active variables (i.e., $j=6$) and 5 inactive variables.  We take an initial iterate $\lambda^{(0)}=(u,u,\ldots,u)$, $u \sim U[0,1]$. First, we obtain $\hat{\sigma}^2 \approx 0.02$ and $L_1^{prior} \approx 1786.5$. We note that here we have overestimated the noise by three orders of magnitude but have estimated $L_1$ to within its true order of magnitude, as here we have $\sigma^2=k^2/6\approx 1.67\times10^{-5}$ and $L_1=2\cdot 2^{10}=2048.$ Using these learned hyperparameters, we performed STARS in full variables and 2 variants of Active STARS. The first variant is performing Active STARS using the exact active variables, which in this case equal the standard basis elements in $\R^{11}$ with even indexes. The second, more realistic variant is performing Active STARS using active variables learned from the first 200 iterations of STARS. We first show convergence plots for the three approaches.  We then show convergence plots for Active STARS performed after a certain number of STARS iterations, beginning with 50 and ranging to 450, including the convergence of Active STARS trained on 200 iterations. }
 
 
 
+\begin{center}
 
+
+\includegraphics[scale=.14]{ex_2_pic_2} 
+
+\textbf{Figure 3:} We present a semi-log plot showing the convergence of 500 iterations of STARS in full variables, 500 iterations of Active STARS with the exact or \textit{true} active variables, and STARS for 200 iterations followed by 300 iterations of Active STARS trained on the samples from 200 iterations of STARS.
+
+\vspace{.5cm}
+
+\includegraphics[scale=.14]{ex_2_pic_1}
+
+\textbf{Figure 4:} We present a semi-log plot showing the convergence of STARS followed by Active STARS where Active STARS begins after $50,100,150,\ldots,$ and $450$ iterations of STARS. Here, the active variables have been learned from however many STARS iterates occur before Active STARS begins, along with STARS in full variables for comparison.
+
+\end{center}
+
+
+
+In both examples, we see the computational benefit in stepping in the active subspace instead of in the full variables. Recall that the hyperparameters in STARS are dimension-dependent, so anytime an active subspace resolves $f$ well -- which occurred in the above examples by obvious design -- we expect Active STARS in the exact active variables to converge more quickly than STARS in full variables.  
+
+We observe that Active STARS using learned active directions may actually fail to converge at all if too few training samples are used. This is displayed clearly in Figure 4, where we see that Active STARS trained from only 50 STARS evaluations will fail to converge. However, in Figure 2, we see that with 50 training iterations, we end up with convergence similar to, or slightly worse than, STARS in full variables.
 
 
 
@@ -582,6 +614,8 @@ Software used to produce results in this paper are publicly available on \texttt
 \section{Conclusion and Discussion}
 
 In the following, we leave the reader with concluding remarks and discussion. The preceding Methods section presented combinations and modifications made to well-documented algorithms including STARS \cite{CW}, Monte Carlo AS learning \cite{ConstantineMC}, noise variance learning \cite{MW}, and Lipschitz constant learning \cite{Calliess} to produce the fully-automated Active STARS algorithm. In the Results section above, we presented example problems that were used for testing Active STARS.
+
+We observe in our Results that performing Active STARS can provide computational savings since its convergence outpaces STARS convergence on average. We note that at times, either algorithm may take a very \textit{lucky} step in $\Lambda$, causing quick convergence. We also observe that it is possible to learn the active subspace of the functions considered using recycled iterates from STARS, which greatly reduces the usual computational expense of an AS computation.
 
 Of course, there is never any guarantee that the maps $f$ considered in this paper permit dimension reduction via AS. This could be the case for many reasons, including (nearly) equal importance of modeled parameters, a $\nabla f$ that is not possible to approximate via surrogates, or a noise level on the same (or greater) order of magnitude as the outputs of $f$. Regardless, in the case that no active subspace is clearly defined, recall that Active STARS will simply reduce back to STARS in full variables. STARS in full variables may struggle to converge or fail to converge if $f$ possesses the behaviors described above.
 
