@@ -18,8 +18,12 @@ def ECNoise(f,x_b,M):
 	P=np.shape(x_b)[0]	
 
 	# Hard-coded normalized direction to sample in
-	p_u=np.ones((P,1))
-	p=p_u/P**(1/P)
+	if x_b.ndim > 1:
+		p_u=np.ones((P,1))
+	else:
+		p_u=np.ones(P)
+	p=p_u/np.linalg.norm(p_u)
+	print(np.linalg.norm(p))
 
 	# Form difference table T
 	T=np.zeros((M,M))
