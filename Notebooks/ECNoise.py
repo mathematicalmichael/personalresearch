@@ -8,7 +8,7 @@
 
 import numpy as np
 
-def ECNoise(f,x_b,M):
+def ECNoise(f, x_b, M, mult=False):
 
 	# Throw error for M too small
 	if M<=2:
@@ -22,13 +22,22 @@ def ECNoise(f,x_b,M):
 		p_u=np.ones((P,1))
 	else:
 		p_u=np.ones(P)
+	
 	p=p_u/np.linalg.norm(p_u)
-	print(np.linalg.norm(p))
+
+	print(p.shape,x_b.shape)
 
 	# Form difference table T
+	xvals=np.copy(x_b)	
 	T=np.zeros((M,M))
 	for i in range(0,M):
-    		T[i,0] = f(x_b + (i/M)*p)
+		intx = x_b + (i/M)*p
+		if i>=1:
+			xvals=np.hstack((xvals,intx))
+		else:
+			xvals=xvals
+        	
+		T[i,0] = f(intx)
 	for j in range(0,M-1):
     		for i in range(0,M-j-1):
         		T[i,j+1] = T[i+1,j] - T[i,j]
@@ -49,4 +58,8 @@ def ECNoise(f,x_b,M):
 	# Form our estimator which averages the values that are usually good estimates
 	sigma_hat=np.sum(S[:,1:M-1], axis=1)/(M-2)
 
-	return [sigma_hat, fvals]
+	
+	if mult is False:
+		return [sigma_hat, xvals, fvals]
+	else:
+		return [sigma_hat/fvals[0], xvals, fvals]
