@@ -1,6 +1,7 @@
-## ECNoise: (f,x_b,M) -> (sigma_hat, fvals)
+## ECNoise: (f,x_b,M,mult) -> (sigma_hat, fvals)
 ## Inputs: noisy black-box function f; base point x_b, Px1 col vec;
-##         and M number of samples to use, M must be >2
+##         M number of samples to use, M must be >2; a handle for whether we have add/mult noise.
+##	   We default to additive noise, so we set mult=false. user can set mult=true if needed.
 ## Outputs: an estimator to the variance in noise of f sigma_hat;
 ##          and the M function values stored in fvals
 
@@ -62,4 +63,4 @@ def ECNoise(f, x_b, M, mult=False):
 	if mult is False:
 		return [sigma_hat, xvals, fvals]
 	else:
-		return [sigma_hat/fvals[0], xvals, fvals]
+		return [sigma_hat/fvals[0]**2, xvals, fvals]
