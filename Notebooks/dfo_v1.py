@@ -68,7 +68,7 @@ def STARS(x_init,F,mu_star,h,active=None,mult=False,wts=None):
 		else:
 			lam = np.zeros((act_dim,1))
 			for i in range(act_dim):
-				lam[i]=np.random.normal(0,wts[i][0]/wts[0][0])        
+				lam[i]=np.random.normal(0,wts[0][0]/wts[i][0])        
 		
 		u = active@lam
     
@@ -117,11 +117,14 @@ def STARS(x_init,F,mu_star,h,active=None,mult=False,wts=None):
         
     
 	
-
-	if f1<=f0:
-		return [x, f1, y, g, x_init, f0, L_1_B]
+	return [x, f1, y, g, x_init, f0, L_1_B]
 
 
-	else:
-		return [x_init, f0, y, g, x_init, f1, L_1_B]
+	
+	#if f1<=f0:
+		#return [x, f1, y, g, x_init, f0, L_1_B]
+
+
+	#else:
+		#return [x_init, f0, y, g, x_init, f1, L_1_B]
 
