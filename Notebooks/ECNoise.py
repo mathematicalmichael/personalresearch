@@ -10,7 +10,8 @@
 import numpy as np
 
 def ECNoise(f, x_b, M, mult=False):
-
+	#determine length scale from max norm of x_b
+	h=1E-2*np.linalg.norm(x_b,ord=np.inf)
 	# Throw error for M too small
 	if M<=2:
 		return print('Please choose M>2.')
@@ -32,7 +33,7 @@ def ECNoise(f, x_b, M, mult=False):
 	xvals=np.copy(x_b)	
 	T=np.zeros((M,M))
 	for i in range(0,M):
-		intx = x_b + (i/M)*p
+		intx = x_b + (i*h)*p
 		if i>=1:
 			xvals=np.hstack((xvals,intx))
 		else:
