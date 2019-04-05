@@ -11,7 +11,8 @@ import numpy as np
 
 def ECNoise(f, x_b, M, mult=False):
 	#determine length scale from max norm of x_b
-	h=1E-2*np.linalg.norm(x_b,ord=np.inf)
+	#h=1E-2*np.linalg.norm(x_b,ord=np.inf)
+	h=0.01
 	# Throw error for M too small
 	if M<=2:
 		return print('Please choose M>2.')
@@ -21,9 +22,11 @@ def ECNoise(f, x_b, M, mult=False):
 
 	# Hard-coded normalized direction to sample in
 	if x_b.ndim > 1:
-		p_u=np.ones((P,1))
+		#p_u=np.ones((P,1))
+		p_u=np.random.rand(P,1)
 	else:
-		p_u=np.ones(P)
+		#p_u=np.ones(P)
+		p_u=np.random.rand(P)
 	
 	p=p_u/np.linalg.norm(p_u)
 
